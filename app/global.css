@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn:hover {
+    @apply shadow-none
+}
+
+.alert-success,
+.alert-info,
+.alert-error {
+    @apply text-white-darken
+}
+
+.alert-warning {
+    @apply text-primary
+}
+
+.alert-info {
+    @apply bg-primary/75
+}
