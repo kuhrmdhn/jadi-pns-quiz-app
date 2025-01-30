@@ -4,7 +4,7 @@ export async function middleware(req: NextRequest) {
     const protectedPage = ["/login", "/register"]
     const token = req.cookies.get("firebase_token")?.value
     const { pathname } = req.nextUrl
-    if (token && ["/signIn", "/signUp"].includes(pathname)) {
+    if (token && protectedPage.includes(pathname)) {
         return NextResponse.redirect(new URL("/", req.url));
     }
     if (!token && !protectedPage.includes(pathname)) {
