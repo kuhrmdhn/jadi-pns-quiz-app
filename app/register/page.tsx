@@ -43,9 +43,18 @@ export default function RegisterPage() {
         </AuthForm>
       </AuthPageItemContainer>
       {
-        loading && <p>loading</p>
+        loading && <RegisterLoading/>
       }
     </AuthPageContainer>
+  )
+}
 
+function RegisterLoading() {
+  return (
+    <div className='w-full h-[100dvh] text-xl text-primary backdrop-blur-xs flex justify-center items-center fixed top-0 z-[999999]'>
+      <p className='inline-flex justify-end items-end gap-1'>Mendaftarkan Akun Kamu
+        <span className='loading-spinner loading'></span>
+      </p>
+    </div>
   )
 }
