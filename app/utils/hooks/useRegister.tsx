@@ -96,11 +96,11 @@ export default function useRegister() {
             const userDoc = doc(firestore, "/users", userId)
             const hashedUserPassword = await hashPassword(password)
             await setDoc(userDoc, {
+                id: userId,
                 email,
                 username: "username acak",
                 password: hashedUserPassword,
-                role: AuthRole.USER,
-                created_at: new Date()
+                role: AuthRole.USER
             })
             const successRegisterMessage = "Kamu Berhasil Mendaftarkan Akun Kamu!"
             handleRegisterSuccess(successRegisterMessage)
