@@ -52,6 +52,7 @@ export default function useLogin() {
         errorAlert()
         return
       }
+      
       const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password)
       const idToken = await user.getIdToken()
       Cookies.set("firebase_token", idToken, { expires: 1,secure: true, sameSite: "strict" });

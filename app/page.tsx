@@ -1,8 +1,10 @@
-export default function Home() {
+import React from 'react'
+import LogoutButton from './components/elements/authentication/LogoutButton'
 
+export default function Home() {
   return (
-    <>
-      Home Page
-    </>
+    <section className='bg-white-darken'>
+      <LogoutButton/>
+    </section>
   )
 }
