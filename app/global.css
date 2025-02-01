@@ -6,6 +6,10 @@
     @apply shadow-none
 }
 
+.btn-primary {
+    @apply text-white-darken
+}
+
 .alert-success,
 .alert-info,
 .alert-error {

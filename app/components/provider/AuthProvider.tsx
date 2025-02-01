@@ -1,15 +1,15 @@
 "use client";
 import { firebaseAuth, firestore } from "@/app/utils/firebase/firebase";
-import useCookie from "@/app/utils/hooks/useCookie";
 import { useUserStore } from "@/app/utils/store/useUserStore";
 import { onIdTokenChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
+import useToken from "@/app/utils/hooks/useToken";
 
 export default function AuthProvider() {
-    const { setTokenToServer } = useCookie()
+    const { setToken } = useToken()
     const router = useRouter();
     const { setUserData } = useUserStore(useShallow((state: any) => ({
         setUserData: state.setUserData
@@ -23,16 +23,14 @@ export default function AuthProvider() {
 
                 if (data.exists()) {
                     setUserData(data.data());
-                    console.log("User data:", data.data());
                 } else {
-                    console.warn("User document not found");
+                    console.error("User document not found");
                 }
 
                 const newToken = await user.getIdToken();
-                await setTokenToServer(newToken);
+                await setToken(newToken);
                 router.push("/");
             } else {
-                console.log("user kosong")
                 router.replace("/login");
             }
         });
