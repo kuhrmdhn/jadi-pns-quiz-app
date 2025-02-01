@@ -9,7 +9,7 @@ type Props = {
     }>
 }
 
-export default function QuestionPage({ params }: Props) {
+export default function ExercisePage({ params }: Props) {
     const { questionName, questionPack } = use(params)
     const { response, error } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/question/${questionName}/${questionPack}`)
     console.log({ response })

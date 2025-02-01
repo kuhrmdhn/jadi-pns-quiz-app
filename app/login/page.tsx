@@ -22,7 +22,7 @@ export default function LoginPage() {
         >
           <div className='flex gap-4 mt-4'>
             <button
-              className='btn btn-primary !text-white shadow-lg shadow-primary'
+              className='btn btn-primary shadow-lg shadow-primary'
               type='submit'
             >
               Masuk
