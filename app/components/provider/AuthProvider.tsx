@@ -1,5 +1,6 @@
 "use client";
 import { firebaseAuth, firestore } from "@/app/utils/firebase/firebase";
+import useCookie from "@/app/utils/hooks/useCookie";
 import { useUserStore } from "@/app/utils/store/useUserStore";
 import { onIdTokenChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -8,29 +9,11 @@ import { useEffect } from "react";
 import { useShallow } from "zustand/shallow";
 
 export default function AuthProvider() {
+    const { setTokenToServer } = useCookie()
     const router = useRouter();
     const { setUserData } = useUserStore(useShallow((state: any) => ({
         setUserData: state.setUserData
     })));
-
-    async function setTokenToServer(token: string) {
-        try {
-            const res = await fetch(`api/auth`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ token }),
-            });
-
-            console.log(res)
-
-            if (!res.ok) {
-                console.error("Failed to set cookie on server");
-                console.log(res.statusText)
-            }
-        } catch (error) {
-            console.error("Error sending token to server:", error);
-        }
-    }
 
     useEffect(() => {
         const unsubscribe = onIdTokenChanged(firebaseAuth, async (user) => {
