@@ -28,18 +28,21 @@ export default function TopicList() {
     ]
 
     return (
-        <div className='w-full h-fit flex gap-5'>
-            {
-                cardData.map((card) => (
-                    <QuestionTopicCard 
-                        key={card.id}
-                        icon={card.icon}
-                        title={card.title}
-                        description={card.description}
-                        className={card.className}
-                    />
-                ))
-            }
-        </div>
+        <section className='pl-12 pt-10 flex flex-col gap-5 h-[40svh]'>
+            <h1 className='text-xl'>Belajar Sesuai Topik</h1>
+            <div className='w-full h-fit flex gap-5 justify-center'>
+                {
+                    cardData.map((card) => (
+                        <QuestionTopicCard
+                            key={card.id}
+                            icon={card.icon}
+                            title={card.title}
+                            description={card.description}
+                            className={card.className}
+                        />
+                    ))
+                }
+            </div>
+        </section>
     )
 }
