@@ -1,10 +1,10 @@
 import { Metadata } from "next"
-import { Poppins } from "next/font/google"
-import "./global.css"
+import { Raleway } from "next/font/google"
 import AlertProvider from "./components/provider/AlertProvider"
-import OverlayProvider from "./components/provider/OverlayProvider"
 import AuthProvider from "./components/provider/AuthProvider"
 import ModalProvider from "./components/provider/ModalProvider"
+import OverlayProvider from "./components/provider/OverlayProvider"
+import "./global.css"
 
 export const metadata: Metadata = {
   title: {
@@ -14,10 +14,9 @@ export const metadata: Metadata = {
   description: 'Quiz Web App for learning CPNS test'
 }
 
-const poppins = Poppins({
-  weight: ["100", "300", "400", "500", "700", "900"],
-  display: "swap",
-  subsets: ["latin"],
+export const raleway = Raleway({
+  weight: ["600", "800"],
+  subsets: ["cyrillic", "latin"]
 })
 
 export default function RootLayout({
@@ -27,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={raleway.className}>
         {children}
         <AuthProvider />
         <AlertProvider />

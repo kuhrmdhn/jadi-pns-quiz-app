@@ -39,6 +39,9 @@ module.exports = {
       },
       backdropBlur: {
         "xs": "2px"
+      },
+      blur: {
+        "xs": "2px"
       }
     },
   },
