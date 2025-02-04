@@ -8,11 +8,12 @@ type Review = {
 }
 
 const answer = new Hono()
+const answerFilePath = "./app/exercise_source/answer"
 
 answer.post("/:question_category/:question_package", async (c) => {
     const { question_category, question_package } = c.req.param()
     try {
-        const answerPath = path.resolve("./app/constant/answer", `${question_category}/${question_package}.json`)
+        const answerPath = path.resolve(answerFilePath, `${question_category}/${question_package}.json`)
         const answerFile = await fs.readFile(answerPath, "utf-8")
         const { answers } = JSON.parse(answerFile)
         const { userAnswers } = await c.req.json()
@@ -48,7 +49,7 @@ answer.post("/new-answer", async (c) => {
     }
     try {
         const newData = JSON.stringify(json_data, null, 2)
-        await fs.writeFile(`./app/constant/answer/${file_name}`, newData)
+        await fs.writeFile(`${answerFilePath}/${file_name}`, newData)
         return c.json({
             message: `Success write new file JSON: ${file_name}`
         }, 200)

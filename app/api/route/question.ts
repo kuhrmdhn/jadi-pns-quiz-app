@@ -3,6 +3,7 @@ import fs from "fs/promises"
 import path from "path";
 
 const question = new Hono()
+const questionFilePath = "./app/exercise_source/question"
 
 question.get("question-list/:question_category", async (c) => {
     const { question_category } = c.req.param();
@@ -34,7 +35,7 @@ question.get("question-list/:question_category", async (c) => {
 
 question.get("/:question_category/:question_package", async (c) => {
     const { question_category, question_package } = c.req.param()
-    const filePath = path.resolve("./app/constant/question", `${question_category}/${question_package}.json`)
+    const filePath = path.resolve(questionFilePath, `${question_category}/${question_package}.json`)
 
     if (!question_package) {
         return c.json({
@@ -67,7 +68,7 @@ question.post("/new-question", async (c) => {
     }
     try {
         const newData = JSON.stringify(json_data, null, 2)
-        await fs.writeFile(`./app/constant/question/${file_name}`, newData)
+        await fs.writeFile(`${questionFilePath}/${file_name}`, newData)
         return c.json({
             message: `Success write new file JSON: ${file_name}`
         }, 200)

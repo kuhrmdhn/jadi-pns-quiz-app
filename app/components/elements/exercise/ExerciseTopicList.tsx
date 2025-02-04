@@ -1,8 +1,7 @@
-import React from 'react'
 import { FaBalanceScale, FaBrain } from 'react-icons/fa'
-import QuestionTopicCard from './QuestionTopicCard'
+import ExerciseTopicCard from './ExerciseTopicCard'
 
-export default function TopicList() {
+export default function ExerciseTopicList() {
     const cardData = [
         {
             id: 1,
@@ -28,12 +27,12 @@ export default function TopicList() {
     ]
 
     return (
-        <section className='pl-12 pt-10 flex flex-col gap-5 h-[40svh]'>
-            <h1 className='text-xl'>Belajar Sesuai Topik</h1>
+        <section className='home-section-container'>
+            <h1 className='text-xl'>Latihan Sesuai Topik</h1>
             <div className='w-full h-fit flex gap-5 justify-center'>
                 {
                     cardData.map((card) => (
-                        <QuestionTopicCard
+                        <ExerciseTopicCard
                             key={card.id}
                             icon={card.icon}
                             title={card.title}
