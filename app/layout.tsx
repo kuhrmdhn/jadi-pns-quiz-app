@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { Raleway } from "next/font/google"
+import { Montserrat } from "next/font/google"
 import AlertProvider from "./components/provider/AlertProvider"
 import AuthProvider from "./components/provider/AuthProvider"
 import ModalProvider from "./components/provider/ModalProvider"
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   description: 'Quiz Web App for learning CPNS test'
 }
 
-export const raleway = Raleway({
-  weight: ["600", "800"],
+export const montserrat = Montserrat({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["cyrillic", "latin"]
 })
 
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={raleway.className}>
+      <body className={montserrat.className}>
         {children}
         <AuthProvider />
         <AlertProvider />

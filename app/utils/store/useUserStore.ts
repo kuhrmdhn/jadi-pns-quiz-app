@@ -7,12 +7,22 @@ const initialUserData: UserData = {
     email: "",
     password: "",
     role: AuthRole.USER,
-    created_at: new Date()
+    created_at: new Date(),
+    completedTest: []
 }
 
-type testCompleted = {
+enum ExerciseCategory {
+    TWK = "TWK",
+    TIU = "TIU",
+    TKP = "TKP"
+}
+
+export type Exercise = {
     id: string
+    name: string
     score: number
+    max_score: number
+    category: ExerciseCategory 
     answers: string[]
 }
 
@@ -23,6 +33,7 @@ type UserData = {
     password: string
     role: AuthRole
     created_at: Date
+    completedTest?: Exercise[]
 }
 
 type Store = {

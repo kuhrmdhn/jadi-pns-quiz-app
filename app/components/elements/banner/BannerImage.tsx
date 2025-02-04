@@ -9,5 +9,6 @@ export default function BannerImage() {
             height={386}
             src={"/assets/banner.png"}
             alt="Jadi PNS Banner"
+            priority
         />)
 }

@@ -21,7 +21,7 @@ export default function TextSlideShow() {
     return (
         <motion.div
             animate={isAnimating ? "flip" : "initial"}
-            className="text-5xl text-white-darken capitalize absolute flex-col top-0 z-10 h-full w-full flex justify-center items-center bg-gradient-to-b from-[rgba(255,255,255,0.2)] to-primary"
+            className="text-5xl font-semibold text-white-darken capitalize absolute flex-col top-0 z-10 h-full w-full flex justify-center items-center bg-gradient-to-b from-[rgba(255,255,255,0.2)] to-primary"
             style={{ perspective: "1000px" }}
         >
             <AnimatePresence>
@@ -46,7 +46,7 @@ export default function TextSlideShow() {
 
 const bannerText = [
     "Bangkit dan raih sukses!",
-    "Latihan hari ini, menangan besok.",
+    "Latihan hari ini, menang esok.",
     "Bersama, kita tak terhentikan.",
     "Semangatmu, kunci keberhasilanmu.",
     "Setiap langkahmu adalah kemenangan.",
