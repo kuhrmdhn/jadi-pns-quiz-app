@@ -1,7 +1,7 @@
 export default function useToken() {
     async function setToken(token: string) {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/set-cookie`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/set-token`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ token })
