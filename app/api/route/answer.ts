@@ -33,7 +33,7 @@ answer.post("/:question_category/:question_package", async (c) => {
             }
         })
         const correctAnswer = reviewResult.filter((review: Review) => review.is_correct).length
-        return c.json({ data: reviewResult, correct: correctAnswer }, 200)
+        return c.json({ answerReview: reviewResult, score: correctAnswer }, 200)
     } catch (error) {
         console.error(error);
         

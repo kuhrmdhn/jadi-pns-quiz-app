@@ -14,15 +14,27 @@ question.get("question-list/:question_category", async (c) => {
         }, 400);
     }
 
-    const folderDir = path.join(process.cwd(), "app" ,"constant", "question", question_category);
+    const folderDir = path.join(process.cwd(), `${questionFilePath}/${question_category}`);
 
     try {
-        const fileList = (await fs.readdir(folderDir))
-            .filter(file => file.endsWith('.json'))
-            .map(file => path.parse(file).name);
+        const fileList = (await fs.readdir(folderDir)).filter(file => file.endsWith('.json'))
+        const data = await Promise.all(fileList.map(async (file) => {
+            try {
+                const filePath = path.join(folderDir, file);
+                const fileContent = await fs.readFile(filePath, "utf-8");
+                const jsonData = JSON.parse(fileContent);
+                return {
+                    name: jsonData.name,
+                    total_question: jsonData.total_question,
+                    test_duration: jsonData.test_duration
+                };
+            } catch (error) {
+                return { name: `Error reading ${file}`, total_question: 0, test_duration: 0 };
+            }
+        }))
 
         return c.json({
-            data: fileList,
+            data,
             message: `Success get question list for ${question_category} category`
         }, 200);
     } catch (error) {
