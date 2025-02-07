@@ -1,5 +1,6 @@
 import { FaBalanceScale, FaBrain } from 'react-icons/fa'
-import ExerciseTopicCard from './ExerciseTopicCard'
+import { IoIosPerson } from "react-icons/io";
+import ExerciseCategoryCard from './ExerciseCategoryCard'
 
 export default function ExerciseTopicList() {
     const cardData = [
@@ -21,7 +22,7 @@ export default function ExerciseTopicList() {
             id: 3,
             title: "TKP",
             description: "Tes Karakteristik Pribadi",
-            icon: <FaBalanceScale />,
+            icon: <IoIosPerson />,
             className: "bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500"
         }
     ]
@@ -32,7 +33,7 @@ export default function ExerciseTopicList() {
             <div className='w-full h-fit flex gap-5 justify-center'>
                 {
                     cardData.map((card) => (
-                        <ExerciseTopicCard
+                        <ExerciseCategoryCard
                             key={card.id}
                             icon={card.icon}
                             title={card.title}

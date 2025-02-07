@@ -20,8 +20,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "gray-soft": "#fafafa",
-        "white-darken": "#fafffa"
+        "gray-soft": "#ffffef",
+        "white-darken": "#f3f5ff"
       },
       keyframes: {
         "slide-left": {

@@ -15,6 +15,9 @@ out/
 # deps
 node_modules/
 
+# Testing
+test/
+
 # env
 .env
 .env.production
