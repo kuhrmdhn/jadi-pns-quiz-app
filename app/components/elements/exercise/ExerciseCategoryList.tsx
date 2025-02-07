@@ -2,7 +2,7 @@ import { FaBalanceScale, FaBrain } from 'react-icons/fa'
 import { IoIosPerson } from "react-icons/io";
 import ExerciseCategoryCard from './ExerciseCategoryCard'
 
-export default function ExerciseTopicList() {
+export default function ExerciseCategoryList() {
     const cardData = [
         {
             id: 1,
@@ -29,8 +29,8 @@ export default function ExerciseTopicList() {
 
     return (
         <section className='home-section-container'>
-            <h1 className='text-xl'>Latihan Sesuai Topik</h1>
-            <div className='w-full h-fit flex gap-5 justify-center'>
+            <h1 className='text-xl font-bold'>Latihan Sesuai Topik</h1>
+            <div className='w-full h-fit grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 xl:justify-items-center gap-5 overflow-x-auto'>
                 {
                     cardData.map((card) => (
                         <ExerciseCategoryCard

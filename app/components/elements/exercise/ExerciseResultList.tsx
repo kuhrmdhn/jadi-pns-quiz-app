@@ -9,8 +9,8 @@ export default function ExerciseResultList() {
     })))
     return (
         <section className='home-section-container'>
-            <h1 className='text-lg'>Tes Selesai</h1>
-            <div className='h-auto w-full grid grid-cols-3 justify-items-center'>
+            <h1 className='text-lg font-bold'>Tes Selesai</h1>
+            <div className='h-auto w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 justify-items-center'>
                 {
                     userData.completedTest?.map((exercise) => (
                         <ExerciseResultCard
