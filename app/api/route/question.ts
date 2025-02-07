@@ -24,6 +24,7 @@ question.get("question-list/:question_category", async (c) => {
                 const fileContent = await fs.readFile(filePath, "utf-8");
                 const jsonData = JSON.parse(fileContent);
                 return {
+                    id: jsonData.id,
                     name: jsonData.name,
                     total_question: jsonData.total_question,
                     test_duration: jsonData.test_duration

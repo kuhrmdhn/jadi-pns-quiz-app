@@ -1,254 +1,259 @@
 {
-    "question": [
-        {
-            "id": 1,
-            "question": "Anda diminta untuk bekerja sama dalam tim yang baru. Apa yang akan Anda lakukan?",
-            "options": [
-                "Segera memahami tugas masing-masing",
-                "Menunggu arahan dari atasan",
-                "Menjalin komunikasi dengan tim",
-                "Memastikan tanggung jawab pribadi terlebih dahulu"
-            ]
-        },
-        {
-            "id": 2,
-            "question": "Ketika menghadapi konflik dengan rekan kerja, bagaimana Anda mengatasinya?",
-            "options": [
-                "Membicarakannya secara langsung dengan rekan tersebut",
-                "Melaporkannya ke atasan",
-                "Menjaga jarak dengan rekan tersebut",
-                "Mengabaikan konflik dan tetap bekerja"
-            ]
-        },
-        {
-            "id": 3,
-            "question": "Anda diberi tugas mendadak dengan tenggat waktu yang ketat. Apa langkah Anda?",
-            "options": [
-                "Memprioritaskan tugas tersebut di atas yang lain",
-                "Membagi tugas dengan rekan kerja",
-                "Menyelesaikan tugas secara bertahap",
-                "Melaporkan kesulitan kepada atasan"
-            ]
-        },
-        {
-            "id": 4,
-            "question": "Rekan kerja Anda menghadapi kesulitan, tetapi Anda juga sedang sibuk. Apa yang Anda lakukan?",
-            "options": [
-                "Memberikan bantuan sebisa mungkin",
-                "Menyarankan mereka untuk mencari bantuan lain",
-                "Mengabaikan situasi karena tugas Anda mendesak",
-                "Memberikan dukungan moral saja"
-            ]
-        },
-        {
-            "id": 5,
-            "question": "Proyek yang Anda kerjakan membutuhkan inovasi baru. Apa langkah Anda?",
-            "options": [
-                "Mengajukan ide kreatif kepada tim",
-                "Mencari referensi dari proyek serupa",
-                "Mengikuti prosedur yang ada",
-                "Menyarankan pelatihan khusus bagi tim"
-            ]
-        },
-        {
-            "id": 6,
-            "question": "Anda mendapati kolega bekerja kurang efisien. Apa yang Anda lakukan?",
-            "options": [
-                "Memberi masukan dengan cara yang baik",
-                "Melaporkan ke atasan untuk tindak lanjut",
-                "Meningkatkan produktivitas sendiri tanpa mempedulikan mereka",
-                "Mencari tahu penyebabnya dan membantu jika memungkinkan"
-            ]
-        },
-        {
-            "id": 7,
-            "question": "Anda menemukan kesalahan pada laporan yang sudah diajukan. Apa yang Anda lakukan?",
-            "options": [
-                "Segera melaporkan kesalahan tersebut kepada tim",
-                "Mengoreksi secara pribadi tanpa memberitahu tim",
-                "Membiarkan kesalahan kecil tersebut",
-                "Membuat catatan untuk koreksi di masa depan"
-            ]
-        },
-        {
-            "id": 8,
-            "question": "Rekan kerja Anda memberikan informasi yang salah kepada tim. Apa reaksi Anda?",
-            "options": [
-                "Menyampaikan informasi yang benar kepada tim",
-                "Mengingatkan rekan tersebut secara pribadi",
-                "Membiarkan informasi itu karena tidak berdampak besar",
-                "Melaporkannya kepada atasan"
-            ]
-        },
-        {
-            "id": 9,
-            "question": "Anda mendapatkan tugas yang tidak sesuai dengan keahlian Anda. Apa yang Anda lakukan?",
-            "options": [
-                "Belajar untuk menyelesaikan tugas tersebut",
-                "Meminta bantuan dari rekan yang lebih ahli",
-                "Melaporkan kepada atasan bahwa tugas tersebut tidak sesuai",
-                "Menyelesaikan semampunya dengan pengetahuan yang ada"
-            ]
-        },
-        {
-            "id": 10,
-            "question": "Anda mendapati seorang pelanggan mengeluhkan layanan yang buruk. Bagaimana Anda menanganinya?",
-            "options": [
-                "Mendengarkan keluhan dan mencari solusi",
-                "Mengabaikan keluhan karena bukan tanggung jawab Anda",
-                "Melaporkan keluhan kepada atasan",
-                "Menyarankan pelanggan mengajukan keluhan resmi"
-            ]
-        },
-        {
-            "id": 11,
-            "question": "Rekan kerja Anda mengalami kesulitan memahami tugas. Apa yang Anda lakukan?",
-            "options": [
-                "Menawarkan bantuan kepada rekan tersebut",
-                "Menyarankan untuk mencari informasi sendiri",
-                "Melaporkan kesulitan mereka kepada atasan",
-                "Memberikan waktu untuk mereka menyelesaikan sendiri"
-            ]
-        },
-        {
-            "id": 12,
-            "question": "Anda mendapatkan tugas yang membutuhkan banyak detail. Apa yang Anda lakukan?",
-            "options": [
-                "Membuat rencana kerja secara terperinci",
-                "Memulai pekerjaan tanpa perencanaan",
-                "Meminta panduan dari rekan kerja",
-                "Menyelesaikan bagian termudah terlebih dahulu"
-            ]
-        },
-        {
-            "id": 13,
-            "question": "Anda mendapat proyek dengan tenggat waktu yang sangat ketat. Apa yang Anda lakukan?",
-            "options": [
-              "Mengutamakan detail dan akurasi dalam pekerjaan",
-              "Mencari tahu kebutuhan pelanggan sebelum memberi solusi",
-              "Membicarakan masalah dengan pihak terkait sebelum mengambil keputusan",
-              "Meminta masukan dari tim untuk memperbaiki rencana"
-            ]
-          },
-          {
-            "id": 14,
-            "question": "Bagaimana cara Anda menghadapi masalah yang muncul selama pengerjaan proyek?",
-            "options": [
-              "Mengoptimalkan proses dengan pendekatan yang lebih efisien",
-              "Berkomunikasi dengan jelas agar semua pihak paham dengan tujuan bersama",
-              "Menjaga hubungan baik dengan rekan tim yang lebih berpengalaman",
-              "Bertanggung jawab atas kesalahan dan mencari solusi bersama tim"
-            ]
-          },
-          {
-            "id": 15,
-            "question": "Dalam sebuah tim, apa yang menurut Anda penting untuk dilakukan agar pekerjaan berjalan lancar?",
-            "options": [
-              "Membuat daftar prioritas agar pekerjaan selesai tepat waktu",
-              "Menggunakan teknologi atau alat yang ada untuk mempermudah pekerjaan",
-              "Memberikan pujian atas pekerjaan yang sudah baik dilakukan rekan kerja",
-              "Berusaha memahami pandangan orang lain meskipun berbeda dengan kita"
-            ]
-          },
-          {
-            "id": 16,
-            "question": "Rekan kerja Anda memberikan ide yang sangat berbeda dari yang Anda harapkan. Apa yang Anda lakukan?",
-            "options": [
-              "Menghargai pendapat rekan meski tidak selalu sejalan dengan pendapat kita",
-              "Mengatur waktu dengan baik agar tidak terburu-buru dalam mengerjakan tugas",
-              "Mendengarkan dengan baik sebelum memberikan respons atau keputusan",
-              "Menetapkan tujuan yang jelas dan realistis untuk mencapai hasil yang optimal"
-            ]
-          },
-          {
-            "id": 17,
-            "question": "Apa yang Anda lakukan jika proyek Anda mengalami hambatan besar?",
-            "options": [
-              "Menjaga komitmen agar proyek selesai tepat waktu",
-              "Menyelesaikan tugas dengan cara yang paling efektif dan efisien",
-              "Membangun kerja sama yang baik dengan berbagai pihak terkait",
-              "Mengatasi masalah dengan pendekatan yang rasional dan tidak emosional"
-            ]
-          },
-          {
-            "id": 18,
-            "question": "Jika Anda berada dalam situasi yang penuh tekanan, bagaimana Anda menghadapinya?",
-            "options": [
-              "Menjaga sikap profesional meskipun dalam situasi yang penuh tekanan",
-              "Memahami kebutuhan pelanggan untuk memberikan pelayanan yang lebih baik",
-              "Membantu kolega untuk berkembang melalui bimbingan atau pelatihan",
-              "Memotivasi diri sendiri dan tim untuk mencapai tujuan bersama"
-            ]
-          },
-          {
-            "id": 19,
-            "question": "Bagaimana cara Anda mengatasi masalah dengan rekan yang tidak setuju dengan pendapat Anda?",
-            "options": [
-              "Menerima kritik konstruktif dan memperbaiki diri untuk hasil yang lebih baik",
-              "Menghargai pendapat rekan dan mencari titik tengah",
-              "Mencari solusi yang saling menguntungkan bagi semua pihak",
-              "Mengabaikan perbedaan dan tetap fokus pada tugas"
-            ]
-          },
-          {
-            "id": 20,
-            "question": "Bagaimana Anda menanggapi perubahan mendadak dalam rencana yang sudah ada?",
-            "options": [
-              "Segera beradaptasi dengan perubahan dan mencari solusi cepat",
-              "Mengevaluasi kembali rencana dan mencari cara untuk menyesuaikannya",
-              "Mengajak tim untuk berdiskusi tentang perubahan tersebut",
-              "Mencari tahu penyebab perubahan untuk menentukan langkah selanjutnya"
-            ]
-          },
-          {
-            "id": 21,
-            "question": "Jika Anda menghadapi masalah pribadi yang mempengaruhi pekerjaan, apa yang Anda lakukan?",
-            "options": [
-              "Menyelesaikan masalah pribadi terlebih dahulu sebelum kembali bekerja",
-              "Berkomunikasi dengan atasan atau rekan kerja untuk mencari solusi",
-              "Berusaha untuk tetap profesional dan menyelesaikan pekerjaan",
-              "Menyembunyikan masalah pribadi dan terus bekerja"
-            ]
-          },
-          {
-            "id": 22,
-            "question": "Apa yang Anda lakukan untuk meningkatkan kualitas kerja Anda?",
-            "options": [
-              "Mencari pelatihan atau kursus untuk meningkatkan keterampilan",
-              "Bekerja lebih keras dan lebih cepat untuk menyelesaikan pekerjaan",
-              "Mendapatkan umpan balik dari atasan dan rekan kerja",
-              "Mempelajari teknik baru yang relevan dengan pekerjaan"
-            ]
-          },
-          {
-            "id": 23,
-            "question": "Bagaimana Anda memastikan bahwa komunikasi dalam tim berjalan dengan baik?",
-            "options": [
-              "Membuka saluran komunikasi yang jelas dan terbuka",
-              "Memastikan setiap anggota tim mengetahui peran dan tanggung jawabnya",
-              "Melakukan rapat atau pertemuan rutin untuk memastikan semua anggota tim terlibat",
-              "Memberikan ruang bagi semua orang untuk berbicara dan berbagi ide"
-            ]
-          },
-          {
-            "id": 24,
-            "question": "Jika Anda harus bekerja dengan orang yang sulit, apa yang akan Anda lakukan?",
-            "options": [
-              "Mencari cara untuk beradaptasi dengan gaya kerjanya",
-              "Mengajak berdiskusi untuk mencari pemahaman bersama",
-              "Meminta bantuan dari atasan atau rekan yang lebih berpengalaman",
-              "Berusaha tetap profesional dan fokus pada tugas"
-            ]
-          },
-          {
-            "id": 25,
-            "question": "Apa yang Anda lakukan jika Anda menemukan kesalahan dalam pekerjaan Anda?",
-            "options": [
-              "Mengakui kesalahan dan mencari solusi untuk memperbaikinya",
-              "Melaporkan kesalahan kepada atasan untuk tindakan lebih lanjut",
-              "Mengabaikan kesalahan kecil jika tidak berdampak besar",
-              "Meminta bantuan rekan kerja untuk memperbaiki kesalahan tersebut"
-            ]
-          }
-    ]
+  "id": "tkp_package_1",
+  "name": "TKP Paket 1",
+  "total_question": 25,
+  "test_duration": 300,
+  "category": "TKP",
+  "question": [
+    {
+      "id": 1,
+      "question": "Anda diminta untuk bekerja sama dalam tim yang baru. Apa yang akan Anda lakukan?",
+      "options": [
+        "Segera memahami tugas masing-masing",
+        "Menunggu arahan dari atasan",
+        "Menjalin komunikasi dengan tim",
+        "Memastikan tanggung jawab pribadi terlebih dahulu"
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Ketika menghadapi konflik dengan rekan kerja, bagaimana Anda mengatasinya?",
+      "options": [
+        "Membicarakannya secara langsung dengan rekan tersebut",
+        "Melaporkannya ke atasan",
+        "Menjaga jarak dengan rekan tersebut",
+        "Mengabaikan konflik dan tetap bekerja"
+      ]
+    },
+    {
+      "id": 3,
+      "question": "Anda diberi tugas mendadak dengan tenggat waktu yang ketat. Apa langkah Anda?",
+      "options": [
+        "Memprioritaskan tugas tersebut di atas yang lain",
+        "Membagi tugas dengan rekan kerja",
+        "Menyelesaikan tugas secara bertahap",
+        "Melaporkan kesulitan kepada atasan"
+      ]
+    },
+    {
+      "id": 4,
+      "question": "Rekan kerja Anda menghadapi kesulitan, tetapi Anda juga sedang sibuk. Apa yang Anda lakukan?",
+      "options": [
+        "Memberikan bantuan sebisa mungkin",
+        "Menyarankan mereka untuk mencari bantuan lain",
+        "Mengabaikan situasi karena tugas Anda mendesak",
+        "Memberikan dukungan moral saja"
+      ]
+    },
+    {
+      "id": 5,
+      "question": "Proyek yang Anda kerjakan membutuhkan inovasi baru. Apa langkah Anda?",
+      "options": [
+        "Mengajukan ide kreatif kepada tim",
+        "Mencari referensi dari proyek serupa",
+        "Mengikuti prosedur yang ada",
+        "Menyarankan pelatihan khusus bagi tim"
+      ]
+    },
+    {
+      "id": 6,
+      "question": "Anda mendapati kolega bekerja kurang efisien. Apa yang Anda lakukan?",
+      "options": [
+        "Memberi masukan dengan cara yang baik",
+        "Melaporkan ke atasan untuk tindak lanjut",
+        "Meningkatkan produktivitas sendiri tanpa mempedulikan mereka",
+        "Mencari tahu penyebabnya dan membantu jika memungkinkan"
+      ]
+    },
+    {
+      "id": 7,
+      "question": "Anda menemukan kesalahan pada laporan yang sudah diajukan. Apa yang Anda lakukan?",
+      "options": [
+        "Segera melaporkan kesalahan tersebut kepada tim",
+        "Mengoreksi secara pribadi tanpa memberitahu tim",
+        "Membiarkan kesalahan kecil tersebut",
+        "Membuat catatan untuk koreksi di masa depan"
+      ]
+    },
+    {
+      "id": 8,
+      "question": "Rekan kerja Anda memberikan informasi yang salah kepada tim. Apa reaksi Anda?",
+      "options": [
+        "Menyampaikan informasi yang benar kepada tim",
+        "Mengingatkan rekan tersebut secara pribadi",
+        "Membiarkan informasi itu karena tidak berdampak besar",
+        "Melaporkannya kepada atasan"
+      ]
+    },
+    {
+      "id": 9,
+      "question": "Anda mendapatkan tugas yang tidak sesuai dengan keahlian Anda. Apa yang Anda lakukan?",
+      "options": [
+        "Belajar untuk menyelesaikan tugas tersebut",
+        "Meminta bantuan dari rekan yang lebih ahli",
+        "Melaporkan kepada atasan bahwa tugas tersebut tidak sesuai",
+        "Menyelesaikan semampunya dengan pengetahuan yang ada"
+      ]
+    },
+    {
+      "id": 10,
+      "question": "Anda mendapati seorang pelanggan mengeluhkan layanan yang buruk. Bagaimana Anda menanganinya?",
+      "options": [
+        "Mendengarkan keluhan dan mencari solusi",
+        "Mengabaikan keluhan karena bukan tanggung jawab Anda",
+        "Melaporkan keluhan kepada atasan",
+        "Menyarankan pelanggan mengajukan keluhan resmi"
+      ]
+    },
+    {
+      "id": 11,
+      "question": "Rekan kerja Anda mengalami kesulitan memahami tugas. Apa yang Anda lakukan?",
+      "options": [
+        "Menawarkan bantuan kepada rekan tersebut",
+        "Menyarankan untuk mencari informasi sendiri",
+        "Melaporkan kesulitan mereka kepada atasan",
+        "Memberikan waktu untuk mereka menyelesaikan sendiri"
+      ]
+    },
+    {
+      "id": 12,
+      "question": "Anda mendapatkan tugas yang membutuhkan banyak detail. Apa yang Anda lakukan?",
+      "options": [
+        "Membuat rencana kerja secara terperinci",
+        "Memulai pekerjaan tanpa perencanaan",
+        "Meminta panduan dari rekan kerja",
+        "Menyelesaikan bagian termudah terlebih dahulu"
+      ]
+    },
+    {
+      "id": 13,
+      "question": "Anda mendapat proyek dengan tenggat waktu yang sangat ketat. Apa yang Anda lakukan?",
+      "options": [
+        "Mengutamakan detail dan akurasi dalam pekerjaan",
+        "Mencari tahu kebutuhan pelanggan sebelum memberi solusi",
+        "Membicarakan masalah dengan pihak terkait sebelum mengambil keputusan",
+        "Meminta masukan dari tim untuk memperbaiki rencana"
+      ]
+    },
+    {
+      "id": 14,
+      "question": "Bagaimana cara Anda menghadapi masalah yang muncul selama pengerjaan proyek?",
+      "options": [
+        "Mengoptimalkan proses dengan pendekatan yang lebih efisien",
+        "Berkomunikasi dengan jelas agar semua pihak paham dengan tujuan bersama",
+        "Menjaga hubungan baik dengan rekan tim yang lebih berpengalaman",
+        "Bertanggung jawab atas kesalahan dan mencari solusi bersama tim"
+      ]
+    },
+    {
+      "id": 15,
+      "question": "Dalam sebuah tim, apa yang menurut Anda penting untuk dilakukan agar pekerjaan berjalan lancar?",
+      "options": [
+        "Membuat daftar prioritas agar pekerjaan selesai tepat waktu",
+        "Menggunakan teknologi atau alat yang ada untuk mempermudah pekerjaan",
+        "Memberikan pujian atas pekerjaan yang sudah baik dilakukan rekan kerja",
+        "Berusaha memahami pandangan orang lain meskipun berbeda dengan kita"
+      ]
+    },
+    {
+      "id": 16,
+      "question": "Rekan kerja Anda memberikan ide yang sangat berbeda dari yang Anda harapkan. Apa yang Anda lakukan?",
+      "options": [
+        "Menghargai pendapat rekan meski tidak selalu sejalan dengan pendapat kita",
+        "Mengatur waktu dengan baik agar tidak terburu-buru dalam mengerjakan tugas",
+        "Mendengarkan dengan baik sebelum memberikan respons atau keputusan",
+        "Menetapkan tujuan yang jelas dan realistis untuk mencapai hasil yang optimal"
+      ]
+    },
+    {
+      "id": 17,
+      "question": "Apa yang Anda lakukan jika proyek Anda mengalami hambatan besar?",
+      "options": [
+        "Menjaga komitmen agar proyek selesai tepat waktu",
+        "Menyelesaikan tugas dengan cara yang paling efektif dan efisien",
+        "Membangun kerja sama yang baik dengan berbagai pihak terkait",
+        "Mengatasi masalah dengan pendekatan yang rasional dan tidak emosional"
+      ]
+    },
+    {
+      "id": 18,
+      "question": "Jika Anda berada dalam situasi yang penuh tekanan, bagaimana Anda menghadapinya?",
+      "options": [
+        "Menjaga sikap profesional meskipun dalam situasi yang penuh tekanan",
+        "Memahami kebutuhan pelanggan untuk memberikan pelayanan yang lebih baik",
+        "Membantu kolega untuk berkembang melalui bimbingan atau pelatihan",
+        "Memotivasi diri sendiri dan tim untuk mencapai tujuan bersama"
+      ]
+    },
+    {
+      "id": 19,
+      "question": "Bagaimana cara Anda mengatasi masalah dengan rekan yang tidak setuju dengan pendapat Anda?",
+      "options": [
+        "Menerima kritik konstruktif dan memperbaiki diri untuk hasil yang lebih baik",
+        "Menghargai pendapat rekan dan mencari titik tengah",
+        "Mencari solusi yang saling menguntungkan bagi semua pihak",
+        "Mengabaikan perbedaan dan tetap fokus pada tugas"
+      ]
+    },
+    {
+      "id": 20,
+      "question": "Bagaimana Anda menanggapi perubahan mendadak dalam rencana yang sudah ada?",
+      "options": [
+        "Segera beradaptasi dengan perubahan dan mencari solusi cepat",
+        "Mengevaluasi kembali rencana dan mencari cara untuk menyesuaikannya",
+        "Mengajak tim untuk berdiskusi tentang perubahan tersebut",
+        "Mencari tahu penyebab perubahan untuk menentukan langkah selanjutnya"
+      ]
+    },
+    {
+      "id": 21,
+      "question": "Jika Anda menghadapi masalah pribadi yang mempengaruhi pekerjaan, apa yang Anda lakukan?",
+      "options": [
+        "Menyelesaikan masalah pribadi terlebih dahulu sebelum kembali bekerja",
+        "Berkomunikasi dengan atasan atau rekan kerja untuk mencari solusi",
+        "Berusaha untuk tetap profesional dan menyelesaikan pekerjaan",
+        "Menyembunyikan masalah pribadi dan terus bekerja"
+      ]
+    },
+    {
+      "id": 22,
+      "question": "Apa yang Anda lakukan untuk meningkatkan kualitas kerja Anda?",
+      "options": [
+        "Mencari pelatihan atau kursus untuk meningkatkan keterampilan",
+        "Bekerja lebih keras dan lebih cepat untuk menyelesaikan pekerjaan",
+        "Mendapatkan umpan balik dari atasan dan rekan kerja",
+        "Mempelajari teknik baru yang relevan dengan pekerjaan"
+      ]
+    },
+    {
+      "id": 23,
+      "question": "Bagaimana Anda memastikan bahwa komunikasi dalam tim berjalan dengan baik?",
+      "options": [
+        "Membuka saluran komunikasi yang jelas dan terbuka",
+        "Memastikan setiap anggota tim mengetahui peran dan tanggung jawabnya",
+        "Melakukan rapat atau pertemuan rutin untuk memastikan semua anggota tim terlibat",
+        "Memberikan ruang bagi semua orang untuk berbicara dan berbagi ide"
+      ]
+    },
+    {
+      "id": 24,
+      "question": "Jika Anda harus bekerja dengan orang yang sulit, apa yang akan Anda lakukan?",
+      "options": [
+        "Mencari cara untuk beradaptasi dengan gaya kerjanya",
+        "Mengajak berdiskusi untuk mencari pemahaman bersama",
+        "Meminta bantuan dari atasan atau rekan yang lebih berpengalaman",
+        "Berusaha tetap profesional dan fokus pada tugas"
+      ]
+    },
+    {
+      "id": 25,
+      "question": "Apa yang Anda lakukan jika Anda menemukan kesalahan dalam pekerjaan Anda?",
+      "options": [
+        "Mengakui kesalahan dan mencari solusi untuk memperbaikinya",
+        "Melaporkan kesalahan kepada atasan untuk tindakan lebih lanjut",
+        "Mengabaikan kesalahan kecil jika tidak berdampak besar",
+        "Meminta bantuan rekan kerja untuk memperbaiki kesalahan tersebut"
+      ]
+    }
+  ]
 }
