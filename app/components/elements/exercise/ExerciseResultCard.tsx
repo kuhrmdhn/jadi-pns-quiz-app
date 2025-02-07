@@ -35,13 +35,13 @@ export default function ExerciseResultCard(exercise: Exercise) {
     }
 
     return (
-        <section className={`w-full h-28 max-w-sm p-4 shadow-lg rounded-2xl flex ${rubik.className}`}>
-            <div className='w-4/5 h-full'>
+        <section className={`w-max min-w-72 h-28 p-4 shadow-lg rounded-2xl flex ${rubik.className}`}>
+            <div className='w-3/4 xl:w-4/5 h-full'>
                 <div className='flex flex-row items-center justify-between'>
                     <h1>{name}</h1>
                 </div>
                 <div className="flex flex-col gap-2">
-                    <p className="text-lg font-semibold">Skor: {score} / {max_score}</p>
+                    <p className="text-base xl:text-lg font-semibold">Skor: {score} / {max_score}</p>
                     <progress className="progress progress-primary bg-gray-100" value={score} max={max_score}></progress>
                 </div>
             </div>

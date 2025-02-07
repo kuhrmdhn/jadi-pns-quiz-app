@@ -23,13 +23,13 @@ export default function ExerciseCategoryCard({ icon, title, description, classNa
             whileTap="click"
             transition={{ duration: 0.3 }}
         >
-            <Link href={`exercise/${title}`} className={`w-80 h-24 !cursor-pointer text-white-darken rounded-md shadow-lg flex items-center justify-around ${className}`}>
-                <span className='w-1/5 flex justify-center items-center text-4xl'>
+            <Link href={`exercise/${title}`} className={`xl:w-80 h-24 !cursor-pointer text-white-darken rounded-md shadow-lg flex items-center justify-around ${className}`}>
+                <span className='w-1/5 flex justify-center items-center text-3xl xl:text-4xl'>
                     {icon}
                 </span>
-                <div className='w-3/5 h-full justify-center items-center flex flex-col'>
-                    <h1 className='font-bold text-lg'>{title}</h1>
-                    <p className='font-light text-sm'>{description}</p>
+                <div className='w-3/4 xl:w-3/5 h-full justify-center items-center flex flex-col'>
+                    <h1 className='font-bold text-base xl:text-lg'>{title}</h1>
+                    <p className='font-light text-xs xl:text-sm'>{description}</p>
                 </div>
             </Link>
         </motion.div >

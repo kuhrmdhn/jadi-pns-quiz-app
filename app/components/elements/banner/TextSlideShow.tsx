@@ -21,7 +21,7 @@ export default function TextSlideShow() {
     return (
         <motion.div
             animate={isAnimating ? "flip" : "initial"}
-            className="text-5xl font-semibold text-white-darken capitalize absolute flex-col top-0 z-10 h-full w-full flex justify-center items-center bg-gradient-to-b from-[rgba(255,255,255,0.2)] to-primary"
+            className="text-xl sm:text-3xl xl:text-5xl px-3 font-semibold text-white-darken text-center capitalize absolute flex-col top-0 z-10 h-full w-full flex justify-center items-center bg-gradient-to-b from-[rgba(255,255,255,0.2)] to-primary"
             style={{ perspective: "1000px" }}
         >
             <AnimatePresence>
