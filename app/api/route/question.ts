@@ -47,6 +47,7 @@ question.get("question-list/:question_category", async (c) => {
 });
 
 question.get("/:question_category/:question_package", async (c) => {
+    const { question_id } = c.req.query()
     const { question_category, question_package } = c.req.param()
     const filePath = path.resolve(questionFilePath, `${question_category}/${question_package}.json`)
 
@@ -58,10 +59,17 @@ question.get("/:question_category/:question_package", async (c) => {
 
     try {
         const fileData = await fs.readFile(filePath, "utf-8")
-        const questionData = JSON.parse(fileData)
+        const questionsData = JSON.parse(fileData)
+        if (question_id) {
+            const questionData = questionsData.questions.filter((e: any) => e.id == question_id)
+            return c.json({
+                message: `Success get question, category: ${question_category}, package: ${question_package} and id: ${question_id}`,
+                data: questionData
+            })
+        }
         return c.json({
             message: `Success get question, category: ${question_category} and package: ${question_package}`,
-            data: questionData
+            data: questionsData
         }, 200)
     } catch (error) {
         console.error(error);
