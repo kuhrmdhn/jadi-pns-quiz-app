@@ -49,6 +49,12 @@ question.get("question-list/:question_category", async (c) => {
 question.get("/:question_category/:question_package", async (c) => {
     const { question_id } = c.req.query()
     const { question_category, question_package } = c.req.param()
+    if (!question_category || !question_package) {
+        return c.json({
+            message: "Bad request: question category or package invalid or empty"
+        }, 400);
+    }
+
     const filePath = path.resolve(questionFilePath, `${question_category}/${question_package}.json`)
 
     if (!question_package) {
@@ -61,7 +67,12 @@ question.get("/:question_category/:question_package", async (c) => {
         const fileData = await fs.readFile(filePath, "utf-8")
         const questionsData = JSON.parse(fileData)
         if (question_id) {
-            const questionData = questionsData.questions.filter((e: any) => e.id == question_id)
+            const questionData = questionsData.questions.find((e: any) => e.id == question_id)
+            if (!questionData) {
+                return c.json({
+                    message: `Question with ID ${question_id} not found in package ${question_package}`
+                }, 404);
+            }
             return c.json({
                 message: `Success get question, category: ${question_category}, package: ${question_package} and id: ${question_id}`,
                 data: questionData

@@ -1,13 +1,13 @@
 "use client"
 import useFetch from '@/app/utils/hooks/useFetch';
-import React from 'react';
+import React, { useEffect } from 'react';
 import BannerImage from '../banner/BannerImage';
 import ExercisePackageCard from './ExercisePackageCard';
-import { Exercise } from '@/app/types/exerciseType';
+import { Exercise, ExerciseCategory } from '@/app/types/exerciseType';
 import { motion } from "framer-motion"
 
 type Props = {
-    category: "TWK" | "TIU" | "TKP";
+    category: ExerciseCategory;
 }
 
 const subCategory = {
@@ -27,7 +27,6 @@ const subCategory = {
 
 export default function ExercisePackageList({ category }: Props) {
     const { response, loading, error } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/question/question-list/${category}`);
-
     if (error) throw new Error(error.message);
 
     return (
@@ -55,6 +54,7 @@ export default function ExercisePackageList({ category }: Props) {
                                         key={exercise.id}
                                     >
                                         <ExercisePackageCard
+                                            category={category}
                                             exercise={exercise}
                                         />
                                     </motion.section>
