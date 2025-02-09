@@ -4,7 +4,7 @@ import useFetch from "@/app/utils/hooks/useFetch";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 const questionAlphabet = ["A", "B", "C", "D"]
 
-interface Props extends ExerciseQuestion {
+type Props = ExerciseQuestion & {
     category: ExerciseCategory
     packageId: string
 }
