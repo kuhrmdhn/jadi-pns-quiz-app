@@ -30,7 +30,7 @@ export default function ExerciseCategoryList() {
     return (
         <section className='home-section-container'>
             <h1 className='text-xl font-bold'>Latihan Sesuai Topik</h1>
-            <div className='w-full h-fit grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 xl:justify-items-center gap-5 overflow-x-auto'>
+            <div className='w-full h-fit xl:px-5 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 xl:justify-items-center'>
                 {
                     cardData.map((card) => (
                         <ExerciseCategoryCard

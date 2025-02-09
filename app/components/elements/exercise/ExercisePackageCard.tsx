@@ -1,14 +1,25 @@
 import React from 'react'
 import { motion } from "framer-motion"
 import { GoArrowRight } from 'react-icons/go'
-import { Exercise } from '@/app/types/exerciseType'
+import { Exercise, ExerciseCategory } from '@/app/types/exerciseType'
+import Link from 'next/link'
 
 type Props = {
     exercise: Exercise
+    category: ExerciseCategory
 }
 
-export default function ExercisePackageCard({ exercise }: Props) {
-    const { id, name, test_duration, total_question, category } = exercise
+export default function ExercisePackageCard({ exercise, category }: Props) {
+    const { id, name, test_duration, total_question } = exercise
+
+    function startExercise() {
+        const currentUserAnswers = localStorage.getItem("currentUserAnswers")
+        if (currentUserAnswers) {
+            localStorage.removeItem("currentUserAnswers")
+        }
+        const initialAnswers = [...Array(total_question)].map(() => null)
+        localStorage.setItem("currentUserAnswers", JSON.stringify(initialAnswers))
+    }
 
     return (
         <div
@@ -23,14 +34,16 @@ export default function ExercisePackageCard({ exercise }: Props) {
                     <strong>Jumlah Soal:</strong> {total_question}
                 </p>
             </div>
-            <motion.a
-                href={`/exercise/${category}/${id}/start`}
+            <motion.button
+                onClick={startExercise}
                 className="w-1/5 h-full flex justify-center items-center"
                 initial={{ rotate: 0, scale: 1 }}
                 whileHover={{ rotate: "-25deg", scale: 1.1 }}
                 whileTap={{ scale: .9 }}
             >
-                <GoArrowRight size={32} />
-            </motion.a>
+                <Link href={`/exercise/${category}/${id}/start?question_id=1`}>
+                    <GoArrowRight size={32} />
+                </Link>
+            </motion.button>
         </div>)
 }
