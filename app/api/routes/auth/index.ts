@@ -54,7 +54,6 @@ auth.post("verify-user", async (c) => {
     } catch (error) {
         console.error("Error refreshing token:", error);
         return c.json({ message: "Failed to refresh token" }, 401);
-
     }
 })
 
