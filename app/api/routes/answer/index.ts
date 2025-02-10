@@ -4,6 +4,8 @@ import fs from "fs/promises"
 import { validateUserAnswer } from "./utils/validateUserAnswer";
 import { calculateScore } from "./utils/calculateScore";
 import { reviewAnswer } from "./utils/reviewAnswer";
+import { validateAnswerFileName } from "./utils/validateAnswerFileName";
+import { uploadNewAnswer } from "./utils/uploadNewAnswer";
 
 const answer = new Hono()
 const answerFilePath = "./app/exercise_source/answer"
@@ -30,24 +32,18 @@ answer.post("/:question_category/:question_package", async (c) => {
 })
 
 answer.post("/new-answer", async (c) => {
-    const { answersData, fileName } = await c.req.json()
-    if (!answersData || !fileName) {
-        return c.json({
-            message: "Answers data or file name cant be empty"
-        }, 400)
-    }
     try {
-        const newData = JSON.stringify(answersData, null, 2)
-        await fs.writeFile(`${answerFilePath}/${fileName}`, newData)
+        const { answersData, fileName, category } = await c.req.json()
+        await validateAnswerFileName(category, fileName)
+
+        await uploadNewAnswer(answersData, category, fileName)
         return c.json({
             message: `Success write new file JSON: ${fileName}`
         }, 200)
     } catch (error) {
         console.error(error);
-        return c.json({
-            message: `Failed write new file JSON: ${fileName}`,
-            error
-        }, 404)
+        const errors = error as Error
+        return c.json({ message: errors.message }, 400)
     }
 })
 
