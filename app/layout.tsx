@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   description: 'Quiz Web App for learning CPNS test'
 }
 
-export const montserrat = Montserrat({
+const montserrat = Montserrat({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  subsets: ["cyrillic", "latin"]
+  subsets: ["latin"]
 })
 
 export default function RootLayout({
