@@ -22,7 +22,7 @@ export type Exercise = {
     name: string
     score: number
     max_score: number
-    category: ExerciseCategory 
+    category: ExerciseCategory
     answers: string[]
 }
 
@@ -39,9 +39,20 @@ type UserData = {
 type Store = {
     userData: UserData
     setUserData: (user: UserData) => void
+    currentAnswers: string[]
+    setCurrentAnswers: (index: number, answer: string) => void
 }
 
 export const useUserStore = create<Store>()((set) => ({
     userData: initialUserData,
-    setUserData: (user: UserData) => set({ userData: user })
+    setUserData: (user: UserData) => set({ userData: user }),
+    currentAnswers: JSON.parse(localStorage.getItem("currentUserAnswers") || "[]"),
+    setCurrentAnswers: (index: number, answer: string) =>
+        set((state) => {
+            const newAnswer = [...state.currentAnswers]
+            newAnswer[index] = answer
+            localStorage.setItem("currentUserAnswers", JSON.stringify(newAnswer));
+            return { currentAnswers: newAnswer }
+        })
+
 }))
