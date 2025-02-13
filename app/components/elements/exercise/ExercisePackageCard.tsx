@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { GoArrowRight } from 'react-icons/go'
 import { Exercise, ExerciseCategory } from '@/app/types/exerciseType'
 import Link from 'next/link'
+import { useUserStore } from '@/app/utils/store/useUserStore'
 
 type Props = {
     exercise: Exercise
@@ -11,14 +12,12 @@ type Props = {
 
 export default function ExercisePackageCard({ exercise, category }: Props) {
     const { id, name, test_duration, total_question } = exercise
+    const { removeCurrentAnswers, setInitialUserAnswers, removeExerciseEndTime } = useUserStore()
 
     function startExercise() {
-        const currentUserAnswers = localStorage.getItem("currentUserAnswers")
-        if (currentUserAnswers) {
-            localStorage.removeItem("currentUserAnswers")
-        }
-        const initialAnswers = [...Array(total_question)].map(() => null)
-        localStorage.setItem("currentUserAnswers", JSON.stringify(initialAnswers))
+        removeCurrentAnswers()
+        removeExerciseEndTime()
+        setInitialUserAnswers(total_question)
     }
 
     return (
@@ -28,7 +27,7 @@ export default function ExercisePackageCard({ exercise, category }: Props) {
             <div>
                 <h2 className="text-lg font-semibold text-gray-800 mb-3">{name}</h2>
                 <p className="text-sm text-gray-600 mb-2">
-                    <strong>Durasi:</strong> {test_duration / 60} menit {test_duration % 60} detik
+                    <strong>Durasi:</strong> {test_duration / 60 < 1 ? 0 : test_duration / 60 } menit {test_duration % 60} detik
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
                     <strong>Jumlah Soal:</strong> {total_question}

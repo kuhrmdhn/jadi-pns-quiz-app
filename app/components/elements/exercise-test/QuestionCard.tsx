@@ -13,9 +13,9 @@ type Props = {
 };
 
 export default function QuestionCard({ question, options, category, packageId }: Props) {
-  const { currentAnswers, setCurrentAnswers } = useUserStore();
+  const { currentAnswers, setChangeCurrentAnswers } = useUserStore();
   const totalQuestion = currentAnswers.length;
-  
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -41,7 +41,7 @@ export default function QuestionCard({ question, options, category, packageId }:
     const { value } = e.target;
     if (questionIdParams) {
       const index = parseInt(questionIdParams) - 1;
-      setCurrentAnswers(index, value);
+      setChangeCurrentAnswers(index, value);
     }
   }
 

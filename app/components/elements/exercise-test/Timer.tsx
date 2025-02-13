@@ -9,7 +9,13 @@ type Props = {
 };
 
 export default function Timer({ category, packageId }: Props) {
-  const savedExerciseEndTime = useMemo(() => localStorage.getItem("savedExerciseEndTime"), [])
+  const getSavedExerciseEndTime = () => {
+    if (typeof window !== "undefined") {
+      return JSON.parse(localStorage.getItem("savedExerciseEndTime") || "0");
+    }
+    return "0";
+  };
+  const savedExerciseEndTime = useMemo(() => getSavedExerciseEndTime(), [])
   const { response, fetchData } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/question/${category}/${packageId}`, {}, false);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
@@ -17,6 +23,7 @@ export default function Timer({ category, packageId }: Props) {
   useEffect(() => {
     if (!savedExerciseEndTime) {
       fetchData()
+      console.log("true")
     } else {
       const endTime = parseInt(savedExerciseEndTime);
       const remainingTime = Math.floor((endTime - Date.now()) / 1000);
@@ -47,11 +54,20 @@ export default function Timer({ category, packageId }: Props) {
     return () => clearInterval(timerInterval)
   }, [timeLeft])
 
+
   return (
-    <span>
-      {timeLeft !== null
-        ? `${String(Math.floor(timeLeft / 60)).padStart(2, "0")}:${String(timeLeft % 60).padStart(2, "0")}`
-        : "00:00"}
-    </span>
+    <div className="flex justify-center items-center gap-3">
+      Sisa Waktu:
+      {
+        timeLeft !== null ?
+          <span className={`${timeLeft < 20 ? "bg-red-500" : "bg-primary"} text-white p-3 rounded-md duration-300`}>
+            {`${String(Math.floor(timeLeft / 60)).padStart(2, "0")}:${String(timeLeft % 60).padStart(2, "0")}`}
+          </span>
+          :
+          <span>
+            "00:00"
+          </span>
+      }
+    </div>
   );
 }
