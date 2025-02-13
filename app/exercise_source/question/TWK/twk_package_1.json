@@ -2,7 +2,7 @@
     "id": "twk_package_1",
     "name": "TWK Paket 1",
     "total_question": 25,
-    "test_duration": 300,
+    "test_duration": 1200,
     "category": "TWK",
     "questions": [
         {
