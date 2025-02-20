@@ -5,14 +5,6 @@ export async function middleware(req: NextRequest) {
     const protectedPage = ["/exercise"];
     const token = req.cookies.get("firebase_token")?.value;
     const { pathname } = req.nextUrl;
-    
-    if (authPage.some((path) => pathname.startsWith(path))) {
-        return NextResponse.next();
-    }
-    
-    if (protectedPage.some((path) => pathname.startsWith(path)) && !token) {
-        return NextResponse.redirect(new URL("/login", req.url));
-    }
 
     if (token) {
         return NextResponse.next();
@@ -27,8 +19,17 @@ export async function middleware(req: NextRequest) {
         if (!refreshTokenResponse.ok) {
             return NextResponse.redirect(new URL("/login", req.url));
         }
+
     } catch (error) {
         console.error(error);
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    if (authPage.some((path) => pathname.startsWith(path)) && !token) {
+        return NextResponse.next();
+    }
+
+    if (protectedPage.some((path) => pathname.startsWith(path)) && !token) {
         return NextResponse.redirect(new URL("/login", req.url));
     }
 
@@ -36,5 +37,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/exercise/:path*", "/login", "/register"],
+    matcher: ["/", "/exercise/:path*", "/login", "/register"],
 };
