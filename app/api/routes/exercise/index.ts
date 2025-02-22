@@ -41,6 +41,7 @@ exercise.get("question-lists/:exercise_id", async (c) => {
         const questionSnapShoot = await getDocs(questionListsRef)
         const questionDoc = questionSnapShoot.docs.flatMap((snapShoot) => snapShoot.data())
         const questionLength = questionDoc.length
+
         if(parseInt(question_id) > questionLength) {
             throw new Error(`Questions only ${questionLength}, cant get question number ${question_id}`)
         }
