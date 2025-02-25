@@ -1,9 +1,6 @@
 import { Metadata } from "next"
 import { Montserrat } from "next/font/google"
-import AlertProvider from "./components/provider/AlertProvider"
-import AuthProvider from "./components/provider/AuthProvider"
-import ModalProvider from "./components/provider/ModalProvider"
-import OverlayProvider from "./components/provider/OverlayProvider"
+import AuthProvider from "@/components/provider/AuthProvider"
 import "./global.css"
 
 export const metadata: Metadata = {
@@ -29,9 +26,6 @@ export default function RootLayout({
       <body className={montserrat.className}>
         {children}
         <AuthProvider />
-        <AlertProvider />
-        <OverlayProvider />
-        <ModalProvider />
       </body>
     </html>
   )

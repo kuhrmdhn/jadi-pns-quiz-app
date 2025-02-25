@@ -1,4 +1,4 @@
-import { app } from '@/app/utils/hono/honoApp'
+import { app } from '@/utils/hono/honoApp'
 import { handle } from 'hono/vercel'
 
 export const GET = handle(app)

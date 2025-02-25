@@ -1,11 +1,11 @@
 "use client"
 import Link from 'next/link'
-import AuthForm from '../components/elements/authentication/AuthForm'
-import AuthHeader from '../components/elements/authentication/AuthHeader'
-import AuthPageContainer from '../components/elements/authentication/AuthPageContainer'
-import AuthPageItemContainer from '../components/elements/authentication/AuthPageItemContainer'
-import LoginImage from '../components/elements/icons/LoginImage'
-import useLogin from '../utils/hooks/useLogin'
+import AuthForm from '@/components/elements/authentication/AuthForm'
+import AuthHeader from '@/components/elements/authentication/AuthHeader'
+import AuthPageContainer from '@/components/elements/authentication/AuthPageContainer'
+import AuthPageItemContainer from '@/components/elements/authentication/AuthPageItemContainer'
+import LoginImage from '@/components/elements/icons/LoginImage'
+import useLogin from '@/utils/hooks/useLogin'
 
 export default function LoginPage() {
   const { signIn, loading, handleOnChange, loginInputData } = useLogin()

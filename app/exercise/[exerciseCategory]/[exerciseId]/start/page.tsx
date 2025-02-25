@@ -1,8 +1,8 @@
-import ExerciseQuestionList from '@/app/components/elements/exercise-test/ExerciseQuestionList'
-import QuestionNavigateMenu from '@/app/components/elements/exercise-test/QuestionNavigateMenu'
-import Timer from '@/app/components/elements/exercise-test/Timer'
-import ExerciseParamsProvider from '@/app/components/provider/ExerciseParamsProvider'
-import { ExerciseCategory } from '@/app/types/exerciseType'
+import ExerciseQuestionList from '@/components/elements/exercise-test/ExerciseQuestionList'
+import QuestionNavigateMenu from '@/components/elements/exercise-test/QuestionNavigateMenu'
+import Timer from '@/components/elements/exercise-test/Timer'
+import ExerciseParamsProvider from '@/components/provider/ExerciseParamsProvider'
+import { ExerciseCategory } from '@/types/exerciseType'
 import React from 'react'
 
 type Props = {
@@ -20,7 +20,7 @@ export default async function ExerciseStartPage({ params }: Props) {
                 <QuestionNavigateMenu/>
                 <Timer category={exerciseCategory} packageId={exerciseId} />
             </section>
-            <ExerciseQuestionList category={exerciseCategory} packageId={exerciseId} />
+            <ExerciseQuestionList packageId={exerciseId} />
         </ExerciseParamsProvider>
     )
 }
