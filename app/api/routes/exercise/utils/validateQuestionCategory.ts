@@ -1,4 +1,4 @@
-import { ExerciseCategory } from "@/app/types/exerciseType"
+import { ExerciseCategory } from "@/types/exerciseType"
 
 export const validateQuestionCategory = (category: string) => {
     if(!category || category === "") {

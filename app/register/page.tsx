@@ -1,12 +1,12 @@
 "use client"
 import React from 'react'
-import AuthPageItemContainer from '../components/elements/authentication/AuthPageItemContainer'
-import AuthForm from '../components/elements/authentication/AuthForm'
-import AuthHeader from '../components/elements/authentication/AuthHeader'
-import AuthPageContainer from '../components/elements/authentication/AuthPageContainer'
-import RegisterImage from '../components/elements/icons/RegisterImage'
+import AuthPageItemContainer from '@/components/elements/authentication/AuthPageItemContainer'
+import AuthForm from '@/components/elements/authentication/AuthForm'
+import AuthHeader from '@/components/elements/authentication/AuthHeader'
+import AuthPageContainer from '@/components/elements/authentication/AuthPageContainer'
+import RegisterImage from '@/components/elements/icons/RegisterImage'
 import Link from 'next/link'
-import useRegister from '../utils/hooks/useRegister'
+import useRegister from '@/utils/hooks/useRegister'
 
 export default function RegisterPage() {
   const { handleOnChange, loading, registerInputData, signUp } = useRegister()

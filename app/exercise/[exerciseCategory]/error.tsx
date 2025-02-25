@@ -1,5 +1,4 @@
 'use client'
-
 type Props = {
     error: Error & { digest?: string }
     reset: () => void

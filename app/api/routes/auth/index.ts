@@ -1,60 +1,48 @@
-import { firebaseAuth } from "@/app/utils/firebase/firebase";
+import { firebaseAdminAuth } from "@/utils/firebase/admin";
+import { firebaseAuth } from "@/utils/firebase/firebase";
+import { signOut } from "firebase/auth";
 import { Hono } from "hono";
-import { deleteCookie, setCookie, getCookie } from "hono/cookie"
+import { deleteCookie, setCookie } from "hono/cookie";
 
 const auth = new Hono()
 
 auth.get("/logout", async (c) => {
-    deleteCookie(c, "firebase_token", { path: "/" })
-    return c.json({
-        message: "Logout Successfully"
-    }, 200)
-})
+    try {
+        deleteCookie(c, "firebase_token", { path: "/" });
+        await signOut(firebaseAuth)
+        return c.json({
+            message: "Logout Successfully",
+        }, 200);
+    } catch (err) {
+        const error = err as Error;
+        return c.json({ message: error.message }, 500);
+    }
+});
 
 auth.post("/set-token", async (c) => {
     const { token } = await c.req.json();
+
     if (!token) {
-        return c.json({
-            message: "Token is required!"
-        }, 400);
+        return c.json({ message: "Token is required!" }, 400);
     }
+
     try {
+        await firebaseAdminAuth.verifyIdToken(token);
+
         setCookie(c, "firebase_token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
             path: "/",
+            maxAge: 60 * 60 * 24 * 3,
         });
+
+        console.log("✅ Token verified and cookie set.");
         return c.json({ message: "Authenticated" });
     } catch (e) {
-        console.error(e);
-        return c.json({ message: "Internal Server Error" }, 500);
+        console.error("❌ Token verification failed:", e);
+        return c.json({ message: "Invalid token" }, 401);
     }
 });
-
-auth.post("verify-user", async (c) => {
-    const token = getCookie(c, "firebase_token")
-    if (!token) {
-        return c.json({ message: "Token is undefined or expired" }, 401)
-    }
-    try {
-        const user = firebaseAuth.currentUser
-        if (!user) {
-            return c.json({ message: "User is not authenticated" }, 403)
-        }
-        const newToken = await user.getIdToken(true);
-        setCookie(c, "firebase_token", newToken, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            path: "/",
-        });
-
-        return c.json({ message: "Token refreshed" }, 200);
-    } catch (error) {
-        console.error("Error refreshing token:", error);
-        return c.json({ message: "Failed to refresh token" }, 401);
-    }
-})
 
 export default auth
