@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import AuthProvider from "@/components/provider/AuthProvider"
 import "./global.css"
+import { SidebarProvider } from "@/components/elements/home-page/Sidebar"
 
 export const metadata: Metadata = {
   title: {
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={montserrat.className}>
         {children}
         <AuthProvider />
+        <SidebarProvider/>
       </body>
     </html>
   )

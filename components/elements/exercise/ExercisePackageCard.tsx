@@ -2,7 +2,6 @@ import { Exercise, ExerciseCategory } from '@/types/exerciseType'
 import { useExerciseHistory } from '@/utils/store/useExerciseHistory'
 import { useExerciseTimerStore } from '@/utils/store/useExerciseTimerStore'
 import { useUserExerciseAnswer } from '@/utils/store/useUserExerciseAnwer'
-import { motion } from "framer-motion"
 import Link from 'next/link'
 import { GoArrowRight } from 'react-icons/go'
 
@@ -37,16 +36,13 @@ export default function ExercisePackageCard({ exercise, category }: Props) {
                     <strong>Jumlah Soal:</strong> {total_question}
                 </p>
             </div>
-            <motion.button
+            <button
                 onClick={startExercise}
                 className="w-1/5 h-full flex justify-center items-center"
-                initial={{ rotate: 0, scale: 1 }}
-                whileHover={{ rotate: "-25deg", scale: 1.1 }}
-                whileTap={{ scale: .9 }}
             >
                 <Link href={`/exercise/${category}/${id}/start?question_id=1`}>
                     <GoArrowRight size={32} />
                 </Link>
-            </motion.button>
+            </button>
         </div>)
 }
