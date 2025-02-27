@@ -1,16 +1,13 @@
-import { Button } from "@/components/ui/button";
 import { ButtonIconAnimation } from "@/components/ui/button-icon-animation";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { navigation, NavigationContent } from "@/constant/navigationListData";
 import { ShieldAlert, Target, Brain, Sword } from "lucide-react";
 import Link from "next/link";
 
-type ExerciseLists = {
-    id: number
-    title: string
+type ExerciseCard = {
     description: string
     cta: string
     icon: React.ReactNode
-    url: string
 }
 
 export default function ExerciseList() {
@@ -23,12 +20,16 @@ export default function ExerciseList() {
                 </h1>
                 <p>Bersiaplah menghadapi medan tempur soal-soal menantang ini. Fokus, strategi, dan kecepatan adalah kuncinya!</p>
             </div>
-            <div className="flex flex-wrap gap-10">
+            <div className="flex flex-wrap gap-10 justify-center items-center sm:justify-start">
                 {
-                    exerciseLists.map((exercise) => (
+                    navigation[1].content.map((exercise, i) => (
                         <ExerciseCard
                             key={exercise.id}
-                            {...exercise}
+                            title={exercise.title}
+                            url={exercise.url}
+                            description={exerciseCard[i].description}
+                            icon={exerciseCard[i].icon}
+                            cta={exerciseCard[i].cta}
                         />
                     ))
                 }
@@ -37,9 +38,9 @@ export default function ExerciseList() {
     );
 }
 
-function ExerciseCard({ title, url, icon, cta, description }: ExerciseLists) {
+function ExerciseCard({ title, url, icon, cta, description }: ExerciseCard & NavigationContent) {
     return (
-        <Card className="relative w-96">
+        <Card>
             <CardHeader>
                 <CardTitle className='flex items-center gap-3'>
                     {icon}{title}
@@ -51,7 +52,7 @@ function ExerciseCard({ title, url, icon, cta, description }: ExerciseLists) {
             <CardFooter>
                 <Link href={url}>
                     <ButtonIconAnimation
-                        icon={<Sword className="rotate-90"/>}
+                        icon={<Sword className="rotate-90" />}
                     >
                         {cta}
                     </ButtonIconAnimation>
@@ -61,29 +62,20 @@ function ExerciseCard({ title, url, icon, cta, description }: ExerciseLists) {
     )
 }
 
-const exerciseLists: ExerciseLists[] = [
+const exerciseCard: ExerciseCard[] = [
     {
-        id: 1,
-        title: "TWK - Wawasan Kebangsaan",
         description: "Uji ketangguhan nasionalismu di medan soal TWK. Pahami dasar negara untuk bertahan!",
         cta: "Masuki Arena!",
         icon: <ShieldAlert />,
-        url: "/"
     },
     {
-        id: 2,
-        title: "TIU - Intelegensi Umum",
         description: "Tantang logikamu! Pecahkan soal dengan strategi dan kecepatan.",
         cta: "Mulai Pertarungan!",
         icon: <Target />,
-        url: "/"
     },
     {
-        id: 3,
-        title: "TKP - Karakteristik Pribadi",
         description: "Hadapi tes yang mengukur ketangguhan dan keputusanmu dalam situasi sulit.",
         cta: "Buktikan Dirimu!",
         icon: <Brain />,
-        url: "/"
     },
 ];

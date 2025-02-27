@@ -1,7 +1,7 @@
 "use client";
-import { ExerciseCategory } from "@/app/types/exerciseType";
-import useFetch from "@/app/utils/hooks/useFetch";
-import { useExerciseTimerStore } from "@/app/utils/store/useExerciseTimerStore";
+import { ExerciseCategory } from "@/types/exerciseType";
+import useFetch from "@/utils/hooks/useFetch";
+import { useExerciseTimerStore } from "@/utils/store/useExerciseTimerStore";
 import React, { useEffect, useState, useMemo } from "react";
 
 type Props = {

@@ -1,7 +1,6 @@
 "use client"
 import { Exercise, ExerciseCategory } from '@/types/exerciseType';
 import useFetch from '@/utils/hooks/useFetch';
-import { motion } from "framer-motion";
 import ExercisePackageCard from './ExercisePackageCard';
 
 type Props = {
@@ -42,17 +41,14 @@ export default function ExercisePackageList({ category }: Props) {
                         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 w-full min-h-[25svh]">
                             {
                                 response.data.map((exercise: Exercise, i: number) => (
-                                    <motion.section
-                                        initial={{ opacity: 0, y: 120 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.5, delay: i / 10 }}
+                                    <section
                                         key={exercise.id}
                                     >
                                         <ExercisePackageCard
                                             category={category}
                                             exercise={exercise}
                                         />
-                                    </motion.section>
+                                    </section>
                                 ))
                             }
                         </div>

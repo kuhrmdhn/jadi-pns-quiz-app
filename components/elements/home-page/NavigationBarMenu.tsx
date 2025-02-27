@@ -1,0 +1,40 @@
+import React from 'react'
+import { ListItem, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu'
+import AuthButton from './AuthButton'
+import { navigation } from '@/constant/navigationListData'
+
+export default function NavigationBarMenu() {
+    return (
+            <div className="w-2/3 lg:w-1/3 hidden md:block">
+                <NavigationMenu>
+                    <NavigationMenuList className='flex gap-5'>
+                        {
+                            navigation.map((navigate) => (
+                                <NavigationMenuItem key={navigate.id}>
+                                    <NavigationMenuTrigger>
+                                        {navigate.title}
+                                    </NavigationMenuTrigger>
+                                    <NavigationMenuContent>
+                                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] lg:w-[600px]">
+                                            {
+                                                navigate.content.map((content) => (
+                                                    <ListItem href={content.url} key={content.id}>
+                                                        <h1 className='font-bold text-xl text-black'>{content.title}</h1>
+                                                        <h2 className="font-semibold text-base text-gray-900">{content.subTitle}</h2>
+                                                        <p className="text-justify text-gray-700 font-medium">{content.description}</p>
+                                                    </ListItem>
+                                                ))
+                                            }
+                                        </ul>
+                                    </NavigationMenuContent>
+                                </NavigationMenuItem>
+                            ))
+                        }
+                        <NavigationMenuItem>
+                            <AuthButton />
+                        </NavigationMenuItem>
+                    </NavigationMenuList>
+                </NavigationMenu>
+            </div>
+    )
+}

@@ -1,0 +1,60 @@
+"use client"
+import React from 'react'
+import { Button } from '../../ui/button'
+import { useSidebarStore } from '@/utils/store/useSidebarStore'
+import { useShallow } from 'zustand/shallow'
+import { AlignJustify, X } from 'lucide-react'
+import { navigation } from '@/constant/navigationListData'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion'
+import Link from 'next/link'
+import AuthButton from './AuthButton'
+
+function SidebarProvider() {
+    const { isSidebarOpen, hideSidebar } = useSidebarStore((useShallow((state) => ({
+        isSidebarOpen: state.isSidebarOpen,
+        hideSidebar: state.hideSidebar
+    }))))
+
+    return (
+        <div className={`fixed top-0 bg-white ${isSidebarOpen ? "left-0" : "-left-full"} duration-300 w-full h-[100dvh] pt-16 px-6`}>
+            <Button onClick={hideSidebar} className='absolute top-3 right-3' variant={"ghost"}>
+                <X className="text-xl"/>
+            </Button>
+            <Accordion type="single" collapsible className='w-full'>
+                {
+                    navigation.map((navigate) => (
+                        <AccordionItem key={navigate.id} value={navigate.title} className="mb-5">
+                            <AccordionTrigger>{navigate.title}</AccordionTrigger>
+                            {
+                                navigate.content.map((content) => (
+                                    <Link key={content.id} href={content.url}>
+                                        <AccordionContent>
+                                            <h1 className='font-bold text-md text-black'>{content.title}</h1>
+                                            <h2 className="font-semibold text-sm text-gray-900">{content.subTitle}</h2>
+                                            <p className="text-xs text-justify text-gray-700 font-medium line-clamp-1">{content.description}</p>
+                                        </AccordionContent>
+                                    </Link>
+                                ))
+                            }
+                        </AccordionItem>
+                    ))
+                }
+            </Accordion>
+            <AuthButton />
+        </div>
+    )
+}
+
+function SidebarTrigger() {
+    const { showSidebar } = useSidebarStore((useShallow((state) => ({
+        showSidebar: state.showSidebar
+    }))))
+
+    return (
+        <Button className='block md:hidden' variant="ghost" size="icon" onClick={showSidebar}>
+            <AlignJustify />
+        </Button>
+    )
+}
+
+export { SidebarProvider, SidebarTrigger }
