@@ -9,7 +9,7 @@ export default function useLogout() {
     const logOut = async () => {
         try {
             await signOut(firebaseAuth)
-            await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/logout`)
+            await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/logout`, { method: "POST" })
             router.push("/")
         } catch (error) {
             console.error(error);
