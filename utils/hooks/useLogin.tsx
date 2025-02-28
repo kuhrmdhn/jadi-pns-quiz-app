@@ -52,10 +52,11 @@ export default function useLogin() {
         errorAlert()
         return
       }
-      
+
       const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password)
+      console.log({ user })
       const idToken = await user.getIdToken()
-      Cookies.set("firebase_token", idToken, { expires: 1,secure: true, sameSite: "strict" });
+      Cookies.set("firebase_token", idToken, { expires: 1, secure: true, sameSite: "strict" });
 
       setMessage("Kamu berhasih masuk, Selamat Belajar 🚀")
       successAlert();

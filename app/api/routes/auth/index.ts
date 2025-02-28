@@ -6,7 +6,7 @@ import { deleteCookie, setCookie } from "hono/cookie";
 
 const auth = new Hono()
 
-auth.get("/logout", async (c) => {
+auth.post("/logout", async (c) => {
     try {
         deleteCookie(c, "firebase_token", { path: "/" });
         await signOut(firebaseAuth)
