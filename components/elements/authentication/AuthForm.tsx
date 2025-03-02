@@ -1,5 +1,16 @@
-import { FormInputData } from '@/types/formInputType'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import React from 'react'
+
+type FormInputData = {
+    id: number
+    label: string
+    placeholder: string
+    name: string
+    value: string
+    type?: string
+    alt?: string
+}
 
 type Props = {
     inputData: FormInputData[]
@@ -10,17 +21,12 @@ type Props = {
 
 export default function AuthForm({ inputData, children, handleSubmit, handleChangeInputData }: Props) {
     return (
-        <form onSubmit={(e) => handleSubmit(e)} className='w-full lg:w-3/4 flex flex-col gap-3 text-accent'>
+        <form onSubmit={(e) => handleSubmit(e)} className='w-full lg:w-3/4 flex flex-col gap-8'>
             {
                 inputData.map((input) => (
-                    <label key={input.id} className='form-control' htmlFor={`${input.name}-input`}>
-                        <div className='label'>
-                            <span className='label-text text-md font-semibold'>
-                                {input.label}
-                            </span>
-                        </div>
-                        <input
-                            className='input input-bordered input-primary'
+                    <div key={input.id} className='relative'>
+                        <Input
+                            className='h-12'
                             id={`${input.name}-input`}
                             value={input.value}
                             name={input.name}
@@ -29,12 +35,7 @@ export default function AuthForm({ inputData, children, handleSubmit, handleChan
                             type={input.type}
                             required
                         />
-                        <div className='label'>
-                            <span className='label-text-alt text-xs'>
-                                {input.alt}
-                            </span>
-                        </div>
-                    </label>
+                    </div>
                 ))
             }
             <div>

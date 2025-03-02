@@ -6,14 +6,15 @@ import AuthPageContainer from '@/components/elements/authentication/AuthPageCont
 import AuthPageItemContainer from '@/components/elements/authentication/AuthPageItemContainer'
 import LoginImage from '@/components/elements/icons/LoginImage'
 import useLogin from '@/utils/hooks/useLogin'
+import { Button } from '@/components/ui/button'
 
 export default function LoginPage() {
   const { signIn, loading, handleOnChange, loginInputData } = useLogin()
   return (
     <AuthPageContainer>
-      <AuthPageItemContainer className='flex-col w-5/6 sm:w-1/2 xl:w-1/2 sm:h-1/3 lg:h-full animate-slide-right relative -left-full'>
+      <AuthPageItemContainer className='flex-col w-5/6 sm:w-1/2 xl:w-2/5 h-auto md:h-1/3 lg:h-full gap-4'>
         <AuthHeader
-          subText='Masukkan Nama Pengguna dan Kata sandi Anda'
+          subText='Masukkan Email dan Kata sandi Anda'
         />
         <AuthForm
           handleSubmit={(e) => signIn(e)}
@@ -21,23 +22,25 @@ export default function LoginPage() {
           handleChangeInputData={(e) => handleOnChange(e)}
         >
           <div className='flex gap-4 mt-4'>
-            <button
-              className='btn btn-primary shadow-lg shadow-primary'
+            <Button
               type='submit'
             >
               Masuk
-            </button>
+            </Button>
             <Link
-              className='btn btn-primary btn-outline !text-primary hover:!bg-transparent shadow-primary shadow-lg'
               href="/register"
             >
-              Daftar
+              <Button
+                variant="outline"
+              >
+                Daftar
+              </Button>
             </Link>
           </div>
         </AuthForm>
       </AuthPageItemContainer>
-      <AuthPageItemContainer className='hidden lg:flex w-full lg:w-1/2 h-1/3 xl:h-full bg-gray-soft'>
-        <div className='size-1/2 animate-slide-left relative -right-full'>
+      <AuthPageItemContainer className='hidden md:flex md:w-full lg:w-3/5 h-1/3 md:h-1/3 lg:h-full bg-gray-100'>
+        <div className='sm:size-1/3 lg:size-1/2 flex items-center'>
           <LoginImage />
         </div>
       </AuthPageItemContainer>
