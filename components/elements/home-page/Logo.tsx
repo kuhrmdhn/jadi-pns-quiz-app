@@ -7,9 +7,13 @@ const poppins = Poppins({
     subsets: ["latin"]
 })
 
-export default function Logo() {
+type Props = {
+    className?: string
+}
+
+export default function Logo({ className }: Props) {
     return (
-        <Link href="/" className={`text-2xl text-amber-500 font-bold ${poppins.className}`}>
+        <Link href="/" className={`text-2xl text-primary font-bold ${poppins.className} ${className}`}>
             Jadi
             <span className="text-gray-800">
                 PNS

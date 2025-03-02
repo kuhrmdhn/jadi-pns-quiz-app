@@ -4,11 +4,11 @@ import React from 'react'
 export default function RegisterImage() {
     return (
         <Image
-            src={"/assets/register-image.svg"}
+            src={"/auth/sign-up-image.webp"}
             alt='Login icon'
             height={1080}
             width={1080}
-            className='size-full aspect-square'
+            className='w-full aspect-auto'
             priority
         />
     )

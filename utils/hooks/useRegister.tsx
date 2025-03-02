@@ -34,6 +34,7 @@ export default function useRegister() {
             name: "email",
             value: userRegisterData.email,
             label: "Email",
+            type: "email",
             placeholder: "Email kamu",
             alt: "Masukkan alamat email yang valid"
         },
