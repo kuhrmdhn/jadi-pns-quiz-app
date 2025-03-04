@@ -2,6 +2,7 @@ import React from 'react'
 import { ListItem, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu'
 import AuthButton from './AuthButton'
 import { navigation } from '@/constant/navigationListData'
+import { ThemeToggleButton } from '@/components/ui/theme-toggle-button'
 
 export default function NavigationBarMenu() {
     return (
@@ -32,6 +33,9 @@ export default function NavigationBarMenu() {
                         }
                         <NavigationMenuItem>
                             <AuthButton />
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <ThemeToggleButton />
                         </NavigationMenuItem>
                     </NavigationMenuList>
                 </NavigationMenu>

@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google"
 import AuthProvider from "@/components/provider/AuthProvider"
 import "./global.css"
 import { SidebarProvider } from "@/components/elements/home-page/Sidebar"
+import { ThemeProvider } from "../components/provider/ThemeProvider"
 
 export const metadata: Metadata = {
   title: {
@@ -23,11 +24,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={montserrat.className}>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <SidebarProvider />
+        </ThemeProvider>
         <AuthProvider />
-        <SidebarProvider/>
       </body>
     </html>
   )

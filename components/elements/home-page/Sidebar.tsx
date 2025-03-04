@@ -8,6 +8,7 @@ import { navigation } from '@/constant/navigationListData'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion'
 import Link from 'next/link'
 import AuthButton from './AuthButton'
+import { ThemeToggleButton } from '@/components/ui/theme-toggle-button'
 
 function SidebarProvider() {
     const { isSidebarOpen, hideSidebar } = useSidebarStore((useShallow((state) => ({
@@ -18,7 +19,7 @@ function SidebarProvider() {
     return (
         <div className={`fixed top-0 bg-white ${isSidebarOpen ? "left-0" : "-left-full"} duration-300 w-full h-[100dvh] pt-16 px-6`}>
             <Button onClick={hideSidebar} className='absolute top-3 right-3' variant={"ghost"}>
-                <X className="text-xl"/>
+                <X className="text-xl" />
             </Button>
             <Accordion type="single" collapsible className='w-full'>
                 {
@@ -41,6 +42,7 @@ function SidebarProvider() {
                 }
             </Accordion>
             <AuthButton />
+            <ThemeToggleButton />
         </div>
     )
 }
