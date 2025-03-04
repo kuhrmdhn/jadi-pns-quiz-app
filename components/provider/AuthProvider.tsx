@@ -37,10 +37,10 @@ export default function AuthProvider() {
           );
           const snapshot = await getDocs(completedTestRef);
           const completedTest = snapshot.docs.map((doc) => doc.data());
+          const { password, ...userData } = userSnapshot.data()
           setUserData({
-            ...userSnapshot.data(),
+            ...userData,
             completedTest,
-            claims,
           });
         } else {
           console.warn("User document not found.");
