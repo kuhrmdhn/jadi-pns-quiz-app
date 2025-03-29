@@ -1,9 +1,10 @@
 import { firestore } from "@/utils/firebase/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { Hono } from "hono";
 import { validateQuestionCategory } from "./utils/validateQuestionCategory";
 import { firebaseAdminAuth, firebaseAdminStore } from "@/utils/firebase/admin";
 import { getCookie } from "hono/cookie";
+import { exerciseSchema } from "./utils/exerciseSchema";
 
 const exercise = new Hono()
 
@@ -80,7 +81,7 @@ exercise.post("/evaluation/:exercise_id", async (c) => {
             throw new Error("Token is undefined or expired")
         }
 
-        if(!user_answers) {
+        if (!user_answers) {
             throw new Error("User answers is required")
         }
         await firebaseAdminAuth.verifyIdToken(token);
@@ -104,6 +105,47 @@ exercise.post("/evaluation/:exercise_id", async (c) => {
         return c.json({
             message: error.message
         }, 500)
+    }
+})
+
+exercise.post("/new-exercise", async (c) => {
+    try {
+        const { exerciseData } = await c.req.json()
+        const validateExerciseSchema = exerciseSchema.safeParse(exerciseData)
+        if (!validateExerciseSchema.success) {
+            return c.json("Invalid schema for exercise data", 400)
+        }
+
+        const authToken = getCookie(c, "firebase_token");
+        console.log(authToken)
+        if (!authToken) {
+            return c.json("Auth Token is not found. Make sure user is logged in", 401)
+        }
+
+        const validateUserToken = await firebaseAdminAuth.verifyIdToken(authToken)
+        if (!validateUserToken.admin) {
+            return c.json("Access denied, user is not admin", 403)
+        }
+
+        const { answers, questions, ...exercise } = validateExerciseSchema.data
+
+        const exerciseRef = firebaseAdminStore.collection("exercises").doc();
+        await exerciseRef.set({ ...exercise, id: exerciseRef.id });
+
+        const questionsPromises = questions.map(async (question, index) => {
+            const questionRef = exerciseRef.collection("questions").doc();
+            return questionRef.set({ ...question, id: index + 1 });
+        });
+
+        const answerRef = exerciseRef.collection("correct_answers").doc();
+        await answerRef.set({ answers });
+
+        await Promise.all([...questionsPromises]);
+
+        return c.json("New exercise added", 201)
+    } catch (e) {
+        console.log(e)
+        return c.json("Internal server error", 500)
     }
 })
 
