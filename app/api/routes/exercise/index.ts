@@ -1,24 +1,23 @@
-import { firestore } from "@/utils/firebase/firebase";
-import { addDoc, collection, getDocs, query, updateDoc, where } from "firebase/firestore";
-import { Hono } from "hono";
-import { validateQuestionCategory } from "./utils/validateQuestionCategory";
 import { firebaseAdminAuth, firebaseAdminStore } from "@/utils/firebase/admin";
+import { firestore } from "@/utils/firebase/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { Hono } from "hono";
 import { getCookie } from "hono/cookie";
 import { exerciseSchema } from "./utils/exerciseSchema";
+import { validateQuestionCategory } from "./utils/validateQuestionCategory";
 
 const exercise = new Hono()
 
 exercise.get("/exercise-list/:exercise_category", async (c) => {
-    const { exercise_category } = c.req.param();
-    const exerciseCollections = collection(firestore, "exercises")
-
     try {
+        const { exercise_category } = c.req.param();
+        const exerciseCollections = collection(firestore, "exercises")
         validateQuestionCategory(exercise_category)
         const exerciseQuery = query(exerciseCollections, where("category", "==", exercise_category))
         const exerciseLists = await getDocs(exerciseQuery)
 
         if (!exerciseLists.docs) {
-            throw new Error(`Question for ${exercise_category} is empty`)
+            return c.json(`Question for ${exercise_category} is empty or undefined`, 404)
         }
 
         const exerciseListData = exerciseLists.docs.map((exercise) => exercise.data())
@@ -30,26 +29,26 @@ exercise.get("/exercise-list/:exercise_category", async (c) => {
     } catch (error) {
         console.error(error);
         const errors = error as Error
-        return c.json({ message: errors.message }, 400);
+        return c.json({ message: errors.message }, 500);
     }
 });
 
 exercise.get("/question-lists/:exercise_id", async (c) => {
-    const { question_id } = c.req.query()
-    const { exercise_id } = c.req.param()
-
     try {
-        const questionListsRef = collection(firestore, `exercises/${exercise_id}/questions`)
+        const { question_id } = c.req.query()
+        const { exercise_id } = c.req.param()
 
+        const questionListsRef = collection(firestore, `exercises/${exercise_id}/questions`)
         const questionSnapShoot = await getDocs(questionListsRef)
         const questionDoc = questionSnapShoot.docs.flatMap((snapShoot) => snapShoot.data())
         const questionLength = questionDoc.length
 
-        if (parseInt(question_id) > questionLength) {
-            throw new Error(`Questions only ${questionLength}, cant get question number ${question_id}`)
-        }
 
         if (question_id) {
+            if (parseInt(question_id) > questionLength) {
+                return c.json(`Invalid question id, max questions is ${questionLength}, cant get question number ${question_id}`, 400)
+            }
+
             const questionIdQuery = query(questionListsRef, where("id", "==", parseInt(question_id)))
             const questionByIdSnapShoot = await getDocs(questionIdQuery)
             const question = questionByIdSnapShoot.docs[0].data()
@@ -67,28 +66,29 @@ exercise.get("/question-lists/:exercise_id", async (c) => {
     } catch (error) {
         console.error(error);
         const errors = error as Error
-        return c.json({ message: errors.message }, 400)
+        return c.json({ message: errors.message }, 500)
     }
 })
 
 exercise.post("/evaluation/:exercise_id", async (c) => {
-    const { user_answers } = await c.req.json()
-    const { exercise_id } = c.req.param()
-    const token = getCookie(c, "firebase_token")
-
     try {
-        if (!token) {
-            throw new Error("Token is undefined or expired")
+        const { user_answers } = await c.req.json()
+        const { exercise_id } = c.req.param()
+        const authToken = getCookie(c, "firebase_token")
+
+        if (!authToken) {
+            return c.json("Token is undefined or expired", 403)
         }
 
         if (!user_answers) {
-            throw new Error("User answers is required")
+            return c.json("User answers is required", 400)
         }
-        await firebaseAdminAuth.verifyIdToken(token);
+
+        await firebaseAdminAuth.verifyIdToken(authToken);
         const correctAnswerDoc = firebaseAdminStore.collection(`exercises/${exercise_id}/correct_answers`)
 
         if (!correctAnswerDoc) {
-            throw new Error(`Cant get correct answer for exercise with id ${exercise_id}`)
+            return c.json(`Cant get correct answer for exercise with id ${exercise_id}`, 404)
         }
 
         const data = await correctAnswerDoc.get()
@@ -100,6 +100,7 @@ exercise.post("/evaluation/:exercise_id", async (c) => {
             score,
             wrongAnswer
         }, 200)
+
     } catch (err) {
         const error = err as Error
         return c.json({
@@ -113,36 +114,45 @@ exercise.post("/new-exercise", async (c) => {
         const { exerciseData } = await c.req.json()
         const validateExerciseSchema = exerciseSchema.safeParse(exerciseData)
         if (!validateExerciseSchema.success) {
-            return c.json("Invalid schema for exercise data", 400)
+            const { issues } = validateExerciseSchema.error
+            const errorMessage = issues
+                .map(issue => `Error on ${issue.path.join(".")} path: ${issue.message}`)
+                .join("\n");
+
+            return c.json(errorMessage, 400)
         }
 
         const authToken = getCookie(c, "firebase_token");
-        console.log(authToken)
         if (!authToken) {
             return c.json("Auth Token is not found. Make sure user is logged in", 401)
         }
 
-        const validateUserToken = await firebaseAdminAuth.verifyIdToken(authToken)
-        if (!validateUserToken.admin) {
-            return c.json("Access denied, user is not admin", 403)
+        try {
+            const validateUserToken = await firebaseAdminAuth.verifyIdToken(authToken)
+            if (!validateUserToken?.admin) {
+                return c.json("Access denied, token is undefined or user is not admin", 403)
+            }
+        } catch (e) {
+            return c.json("Invalid or expired token. Please log in again.", 401);
         }
 
         const { answers, questions, ...exercise } = validateExerciseSchema.data
 
+        const exerciseBatch = firebaseAdminStore.batch()
         const exerciseRef = firebaseAdminStore.collection("exercises").doc();
-        await exerciseRef.set({ ...exercise, id: exerciseRef.id });
+        exerciseBatch.set(exerciseRef, { ...exercise, id: exerciseRef.id });
 
-        const questionsPromises = questions.map(async (question, index) => {
-            const questionRef = exerciseRef.collection("questions").doc();
-            return questionRef.set({ ...question, id: index + 1 });
+        questions.forEach((question, index) => {
+            const questionRef = firebaseAdminStore.collection("questions").doc();
+            exerciseBatch.set(questionRef, { ...question, id: index + 1, exerciseId: exerciseRef.id });
         });
 
-        const answerRef = exerciseRef.collection("correct_answers").doc();
-        await answerRef.set({ answers });
+        const answerRef = firebaseAdminStore.collection("correct_answers").doc();
+        exerciseBatch.set(answerRef, { answers, exerciseId: exerciseRef.id });
 
-        await Promise.all([...questionsPromises]);
+        await exerciseBatch.commit();
 
-        return c.json("New exercise added", 201)
+        return c.json("New exercise created!", 201)
     } catch (e) {
         console.log(e)
         return c.json("Internal server error", 500)
