@@ -20,7 +20,7 @@ export default function ExerciseList() {
                 </h1>
                 <p>Bersiaplah menghadapi medan tempur soal-soal menantang ini. Fokus, strategi, dan kecepatan adalah kuncinya!</p>
             </div>
-            <div className="flex flex-wrap gap-10 justify-center items-center sm:justify-start">
+            <div className="flex flex-wrap gap-5 justify-center items-center sm:justify-start">
                 {
                     navigation[1].content.map((exercise, i) => (
                         <ExerciseCard

@@ -16,9 +16,6 @@ module.exports = {
     			card: {
     				DEFAULT: 'hsl(var(--card))',
     				foreground: 'hsl(var(--card-foreground))',
-    				learnTwk: '#AECBFA',
-    				learnTiu: '#FFF475',
-    				learnTkp: '#D7AEFB'
     			},
     			popover: {
     				DEFAULT: 'hsl(var(--popover))',

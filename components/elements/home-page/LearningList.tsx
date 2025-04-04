@@ -21,7 +21,7 @@ export default function LearningList() {
                 </h1>
                 <p>Tingkatkan kemampuanmu sebelum terjun ke medan ujian. Pelajari, pahami, dan menangkan!</p>
             </div>
-            <div className="w-full h-fit flex flex-wrap gap-10 items-center justify-center sm:justify-start">
+            <div className="w-full h-fit flex flex-wrap gap-5 items-center justify-center sm:justify-start">
                 {
                     navigation[0].content.map((learning,i) => (
                         <LearningCard

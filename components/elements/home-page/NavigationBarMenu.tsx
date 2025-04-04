@@ -20,9 +20,9 @@ export default function NavigationBarMenu() {
                                             {
                                                 navigate.content.map((content) => (
                                                     <ListItem href={content.url} key={content.id}>
-                                                        <h1 className='font-bold text-xl text-black'>{content.title}</h1>
-                                                        <h2 className="font-semibold text-base text-gray-900">{content.subTitle}</h2>
-                                                        <p className="text-justify text-gray-700 font-medium">{content.description}</p>
+                                                        <h1 className='font-bold text-xl text-black dark:text-gray-100'>{content.title}</h1>
+                                                        <h2 className="font-semibold text-base text-gray-900 dark:text-gray-100/90">{content.subTitle}</h2>
+                                                        <p className="text-justify text-gray-700 font-medium dark:text-gray-100/85">{content.description}</p>
                                                     </ListItem>
                                                 ))
                                             }
