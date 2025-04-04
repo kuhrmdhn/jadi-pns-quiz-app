@@ -1,26 +1,25 @@
 import { firebaseAdminAuth, firebaseAdminStore } from "@/utils/firebase/admin";
-import { firestore } from "@/utils/firebase/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { Hono } from "hono";
 import { getCookie } from "hono/cookie";
-import { exerciseSchema } from "./utils/exerciseSchema";
-import { validateQuestionCategory } from "./utils/validateQuestionCategory";
+import { ExerciseCategory, exerciseSchema } from "./utils/exerciseSchema";
+import { fetchExercisesByCategory } from "./utils/fetchExercisesByCategory";
+import { fetchExerciseQuestion } from "./utils/fetchExerciseQuestion";
+import { fetchExerciseAnswers } from "./utils/fetchExerciseAnswers";
 
 const exercise = new Hono()
 
-exercise.get("/exercise-list/:exercise_category", async (c) => {
+exercise.get("/exercise-list/:exercise_category/topic", async (c) => {
     try {
+        const { exercise_topic } = c.req.query()
         const { exercise_category } = c.req.param();
-        const exerciseCollections = collection(firestore, "exercises")
-        validateQuestionCategory(exercise_category)
-        const exerciseQuery = query(exerciseCollections, where("category", "==", exercise_category))
-        const exerciseLists = await getDocs(exerciseQuery)
+        const exerciseLists = await fetchExercisesByCategory(exercise_category as ExerciseCategory)
+        let exerciseListData = exerciseLists.filter((exercise) => exercise.topic !== null)
 
-        if (!exerciseLists.docs) {
-            return c.json(`Question for ${exercise_category} is empty or undefined`, 404)
+        if (exercise_topic) {
+            const keyword = exercise_topic.toLowerCase()
+            exerciseListData = exerciseListData.filter((exercise) => exercise.topic?.toLowerCase().includes(keyword))
         }
 
-        const exerciseListData = exerciseLists.docs.map((exercise) => exercise.data())
         return c.json({
             data: exerciseListData,
             message: `Success get question list for ${exercise_category} category`
@@ -33,34 +32,39 @@ exercise.get("/exercise-list/:exercise_category", async (c) => {
     }
 });
 
+exercise.get("/exercise-list/:exercise_category/package", async (c) => {
+    try {
+        const { exercise_category } = c.req.param();
+        const exerciseLists = await fetchExercisesByCategory(exercise_category as ExerciseCategory)
+        const exerciseListData = exerciseLists.filter((exercise) => exercise.topic === null)
+
+        return c.json({
+            data: exerciseListData,
+            message: `Success get question list for ${exercise_category} category`
+        }, 200);
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 exercise.get("/question-lists/:exercise_id", async (c) => {
     try {
         const { question_id } = c.req.query()
         const { exercise_id } = c.req.param()
 
-        const questionListsRef = collection(firestore, `exercises/${exercise_id}/questions`)
-        const questionSnapShoot = await getDocs(questionListsRef)
-        const questionDoc = questionSnapShoot.docs.flatMap((snapShoot) => snapShoot.data())
-        const questionLength = questionDoc.length
-
-
         if (question_id) {
-            if (parseInt(question_id) > questionLength) {
-                return c.json(`Invalid question id, max questions is ${questionLength}, cant get question number ${question_id}`, 400)
-            }
-
-            const questionIdQuery = query(questionListsRef, where("id", "==", parseInt(question_id)))
-            const questionByIdSnapShoot = await getDocs(questionIdQuery)
-            const question = questionByIdSnapShoot.docs[0].data()
+            const question = await fetchExerciseQuestion(exercise_id, question_id)
             return c.json({
                 message: `Success get question exercise id: ${exercise_id} and question id: ${question_id}`,
                 data: question
             }, 200)
         }
 
+        const questionDoc = await fetchExerciseQuestion(exercise_id)
         return c.json({
             message: `Success get all question data exercise id: ${exercise_id}`,
-            data: questionDoc
+            data: questionDoc,
+            totalQuestions: questionDoc.length
         }, 200)
 
     } catch (error) {
@@ -85,14 +89,7 @@ exercise.post("/evaluation/:exercise_id", async (c) => {
         }
 
         await firebaseAdminAuth.verifyIdToken(authToken);
-        const correctAnswerDoc = firebaseAdminStore.collection(`exercises/${exercise_id}/correct_answers`)
-
-        if (!correctAnswerDoc) {
-            return c.json(`Cant get correct answer for exercise with id ${exercise_id}`, 404)
-        }
-
-        const data = await correctAnswerDoc.get()
-        const { answers } = data.docs.map(e => e.data())[0]
+        const answers = await fetchExerciseAnswers(exercise_id)
         const score = answers.filter(((e: string, i: number) => e == user_answers[i])).length
         const wrongAnswer = answers.length - score
         return c.json({
@@ -137,18 +134,24 @@ exercise.post("/new-exercise", async (c) => {
         }
 
         const { answers, questions, ...exercise } = validateExerciseSchema.data
+        if (exercise.total_question > questions.length) {
+            return c.json("Total question not match with questions length", 400)
+        }
+        if (exercise.total_question > answers.length) {
+            return c.json("Total question not match with answers length", 400)
+        }
 
         const exerciseBatch = firebaseAdminStore.batch()
         const exerciseRef = firebaseAdminStore.collection("exercises").doc();
         exerciseBatch.set(exerciseRef, { ...exercise, id: exerciseRef.id });
 
         questions.forEach((question, index) => {
-            const questionRef = firebaseAdminStore.collection("questions").doc();
-            exerciseBatch.set(questionRef, { ...question, id: index + 1, exerciseId: exerciseRef.id });
+            const questionRef = exerciseRef.collection("questions").doc();
+            exerciseBatch.set(questionRef, { ...question, id: index + 1 });
         });
 
-        const answerRef = firebaseAdminStore.collection("correct_answers").doc();
-        exerciseBatch.set(answerRef, { answers, exerciseId: exerciseRef.id });
+        const answerRef = exerciseRef.collection("correct_answers").doc();
+        exerciseBatch.set(answerRef, { answers });
 
         await exerciseBatch.commit();
 

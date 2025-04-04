@@ -8,8 +8,8 @@ const auth = new Hono()
 
 auth.post("/logout", async (c) => {
     try {
-        deleteCookie(c, "firebase_token", { path: "/" });
         await signOut(firebaseAuth)
+        deleteCookie(c, "firebase_token", { path: "/" });
         return c.json({
             message: "Logout Successfully",
         }, 200);
@@ -37,11 +37,9 @@ auth.post("/set-token", async (c) => {
             maxAge: 60 * 60 * 24 * 3,
         });
 
-        console.log("✅ Token verified and cookie set.");
-        return c.json({ message: "Authenticated" });
+        return c.json({ message: "Authenticated success" }, 200);
     } catch (e) {
-        console.error("❌ Token verification failed:", e);
-        return c.json({ message: "Invalid token" }, 401);
+        return c.json({ message: "Invalid token" }, 500);
     }
 });
 
