@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-export const ExerciseCategory = z.enum(["TWK", "TIU", "TKP"]);
+export const ExerciseCategorySchema = z.enum(["TWK", "TIU", "TKP"]);
+export const ExerciseDifficultySchema = z.enum(["Pemula", "Menengah", "Mahir", "Legenda"])
 
 export const exerciseQuestionSchema = z.object({
     id: z.string().optional(),
@@ -10,10 +11,16 @@ export const exerciseQuestionSchema = z.object({
 
 export const exerciseSchema = z.object({
     id: z.string().optional(),
-    category: ExerciseCategory,
+    category: ExerciseCategorySchema,
     name: z.string(),
     duration: z.number(),
     total_question: z.number(),
     questions: z.array(exerciseQuestionSchema),
-    answers: z.array(z.string())
+    answers: z.array(z.string()),
+    topic: z.string().nullable(),
+    difficulty: ExerciseDifficultySchema
 });
+
+export type Exercise = Omit<z.infer<typeof exerciseSchema>, "id"> & { id: string };
+export type ExerciseDifficulty = z.infer<typeof ExerciseDifficultySchema>;
+export type ExerciseCategory = z.infer<typeof ExerciseCategorySchema>
