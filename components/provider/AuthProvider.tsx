@@ -23,8 +23,7 @@ export default function AuthProvider() {
 
       try {
         const tokenResult = await user.getIdTokenResult(true);
-        const { token, claims } = tokenResult;
-
+        const { token } = tokenResult;
         await setToken(token);
 
         const userDocRef = doc(firestore, "users", user.uid);

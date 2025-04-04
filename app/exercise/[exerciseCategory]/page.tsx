@@ -1,11 +1,32 @@
-
+"use client"
 import React from 'react'
-import ExercisePackageList from '@/components/elements/exercise/ExercisePackageList'
-import { ExerciseCategory } from '@/types/exerciseType'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import ExercisePackageList from '@/components/elements/exercise-list-page/ExercisePackageList'
+// import { ExerciseCategory } from '@/types/exerciseType'
 
-export default async function QuestionTopicPage({ params }: { params: Promise<{ exerciseCategory: ExerciseCategory }> }) {
-  const { exerciseCategory } = await params
+export default function QuestionTopicPage() {
+  // const { exerciseCategory } = await params
+  function handleClick() {
+    alert("Aku di klik")
+  }
+
   return (
-    <ExercisePackageList category={ExerciseCategory[exerciseCategory]} />
+    <Tabs defaultValue='exercisePackage'>
+      <TabsList>
+        <TabsTrigger value="exercisePackage" onClick={handleClick}>
+          Paket Soal
+        </TabsTrigger>
+        <TabsTrigger value="exerciseTopic">
+          Topik Soal
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="exercisePackage">
+          Semua
+        {/* <ExercisePackageList category={ExerciseCategory[exerciseCategory]} /> */}
+      </TabsContent>
+      <TabsContent value="exerciseTopic">
+        <h1>Topik</h1>
+      </TabsContent>
+    </Tabs>
   )
 }

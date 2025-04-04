@@ -4,6 +4,7 @@ import AuthProvider from "@/components/provider/AuthProvider"
 import "./global.css"
 import { SidebarProvider } from "@/components/elements/home-page/Sidebar"
 import { ThemeProvider } from "../components/provider/ThemeProvider"
+import Navbar from "@/components/elements/home-page/Navbar"
 
 export const metadata: Metadata = {
   title: {
@@ -32,6 +33,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
           <SidebarProvider />
         </ThemeProvider>
