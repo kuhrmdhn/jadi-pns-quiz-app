@@ -1,14 +1,15 @@
 "use client"
-import useFetch from '@/utils/hooks/useFetch';
-import ExerciseCard from './ExerciseCard';
 import { Exercise, ExerciseCategoryEnum } from '@/app/api/routes/exercise/utils/exerciseSchema';
+import useFetch from '@/utils/hooks/useFetch';
+import React from 'react'
+import ExerciseCard from './ExerciseCard';
 
 type Props = {
     category: ExerciseCategoryEnum;
 }
 
-export default function ExercisePackageList({ category }: Props) {
-    const { response, loading, error } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/exercise/exercise-list/${category}/package`);
+export default function ExerciseTopicList({ category }: Props) {
+    const { response, loading, error } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/exercise/exercise-list/${category}/topic`);
     if (error) throw new Error(error.message);
 
     return (

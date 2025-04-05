@@ -1,5 +1,4 @@
 import { Exercise } from '@/app/api/routes/exercise/utils/exerciseSchema'
-import { ExerciseCategory } from '@/types/exerciseType'
 import { useExerciseHistory } from '@/utils/store/useExerciseHistory'
 import { useExerciseTimerStore } from '@/utils/store/useExerciseTimerStore'
 import { useUserExerciseAnswer } from '@/utils/store/useUserExerciseAnwer'
@@ -10,10 +9,9 @@ import { IoDocumentTextOutline } from "react-icons/io5"
 
 type Props = {
     exercise: Exercise
-    category: ExerciseCategory
 }
 
-export default function ExercisePackageCard({ exercise, category }: Props) {
+export default function ExerciseCard({ exercise }: Props) {
     const { id, name, duration, total_question, difficulty, topic } = exercise
     const { setExerciseHistoryId } = useExerciseHistory()
     const { setExerciseCompletionTime } = useExerciseTimerStore()
