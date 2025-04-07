@@ -7,8 +7,8 @@ import ExerciseTopicList from '@/components/elements/exercise-list-page/Exercise
 export default async function QuestionTopicPage({ params }: { params: { exerciseCategory: keyof typeof ExerciseCategoryEnum } }) {
   const { exerciseCategory } = await params
   return (
-    <Tabs defaultValue='exercisePackage'>
-      <TabsList>
+    <Tabs defaultValue='exercisePackage' className='pt-2'>
+      <TabsList className="w-full flex justify-center">
         <TabsTrigger value="exercisePackage">
           Paket Soal
         </TabsTrigger>
@@ -16,10 +16,10 @@ export default async function QuestionTopicPage({ params }: { params: { exercise
           Topik Soal
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="exercisePackage" forceMount>
+      <TabsContent value="exercisePackage" >
         <ExercisePackageList category={ExerciseCategoryEnum[exerciseCategory]} />
       </TabsContent>
-      <TabsContent value="exerciseTopic" forceMount>
+      <TabsContent value="exerciseTopic" >
         <ExerciseTopicList category={ExerciseCategoryEnum[exerciseCategory]}/> 
       </TabsContent>
     </Tabs>
