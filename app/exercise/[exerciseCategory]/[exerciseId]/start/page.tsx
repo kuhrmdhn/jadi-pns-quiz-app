@@ -1,8 +1,8 @@
+import { ExerciseCategory } from '@/app/api/routes/exercise/utils/exerciseSchema'
 import ExerciseQuestionList from '@/components/elements/exercise-test/ExerciseQuestionList'
 import QuestionNavigateMenu from '@/components/elements/exercise-test/QuestionNavigateMenu'
 import Timer from '@/components/elements/exercise-test/Timer'
 import ExerciseParamsProvider from '@/components/provider/ExerciseParamsProvider'
-import { ExerciseCategory } from '@/types/exerciseType'
 import React from 'react'
 
 type Props = {
