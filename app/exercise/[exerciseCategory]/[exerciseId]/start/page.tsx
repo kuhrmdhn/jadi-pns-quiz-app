@@ -18,7 +18,7 @@ export default async function ExerciseStartPage({ params }: Props) {
         <ExerciseParamsProvider>
             <section className='w-full h-32 bg-white shadow-xl shadow-gray-200 sticky top-0 flex justify-between items-center px-10'>
                 <QuestionNavigateMenu/>
-                <Timer category={exerciseCategory} packageId={exerciseId} />
+                <Timer />
             </section>
             <ExerciseQuestionList packageId={exerciseId} />
         </ExerciseParamsProvider>

@@ -1,6 +1,6 @@
 "use client"
 import useExerciseEvaluation from "@/utils/hooks/useExerciseEvaluation";
-import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnwer";
+import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnswer";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const questionAlphabet = ["A", "B", "C", "D"];

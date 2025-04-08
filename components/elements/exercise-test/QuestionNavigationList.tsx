@@ -1,6 +1,6 @@
 import React from 'react'
 import QuestionNavigateItem from './QuestionNavigateItem'
-import { useUserExerciseAnswer } from '@/utils/store/useUserExerciseAnwer'
+import { useUserExerciseAnswer } from '@/utils/store/useUserExerciseAnswer'
 
 export default function QuestionNavigationList() {
     const { userAnswers } = useUserExerciseAnswer()
