@@ -1,71 +1,76 @@
 "use client";
-import { ExerciseCategory } from "@/types/exerciseType";
-import useFetch from "@/utils/hooks/useFetch";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useExerciseTimerStore } from "@/utils/store/useExerciseTimerStore";
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
-type Props = {
-  category: ExerciseCategory;
-  packageId: string;
-};
-
-export default function Timer({ category, packageId }: Props) {
-  const { exerciseCompletionTime } = useExerciseTimerStore()
-  const { response, fetchData } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/question/${category}/${packageId}`, {}, false);
+export default function Timer() {
+  const { exerciseCompletionTime, hasHydrated } = useExerciseTimerStore()
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false)
 
-  // Fetching test duration when end exercise time not saved, set time left to remaining time
   useEffect(() => {
-    if (!exerciseCompletionTime) {
-      fetchData()
-    } else {
-      const endTime = exerciseCompletionTime;
-      const remainingTime = Math.floor((endTime - Date.now()) / 1000);
-      setTimeLeft(remainingTime <= 0 ? 0 : remainingTime)
-      if (remainingTime <= 0) {
-        console.log("Nguawor, waktu sudah habis. Soro soro jikan da ⌚")
-      }
+    if (!hasHydrated) return;
+
+    const endTime = exerciseCompletionTime;
+    const remainingTime = Math.floor((endTime - Date.now()) / 1000);
+    setTimeLeft(remainingTime <= 0 ? 0 : remainingTime)
+    if (remainingTime <= 0) {
+      setDialogOpen(true)
     }
-  }, [])
-  // Set initial time left to test duration and save end exercise time
+  }, [hasHydrated, exerciseCompletionTime])
+
   useEffect(() => {
-    const testDuration = response?.data.test_duration
-    if (testDuration && !exerciseCompletionTime) {
-      const endTime = Date.now() + testDuration * 1000
-      localStorage.setItem("exerciseCompletionTime", JSON.stringify(endTime))
-      setTimeLeft(testDuration)
-    }
-  }, [response, exerciseCompletionTime])
-  // Timer
-  useEffect(() => {
+    if (timeLeft === null || timeLeft <= 0) return
+
     const timerInterval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev === null || prev <= 1) {
           clearInterval(timerInterval)
-          console.log("Nguawor, soro soro jikan da ⌚")
+          setDialogOpen(true)
           return 0
         }
         return prev - 1
       })
     }, 1000)
-
     return () => clearInterval(timerInterval)
   }, [timeLeft])
 
-
   return (
-    <div className="flex justify-center items-center gap-3">
-      Sisa Waktu:
-      {
-        timeLeft !== null ?
+    <>
+      <TimerDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />
+      <div className="flex justify-center items-center gap-3">
+        Sisa Waktu:
+        {
+          timeLeft &&
           <span className={`${timeLeft < 20 ? "bg-red-500" : "bg-primary"} text-white p-3 rounded-md duration-300`}>
             {`${String(Math.floor(timeLeft / 60)).padStart(2, "0")}:${String(timeLeft % 60).padStart(2, "0")}`}
           </span>
-          :
-          <span>
-            "00:00"
-          </span>
-      }
-    </div>
+        }
+      </div>
+    </>
   );
+}
+
+
+type DialogProps = {
+  dialogOpen: boolean
+  setDialogOpen: (state: boolean) => void
+}
+
+function TimerDialog({ dialogOpen, setDialogOpen }: DialogProps) {
+  return (
+    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Waktu Ujian Sudah Habis</AlertDialogTitle>
+          <AlertDialogDescription>
+            Jawaban akan dikumpulkan. Jawaban kosong akan tetap dibiarkan kosong.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogAction>Kumpulkan</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
 }

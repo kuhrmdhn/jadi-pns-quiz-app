@@ -16,7 +16,7 @@ export const useExerciseHistory = create<Store>()(
       deleteExerciseHistoryId: () => set({ exerciseHistoryId: "" }),
     }),
     {
-      name: "exercise-history-storage",
+      name: "exerciseHistoryId",
     }
   )
 );

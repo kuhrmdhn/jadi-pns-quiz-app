@@ -1,28 +1,20 @@
-"use client"
 import { Exercise } from '@/app/api/routes/exercise/utils/exerciseSchema'
 import { Card } from '@/components/ui/card'
-import { useExerciseHistory } from '@/utils/store/useExerciseHistory'
-import { useExerciseTimerStore } from '@/utils/store/useExerciseTimerStore'
-import { useUserExerciseAnswer } from '@/utils/store/useUserExerciseAnwer'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { CiTimer } from "react-icons/ci"
 import { GiCubes } from "react-icons/gi"
 import { IoDocumentTextOutline } from "react-icons/io5"
+import StartExerciseDialog from './StartExerciseDialog'
 
 type Props = {
     exercise: Exercise
 }
 
 export default function ExerciseCard({ exercise }: Props) {
-    const { id, name, duration, total_question, difficulty, topic, category } = exercise
-    const { setExerciseHistoryId } = useExerciseHistory()
-    const { setExerciseCompletionTime } = useExerciseTimerStore()
-    const { deleteUserAnswers, setInitialUserAnswers } = useUserExerciseAnswer()
+    const { name, duration, total_question, difficulty, topic } = exercise
     const exerciseDuration = `${duration / 60} menit`
 
     return (
-        <Link href={`${category}/${id}/start`}>
+        <StartExerciseDialog exerciseData={exercise}>
             <Card className="w-80 p-5 hover:scale-[1.02] duration-200 ease-in-out">
                 <div className="flex justify-between items-center mb-3">
                     <h2 className="text-xl font-bold">{name}</h2>
@@ -46,7 +38,7 @@ export default function ExerciseCard({ exercise }: Props) {
                     }
                 </div>
             </Card>
-        </Link>
+        </StartExerciseDialog>
     )
 }
 
