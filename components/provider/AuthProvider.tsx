@@ -32,7 +32,7 @@ export default function AuthProvider() {
         if (userSnapshot.exists()) {
           const completedTestRef = collection(
             firestore,
-            `users/${user.uid}/test_completed`
+            `users/${user.uid}/completed_exercise`
           );
           const snapshot = await getDocs(completedTestRef);
           const completedTest = snapshot.docs.map((doc) => doc.data());

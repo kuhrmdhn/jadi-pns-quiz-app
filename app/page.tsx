@@ -1,6 +1,6 @@
+"use client"
 import ExerciseList from "@/components/elements/home-page/ExerciseList";
 import LearningList from "@/components/elements/home-page/LearningList";
-import Navbar from "@/components/elements/home-page/Navbar";
 
 export default function Home() {
   return (
