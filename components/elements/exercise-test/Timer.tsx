@@ -1,9 +1,18 @@
 "use client";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import useExerciseEvaluation from "@/utils/hooks/useExerciseEvaluation";
 import { useExerciseTimerStore } from "@/utils/store/useExerciseTimerStore";
-import { useEffect, useState } from "react";
+import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnswer";
+import { useUserStore } from "@/utils/store/useUserStore";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
-export default function Timer() {
+type Props = {
+  exerciseId: string
+}
+
+export default function Timer({ exerciseId }: Props) {
   const { exerciseCompletionTime, hasHydrated } = useExerciseTimerStore()
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -37,7 +46,7 @@ export default function Timer() {
 
   return (
     <>
-      <TimerDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} />
+      <TimerDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} exerciseId={exerciseId} />
       <div className="flex justify-center items-center gap-3">
         Sisa Waktu:
         {
@@ -55,9 +64,27 @@ export default function Timer() {
 type DialogProps = {
   dialogOpen: boolean
   setDialogOpen: (state: boolean) => void
+  exerciseId: string
 }
 
-function TimerDialog({ dialogOpen, setDialogOpen }: DialogProps) {
+function TimerDialog({ dialogOpen, setDialogOpen, exerciseId }: DialogProps) {
+  const isEvaluated = useRef(false)
+  const { push } = useRouter()
+  const { userAnswers } = useUserExerciseAnswer()
+  const { userData } = useUserStore()
+  const { evaluatedExercise } = useExerciseEvaluation(userAnswers, exerciseId, userData.id)
+  const [reviewId, setReviewId] = useState("")
+
+  function moveToReviewPage() {
+    push(`/exercise/review/${reviewId}`)
+  }
+
+  const evaluated = async () => {
+    const review = await evaluatedExercise()
+    setReviewId(review.data.id)
+    isEvaluated.current = true
+  }
+
   return (
     <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <AlertDialogContent>
@@ -68,7 +95,12 @@ function TimerDialog({ dialogOpen, setDialogOpen }: DialogProps) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction>Kumpulkan</AlertDialogAction>
+          {
+            !isEvaluated.current ?
+              <Button onClick={evaluated}>Kumpulkan</Button>
+              :
+              <AlertDialogAction onClick={moveToReviewPage}>Tinjau</AlertDialogAction>
+          }
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

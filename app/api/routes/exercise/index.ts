@@ -123,13 +123,12 @@ exercise.get("/completed-exercise/:user_id", async (c) => {
 })
 
 exercise.post("/completed-exercise/new", async (c) => {
-    const { userId, exerciseResultData, exerciseId } = await c.req.json()
+    const { userId, exerciseResultData } = await c.req.json()
     const authToken = getCookie(c, "firebase_token")
     await validateUserToken(authToken)
 
     if (!userId) return c.json({ message: "User id is required" }, 400)
     if (!exerciseResultData) return c.json({ message: "Exercise result data is required" }, 400)
-    if (!exerciseId) return c.json({ message: "Exercise id is required" }, 400)
 
     const uploadData = await uploadUserCompletedExercise(userId, exerciseResultData)
     return c.json({

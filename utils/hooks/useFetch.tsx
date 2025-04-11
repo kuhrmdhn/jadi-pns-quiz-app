@@ -15,18 +15,21 @@ export default function useFetch(url: RequestInfo | URL | string, option?: Reque
             }
             const responseData = await request.json()
             setResponse(responseData)
-        } catch (error) {
-            setError(error as Error)
+            return responseData
+        } catch (err) {
+            const error = err as Error
+            setError(error)
+            return null
         } finally {
             setLoading(false)
         }
     }
 
     useEffect(() => {
-        if(firstRenderFetch) {
+        if (firstRenderFetch) {
             fetchData()
         }
-    },[firstRenderFetch])
+    }, [firstRenderFetch])
 
-    return { fetchData ,response, error, loading }
+    return { fetchData, response, error, loading }
 }
