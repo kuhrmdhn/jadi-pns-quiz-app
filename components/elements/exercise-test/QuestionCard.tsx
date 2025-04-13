@@ -1,6 +1,9 @@
 "use client"
+import { Button } from "@/components/ui/button";
 import useExerciseEvaluation from "@/utils/hooks/useExerciseEvaluation";
+import { useExerciseHistory } from "@/utils/store/useExerciseHistory";
 import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnswer";
+import { useUserStore } from "@/utils/store/useUserStore";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const questionAlphabet = ["A", "B", "C", "D"];
@@ -12,7 +15,9 @@ type Props = {
 
 export default function QuestionCard({ question, options }: Props) {
   const { userAnswers, setUserAnswers } = useUserExerciseAnswer();
-  const { evaluatedExercise } = useExerciseEvaluation(userAnswers)
+  const { userData } = useUserStore()
+  const { exerciseHistoryId } = useExerciseHistory()
+  const { evaluatedExercise } = useExerciseEvaluation(userAnswers, exerciseHistoryId, userData.id)
   const totalQuestion = userAnswers.length;
   const router = useRouter();
   const pathname = usePathname();
@@ -44,7 +49,7 @@ export default function QuestionCard({ question, options }: Props) {
   }
 
   return (
-    <div className="p-6 max-w-xl mx-auto shadow-lg rounded-2xl bg-white">
+    <div className="p-6 max-w-xl mx-auto shadow-lg rounded-2xl">
       <section className="mb-4 flex justify-between items-center">
         <h2 className="text-lg font-semibold">{question}</h2>
       </section>
@@ -67,22 +72,23 @@ export default function QuestionCard({ question, options }: Props) {
         }
       </section>
       <section className="flex justify-between mt-6">
-        <button
+        <Button
           disabled={parseInt(questionIdParams || "1") === 1}
           onClick={prevQuestion}
-          className="btn btn-warning"
+          variant={"destructive"}
         >
           Kembali
-        </button>
-        <button
+        </Button>
+        <Button
+          className="text-white"
           onClick={parseInt(questionIdParams || "1") === totalQuestion ? evaluatedExercise : nextQuestion}
-          className={`btn ${parseInt(questionIdParams || "1") === totalQuestion ? "btn-error text-white-darken" : "btn-primary"}`}
+          variant={parseInt(questionIdParams || "1") === totalQuestion ? "outline" : "default"}
         >
           {
             parseInt(questionIdParams || "1") === totalQuestion ?
               "Selesai" : "Selanjutnya"
           }
-        </button>
+        </Button>
       </section>
     </div>
   );
