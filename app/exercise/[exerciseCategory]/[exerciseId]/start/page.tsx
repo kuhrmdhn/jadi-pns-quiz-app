@@ -16,7 +16,7 @@ export default async function ExerciseStartPage({ params }: Props) {
     const { exerciseId } = await params
     return (
         <ExerciseParamsProvider>
-            <section className='w-full h-32 bg-white shadow-xl shadow-gray-200 sticky top-0 flex justify-between items-center px-10'>
+            <section className='w-full h-32 sticky top-0 flex justify-between items-center px-10'>
                 <QuestionNavigateMenu/>
                 <Timer exerciseId={exerciseId}/>
             </section>

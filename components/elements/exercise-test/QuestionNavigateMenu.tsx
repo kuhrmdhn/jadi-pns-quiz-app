@@ -17,7 +17,7 @@ export default function QuestionNavigateMenu() {
                 {
                     isOpen &&
                     <section
-                        className="absolute top-12 left-0 bg-white shadow-lg p-4 rounded-lg w-96 min-h-96"
+                        className="absolute top-12 left-0 shadow-lg p-4 rounded-lg w-96 min-h-96"
                     >
                         <QuestionNavigationList />
                     </section>
