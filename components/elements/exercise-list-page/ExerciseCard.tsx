@@ -15,7 +15,7 @@ export default function ExerciseCard({ exercise }: Props) {
 
     return (
         <StartExerciseDialog exerciseData={exercise}>
-            <Card className="w-80 p-5 hover:scale-[1.02] duration-200 ease-in-out">
+            <Card className="w-80 p-5 hover:scale-[1.02] duration-200 ease-in-out cursor-pointer">
                 <div className="flex justify-between items-center mb-3">
                     <h2 className="text-xl font-bold">{name}</h2>
                     <span className="bg-primary text-white px-2.5 py-1 rounded-xl text-sm">{difficulty}</span>

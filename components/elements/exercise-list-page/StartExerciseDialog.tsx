@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default function StartExerciseDialog({ children, exerciseData }: Props) {
-    const [dialogText, setDialogText] = useState({ title: "", description: "", confirmButton: "" })
+    const [dialogText, setDialogText] = useState({ title: "", confirmButton: "" })
     const { push } = useRouter()
     const { id, duration, total_question, category } = exerciseData
     const { setExerciseHistoryId, exerciseHistoryId } = useExerciseHistory()
@@ -41,7 +41,6 @@ export default function StartExerciseDialog({ children, exerciseData }: Props) {
             if (now > exerciseCompletionTime) {
                 setDialogText({
                     title: "Waktu tes habis!",
-                    description: "Waktu tes habis. Kamu akan mengerjakan ulang tes.",
                     confirmButton: "Ulangi Tes"
                 })
                 return
@@ -49,7 +48,6 @@ export default function StartExerciseDialog({ children, exerciseData }: Props) {
 
             setDialogText({
                 title: "Lanjutkan Tes?",
-                description: "Tes ini sudah pernah kamu mulai. Jawaban sebelumnya sudah tersimpan.",
                 confirmButton: "Lanjutkan"
             })
             return
@@ -57,7 +55,6 @@ export default function StartExerciseDialog({ children, exerciseData }: Props) {
 
         setDialogText({
             title: "Mulai Tes?",
-            description: "Kamu akan memulai tes ini. Pastikan kamu sudah siap, karena waktu akan langsung berjalan setelah kamu mulai.",
             confirmButton: "Mulai Tes"
         })
     }
@@ -69,12 +66,21 @@ export default function StartExerciseDialog({ children, exerciseData }: Props) {
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>
+                    <AlertDialogTitle className="text-xl">
                         {dialogText.title}
                     </AlertDialogTitle>
-                    <AlertDialogDescription>
-                        {dialogText.description}
-                    </AlertDialogDescription>
+                    <div className='text-justify flex flex-col mt-3 text-black/95 text-sm'>
+                        <b className="font-bold">
+                            Latihan ini memiliki batas waktu. Setelah dimulai, waktu tidak bisa dijeda atau diulang.
+                            Harap perhatikan hal-hal berikut sebelum mulai:
+                        </b>
+                        <ul className='list-disc px-5'>
+                            <li>Waktu akan terus berjalan setelah kamu mulai, dan tidak bisa dihentikan atau diulang.</li>
+                            <li>Gunakan perangkat dengan koneksi stabil.</li>
+                            <li>Jangan keluar dari halaman selama pengerjaan.</li>
+                            <li>Jawaban akan tersimpan otomatis.</li>
+                        </ul>
+                    </div>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Batal</AlertDialogCancel>
