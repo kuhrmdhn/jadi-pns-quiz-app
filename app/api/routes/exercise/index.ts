@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { getCookie } from "hono/cookie";
-import { Exercise, ExerciseCategory } from "./utils/exerciseSchema";
+import { Exercise, ExerciseCategory } from "../../../../utils/schema/exerciseSchema";
 import { fetchExerciseAnswers } from "./utils/fetchExerciseAnswers";
 import { fetchExerciseQuestion } from "./utils/fetchExerciseQuestion";
 import { fetchExercisesByCategory } from "./utils/fetchExercisesByCategory";
@@ -10,6 +10,8 @@ import { validateExerciseData } from "./utils/validateExerciseData";
 import { validateUserToken } from "./utils/validateUserToken";
 import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise";
 import { uploadUserCompletedExercise } from "./utils/uploadUserCompletedExercise";
+import { validateExerciseCompletedData } from "./utils/validateExerciseCompletedData";
+import { evaluateExercise } from "./utils/evaluatingExercise";
 
 const exercise = new Hono()
 
@@ -77,13 +79,10 @@ exercise.post("/evaluation/:exercise_id", async (c) => {
         return c.json("User answers is required", 400)
     }
 
-    const answers = await fetchExerciseAnswers(exercise_id)
-    const score = answers.filter(((e: string, i: number) => e == user_answers[i])).length
-    const wrongAnswer = answers.length - score
+    const result = await evaluateExercise(exercise_id, user_answers);
     return c.json({
         message: `Evaluation done for exercise ${exercise_id}`,
-        score,
-        wrongAnswer
+        ...result
     }, 200)
 })
 
@@ -128,9 +127,10 @@ exercise.post("/completed-exercise/new", async (c) => {
     await validateUserToken(authToken)
 
     if (!userId) return c.json({ message: "User id is required" }, 400)
-    if (!exerciseResultData) return c.json({ message: "Exercise result data is required" }, 400)
 
-    const uploadData = await uploadUserCompletedExercise(userId, exerciseResultData)
+    const { score } = await evaluateExercise(exerciseResultData.exerciseId, exerciseResultData.userAnswers);
+
+    const uploadData = await uploadUserCompletedExercise(userId, { ...exerciseResultData, score })
     return c.json({
         message: "Success upload user completed exercise",
         data: uploadData

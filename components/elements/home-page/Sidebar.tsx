@@ -1,7 +1,6 @@
 "use client"
 import React from 'react'
 import { Button } from '../../ui/button'
-import { useSidebarStore } from '@/utils/store/useSidebarStore'
 import { useShallow } from 'zustand/shallow'
 import { AlignJustify, X } from 'lucide-react'
 import { navigation } from '@/constant/navigationListData'
@@ -9,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import Link from 'next/link'
 import AuthButton from './AuthButton'
 import { ThemeToggleButton } from '@/components/ui/theme-toggle-button'
+import { useSidebarStore } from '@/utils/store/useSidebarStore'
 
 function SidebarProvider() {
     const { isSidebarOpen, hideSidebar } = useSidebarStore((useShallow((state) => ({

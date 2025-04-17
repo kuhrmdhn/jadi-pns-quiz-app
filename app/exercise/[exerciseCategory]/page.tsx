@@ -1,10 +1,16 @@
 import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ExercisePackageList from '@/components/elements/exercise-list-page/ExercisePackageList'
-import { ExerciseCategoryEnum } from '@/app/api/routes/exercise/utils/exerciseSchema'
+import { ExerciseCategoryEnum } from '@/utils/schema/exerciseSchema'
 import ExerciseTopicList from '@/components/elements/exercise-list-page/ExerciseTopicList'
 
-export default async function QuestionTopicPage({ params }: { params: { exerciseCategory: keyof typeof ExerciseCategoryEnum } }) {
+type Props = {
+  params: {
+    exerciseCategory: keyof typeof ExerciseCategoryEnum
+  }
+}
+
+export default async function QuestionTopicPage({ params }: Props) {
   const { exerciseCategory } = await params
   return (
     <Tabs defaultValue='exercisePackage' className='pt-2'>
@@ -20,7 +26,7 @@ export default async function QuestionTopicPage({ params }: { params: { exercise
         <ExercisePackageList category={ExerciseCategoryEnum[exerciseCategory]} />
       </TabsContent>
       <TabsContent value="exerciseTopic" >
-        <ExerciseTopicList category={ExerciseCategoryEnum[exerciseCategory]}/> 
+        <ExerciseTopicList category={ExerciseCategoryEnum[exerciseCategory]} />
       </TabsContent>
     </Tabs>
   )

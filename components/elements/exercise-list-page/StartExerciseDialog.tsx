@@ -4,7 +4,7 @@ import { useExerciseHistory } from '@/utils/store/useExerciseHistory'
 import { useExerciseTimerStore } from '@/utils/store/useExerciseTimerStore'
 import { useUserExerciseAnswer } from '@/utils/store/useUserExerciseAnswer'
 import { useRouter } from 'next/navigation'
-import { Exercise } from '@/app/api/routes/exercise/utils/exerciseSchema'
+import { Exercise } from '@/utils/schema/exerciseSchema'
 
 type Props = {
     children: React.ReactNode

@@ -1,4 +1,4 @@
-import { exerciseSchema } from "./exerciseSchema";
+import { exerciseSchema } from "../../../../../utils/schema/exerciseSchema";
 
 export async function validateExerciseData(exerciseData: any) {
     const validateExerciseSchema = exerciseSchema.safeParse(exerciseData)

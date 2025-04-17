@@ -1,4 +1,4 @@
-import { ExerciseCategory } from '@/app/api/routes/exercise/utils/exerciseSchema'
+import { ExerciseCategory } from '@/utils/schema/exerciseSchema'
 import ExerciseQuestionList from '@/components/elements/exercise-test/ExerciseQuestionList'
 import QuestionNavigateMenu from '@/components/elements/exercise-test/QuestionNavigateMenu'
 import Timer from '@/components/elements/exercise-test/Timer'

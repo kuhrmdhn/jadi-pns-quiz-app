@@ -1,12 +1,8 @@
 "use client";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import useExerciseEvaluation from "@/utils/hooks/useExerciseEvaluation";
 import { useExerciseTimerStore } from "@/utils/store/useExerciseTimerStore";
-import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnswer";
-import { useUserStore } from "@/utils/store/useUserStore";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import ExerciseTestDialog from "./ExerciseTestDialog";
+import { useExerciseTestDialogStore } from "@/utils/store/useExerciseTestDialogStore";
 
 type Props = {
   exerciseId: string
@@ -15,7 +11,7 @@ type Props = {
 export default function Timer({ exerciseId }: Props) {
   const { exerciseCompletionTime, hasHydrated } = useExerciseTimerStore()
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const { dialogOpen, setDialogOpen } = useExerciseTestDialogStore()
 
   useEffect(() => {
     if (!hasHydrated) return;
@@ -46,7 +42,7 @@ export default function Timer({ exerciseId }: Props) {
 
   return (
     <>
-      <TimerDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} exerciseId={exerciseId} />
+      <ExerciseTestDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} exerciseId={exerciseId} />
       <div className="flex justify-center items-center gap-3">
         Sisa Waktu:
         {
@@ -58,51 +54,4 @@ export default function Timer({ exerciseId }: Props) {
       </div>
     </>
   );
-}
-
-
-type DialogProps = {
-  dialogOpen: boolean
-  setDialogOpen: (state: boolean) => void
-  exerciseId: string
-}
-
-function TimerDialog({ dialogOpen, setDialogOpen, exerciseId }: DialogProps) {
-  const isEvaluated = useRef(false)
-  const { push } = useRouter()
-  const { userAnswers } = useUserExerciseAnswer()
-  const { userData } = useUserStore()
-  const { evaluatedExercise } = useExerciseEvaluation(userAnswers, exerciseId, userData.id)
-  const [reviewId, setReviewId] = useState("")
-
-  function moveToReviewPage() {
-    push(`/exercise/review/${reviewId}`)
-  }
-
-  const evaluated = async () => {
-    const review = await evaluatedExercise()
-    setReviewId(review.data.id)
-    isEvaluated.current = true
-  }
-
-  return (
-    <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Waktu Ujian Sudah Habis</AlertDialogTitle>
-          <AlertDialogDescription>
-            Jawaban akan dikumpulkan. Jawaban kosong akan tetap dibiarkan kosong.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          {
-            !isEvaluated.current ?
-              <Button onClick={evaluated}>Kumpulkan</Button>
-              :
-              <AlertDialogAction onClick={moveToReviewPage}>Tinjau</AlertDialogAction>
-          }
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  )
 }

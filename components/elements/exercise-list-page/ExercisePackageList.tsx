@@ -1,7 +1,7 @@
 "use client"
 import useFetch from '@/utils/hooks/useFetch';
 import ExerciseCard from './ExerciseCard';
-import { Exercise, ExerciseCategoryEnum } from '@/app/api/routes/exercise/utils/exerciseSchema';
+import { Exercise, ExerciseCategoryEnum } from '@/utils/schema/exerciseSchema';
 import Loading from '@/components/ui/loading';
 
 type Props = {
