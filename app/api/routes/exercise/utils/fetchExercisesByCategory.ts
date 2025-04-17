@@ -1,6 +1,6 @@
 import { collection, getDocs, query, where } from "firebase/firestore"
 import { firestore } from "@/utils/firebase/firebase"
-import { ExerciseCategory } from "./exerciseSchema"
+import { ExerciseCategory } from "../../../../../utils/schema/exerciseSchema"
 
 export async function fetchExercisesByCategory(category: ExerciseCategory) {
     const exerciseCollections = collection(firestore, "exercises")

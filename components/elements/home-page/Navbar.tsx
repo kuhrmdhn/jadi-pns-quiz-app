@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 
 export default function Navbar() {
     const pathname = usePathname()
-    const hideNavbar = pathname.startsWith('/exercise/') && pathname.endsWith('/start')
+    const hideNavbar = (pathname.startsWith('/exercise/') && pathname.endsWith('/start')) || pathname.startsWith("/login") || pathname.startsWith("/register")
     return (
         <>
             {

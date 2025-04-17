@@ -1,5 +1,5 @@
 import { firebaseAdminStore } from "@/utils/firebase/admin";
-import { Exercise } from "./exerciseSchema";
+import { Exercise } from "../../../../../utils/schema/exerciseSchema";
 
 export async function uploadNewExercise(exerciseData: Exercise) {
     try {

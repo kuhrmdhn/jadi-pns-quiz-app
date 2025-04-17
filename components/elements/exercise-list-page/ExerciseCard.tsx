@@ -1,4 +1,4 @@
-import { Exercise } from '@/app/api/routes/exercise/utils/exerciseSchema'
+import { Exercise } from '@/utils/schema/exerciseSchema'
 import { Card } from '@/components/ui/card'
 import { CiTimer } from "react-icons/ci"
 import { GiCubes } from "react-icons/gi"

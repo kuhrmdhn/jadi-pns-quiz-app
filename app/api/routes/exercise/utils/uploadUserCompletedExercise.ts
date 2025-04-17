@@ -3,6 +3,7 @@ import { firebaseAdminStore } from "@/utils/firebase/admin";
 type ExerciseCompleted = {
     exerciseId: string
     userAnswers: string[]
+    score: number
 }
 
 export async function uploadUserCompletedExercise(userId: string, exerciseResultData: ExerciseCompleted) {

@@ -1,5 +1,5 @@
 "use client"
-import { Exercise, ExerciseCategoryEnum } from '@/app/api/routes/exercise/utils/exerciseSchema';
+import { Exercise, ExerciseCategoryEnum } from '@/utils/schema/exerciseSchema';
 import useFetch from '@/utils/hooks/useFetch';
 import React from 'react'
 import ExerciseCard from './ExerciseCard';

@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import useExerciseEvaluation from "@/utils/hooks/useExerciseEvaluation";
 import { useExerciseHistory } from "@/utils/store/useExerciseHistory";
+import { useExerciseTestDialogStore } from "@/utils/store/useExerciseTestDialogStore";
 import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnswer";
 import { useUserStore } from "@/utils/store/useUserStore";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -15,9 +15,7 @@ type Props = {
 
 export default function QuestionCard({ question, options }: Props) {
   const { userAnswers, setUserAnswers } = useUserExerciseAnswer();
-  const { userData } = useUserStore()
-  const { exerciseHistoryId } = useExerciseHistory()
-  const { evaluatedExercise } = useExerciseEvaluation(userAnswers, exerciseHistoryId, userData.id)
+  const { setDialogOpen } = useExerciseTestDialogStore()
   const totalQuestion = userAnswers.length;
   const router = useRouter();
   const pathname = usePathname();
@@ -46,6 +44,10 @@ export default function QuestionCard({ question, options }: Props) {
       const index = parseInt(questionIdParams) - 1;
       setUserAnswers(value, index);
     }
+  }
+
+  function finishExercise() {
+    setDialogOpen(true)
   }
 
   return (
@@ -80,8 +82,7 @@ export default function QuestionCard({ question, options }: Props) {
           Kembali
         </Button>
         <Button
-          className="text-white"
-          onClick={parseInt(questionIdParams || "1") === totalQuestion ? evaluatedExercise : nextQuestion}
+          onClick={parseInt(questionIdParams || "1") === totalQuestion ? finishExercise : nextQuestion}
           variant={parseInt(questionIdParams || "1") === totalQuestion ? "outline" : "default"}
         >
           {
