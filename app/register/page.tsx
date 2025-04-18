@@ -12,13 +12,13 @@ import { Button } from '@/components/ui/button'
 export default function RegisterPage() {
   const { handleOnChange, loading, registerInputData, signUp } = useRegister()
   return (
-    <AuthPageContainer>
-      <AuthPageItemContainer className='hidden lg:flex w-full lg:w-1/2 h-1/3 xl:h-full bg-gray-100'>
-        <div className='size-1/2 flex items-center'>
+    <AuthPageContainer className='sm:!flex-col xl:!flex-row'>
+      <AuthPageItemContainer className='hidden sm:flex justify-center md:w-full lg:w-3/5 h-1/3 lg:h-full'>
+        <div className='sm:size-3/5 lg:size-1/2'>
           <RegisterImage />
         </div>
       </AuthPageItemContainer>
-      <AuthPageItemContainer className='flex-col w-5/6 sm:w-3/5 xl:w-2/5 h-auto md:h-1/3 lg:h-full gap-4'>
+      <AuthPageItemContainer className='flex-col w-5/6 sm:w-3/5 xl:w-2/5 h-auto md:h-1/3 lg:h-full'>
         <AuthHeader
           subText='Buat akun baru dengan email dan kata sandi kamu'
         />
@@ -27,7 +27,7 @@ export default function RegisterPage() {
           inputData={registerInputData}
           handleChangeInputData={(e) => handleOnChange(e)}
         >
-          <div className='flex gap-4 mt-4'>
+          <div className='flex gap-4'>
             <Button type='submit'>
               Daftar
             </Button>

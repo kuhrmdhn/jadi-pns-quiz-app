@@ -5,6 +5,7 @@ import "./global.css"
 import { SidebarProvider } from "@/components/elements/home-page/Sidebar"
 import { ThemeProvider } from "../components/provider/ThemeProvider"
 import Navbar from "@/components/elements/home-page/Navbar"
+import AlertProvider from "@/components/provider/AlertProvider"
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +36,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <AlertProvider/>
           <SidebarProvider />
         </ThemeProvider>
         <AuthProvider />

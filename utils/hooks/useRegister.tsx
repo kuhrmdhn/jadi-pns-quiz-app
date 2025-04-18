@@ -111,8 +111,7 @@ export default function useRegister() {
             if (err instanceof z.ZodError) {
                 handleRegisterError(err.message)
             } else {
-                const registerUnexpectError = err as Error
-                handleRegisterError(registerUnexpectError.message)
+                handleRegisterError("Email sudah sudah terdaftar, silahkan masuk menggunakan email tersebut.")
             }
         } finally {
             setLoading(false)

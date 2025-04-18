@@ -1,15 +1,20 @@
 import { create } from "zustand";
 import React from "react";
+import { VariantProps } from "class-variance-authority";
+import { alertVariants } from "@/components/ui/alert";
+import { Check, X } from "lucide-react"
 
 export enum AlertVariant {
-  SUCCESS = "alert-success",
-  ERROR = "alert-error",
-  WARNING = "alert-warning",
-  INFO = "alert-info",
+  DEFAULT = "default",
+  SUCCESS = "success",
+  DESTRUCTIVE = "destructive",
 }
 
+type AlertVariantType = VariantProps<typeof alertVariants>["variant"];
+
+
 type Store = {
-  variant: AlertVariant;
+  variant: AlertVariantType;
   setVariant: (variant: AlertVariant) => void
   isShowAlert: boolean;
   toggleAlert: (duration?: number) => void;
@@ -22,10 +27,10 @@ type Store = {
 };
 
 export const useAlertStore = create<Store>()((set) => ({
-  variant: AlertVariant.INFO,
+  variant: AlertVariant.DEFAULT,
   setVariant: (variant) => set({ variant }),
   isShowAlert: false,
-  toggleAlert: (duration = 2000) => {
+  toggleAlert: (duration = 7000) => {
     set({ isShowAlert: true });
     setTimeout(() => {
       set({ isShowAlert: false });
@@ -36,11 +41,16 @@ export const useAlertStore = create<Store>()((set) => ({
   message: "",
   setMessage: (message) => set({ message }),
   successAlert() {
-    useAlertStore.getState().toggleAlert();
-    useAlertStore.getState().setVariant(AlertVariant.SUCCESS);
+    const { setIcon, toggleAlert, setVariant } = useAlertStore.getState();
+    setIcon(React.createElement(Check, { className: "h-5 w-5" }));
+    toggleAlert();
+    setVariant(AlertVariant.SUCCESS);
   },
   errorAlert() {
-    useAlertStore.getState().toggleAlert();
-    useAlertStore.getState().setVariant(AlertVariant.ERROR);
-  }
+    const { setIcon, toggleAlert, setVariant } = useAlertStore.getState();
+    setIcon(React.createElement(X, { className: "h-5 w-5" }));
+    toggleAlert();
+    setVariant(AlertVariant.DESTRUCTIVE);
+  },
+  
 }));
