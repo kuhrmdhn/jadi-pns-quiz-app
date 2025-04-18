@@ -54,7 +54,6 @@ export default function useLogin() {
       }
 
       const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password)
-      console.log({ user })
       const idToken = await user.getIdToken()
       Cookies.set("firebase_token", idToken, { expires: 1, secure: true, sameSite: "strict" });
 
@@ -62,8 +61,8 @@ export default function useLogin() {
       successAlert();
       router.push("/")
     } catch (error) {
-      const typedError = error as Error;
-      setMessage(typedError.message)
+      console.error(error);
+      setMessage("Email atau kata sandi salah. Pastikan menggunakan email dan kata sandi yang sudah terdaftar.")
       errorAlert();
     } finally {
       setLoading(false);

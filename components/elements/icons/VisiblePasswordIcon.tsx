@@ -8,7 +8,7 @@ export default function VisiblePasswordIcon({ isClosed }: Props) {
     return (
         <>
             <div
-                className={`absolute transition-transform duration-500 ${isClosed ? "scale-75 opacity-0" : "scale-100 opacity-100"}`}
+                className={`absolute transition-transform duration-500 ${isClosed ? "scale-75 opacity-100" : "scale-100 opacity-0"}`}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@ export default function VisiblePasswordIcon({ isClosed }: Props) {
                 </svg>
             </div>
             <div
-                className={`absolute transition-transform duration-500 ${isClosed ? "scale-100 opacity-100" : "scale-75 opacity-0"}`}
+                className={`absolute transition-transform duration-500 ${isClosed ? "scale-100 opacity-0" : "scale-75 opacity-100"}`}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
