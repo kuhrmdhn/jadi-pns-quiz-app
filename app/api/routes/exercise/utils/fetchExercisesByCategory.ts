@@ -8,7 +8,7 @@ export async function fetchExercisesByCategory(category: ExerciseCategory) {
     const exerciseListsSnapshot = await getDocs(exerciseQuery)
 
     if (exerciseListsSnapshot.empty) {
-        throw new Error("Cant get exercise list")
+        throw new Error(`Exercise list for ${category} category is empty`);
     }
 
     const exerciseLists = exerciseListsSnapshot.docs.map((exercise) => exercise.data())

@@ -10,7 +10,6 @@ import { validateExerciseData } from "./utils/validateExerciseData";
 import { validateUserToken } from "./utils/validateUserToken";
 import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise";
 import { uploadUserCompletedExercise } from "./utils/uploadUserCompletedExercise";
-import { validateExerciseCompletedData } from "./utils/validateExerciseCompletedData";
 import { evaluateExercise } from "./utils/evaluatingExercise";
 
 const exercise = new Hono()

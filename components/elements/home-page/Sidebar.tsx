@@ -17,7 +17,7 @@ function SidebarProvider() {
     }))))
 
     return (
-        <div className={`fixed top-0 bg-white ${isSidebarOpen ? "left-0" : "-left-full"} duration-300 w-full h-[100dvh] pt-16 px-6`}>
+        <div className={`fixed top-0 z-[9999] bg-white dark:bg-black ${isSidebarOpen ? "right-0" : "-right-full"} duration-300 w-full h-[100dvh] pt-16 px-6`}>
             <Button onClick={hideSidebar} className='absolute top-3 right-3' variant={"ghost"}>
                 <X className="text-xl" />
             </Button>
