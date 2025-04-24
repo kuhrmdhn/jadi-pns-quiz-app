@@ -30,9 +30,9 @@ function SidebarProvider() {
                                 navigate.content.map((content) => (
                                     <Link key={content.id} href={content.url}>
                                         <AccordionContent>
-                                            <h1 className='font-bold text-md text-black'>{content.title}</h1>
-                                            <h2 className="font-semibold text-sm text-gray-900">{content.subTitle}</h2>
-                                            <p className="text-xs text-justify text-gray-700 font-medium line-clamp-1">{content.description}</p>
+                                            <h1 className='font-bold text-md'>{content.title}</h1>
+                                            <h2 className="font-semibold text-sm text-gray-900 dark:text-gray-300">{content.subTitle}</h2>
+                                            <p className="text-xs text-justify text-gray-700 dark:text-gray-100 font-medium line-clamp-1">{content.description}</p>
                                         </AccordionContent>
                                     </Link>
                                 ))
