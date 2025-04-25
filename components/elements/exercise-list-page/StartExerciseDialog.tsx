@@ -69,7 +69,7 @@ export default function StartExerciseDialog({ children, exerciseData }: Props) {
                     <AlertDialogTitle className="text-xl">
                         {dialogText.title}
                     </AlertDialogTitle>
-                    <div className='text-justify flex flex-col mt-3 text-black/95 text-sm'>
+                    <div className='text-justify flex flex-col mt-3 text-sm'>
                         <b className="font-bold">
                             Latihan ini memiliki batas waktu. Setelah dimulai, waktu tidak bisa dijeda atau diulang.
                             Harap perhatikan hal-hal berikut sebelum mulai:
