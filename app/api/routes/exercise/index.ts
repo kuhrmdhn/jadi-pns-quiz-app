@@ -21,32 +21,52 @@ exercise.onError((err, c) => {
 })
 
 exercise.get("/exercise-list/:exercise_category/topic", async (c) => {
-    const { exercise_topic } = c.req.query()
-    const { exercise_category } = c.req.param();
-    const exerciseLists = await fetchExercisesByCategory(exercise_category as ExerciseCategory)
-    let exerciseListData = exerciseLists.filter((exercise) => exercise.topic !== null)
+    try {
+        const { exercise_topic } = c.req.query()
+        const { exercise_category } = c.req.param();
+        const exerciseLists = await fetchExercisesByCategory(exercise_category as ExerciseCategory)
+        let exerciseListData = exerciseLists.filter((exercise) => exercise.topic !== null)
 
-    if (exercise_topic) {
-        const keyword = exercise_topic.toLowerCase()
-        exerciseListData = exerciseListData.filter((exercise) => exercise.topic?.toLowerCase().includes(keyword))
+        if (exercise_topic) {
+            const keyword = exercise_topic.toLowerCase()
+            exerciseListData = exerciseListData.filter((exercise) => exercise.topic?.toLowerCase().includes(keyword))
+        }
+
+        if (exerciseLists.length === 0) {
+            return c.json({ message: `No exercises found for category ${exercise_category}` }, 404);
+        }        
+
+        return c.json({
+            data: exerciseListData,
+            message: `Success get question list for ${exercise_category} category`
+        }, 200);
+    } catch (err) {
+        const error = err as Error;
+        console.error(error);
+        return c.json({ message: error.message }, 404);
     }
-
-    return c.json({
-        data: exerciseListData,
-        message: `Success get question list for ${exercise_category} category`
-    }, 200);
 });
 
 exercise.get("/exercise-list/:exercise_category/package", async (c) => {
-    const { exercise_category } = c.req.param();
-    const exerciseLists = await fetchExercisesByCategory(exercise_category as ExerciseCategory)
-    const exerciseListData = exerciseLists.filter((exercise) => exercise.topic === null)
+    try {
+        const { exercise_category } = c.req.param();
+        const exerciseLists = await fetchExercisesByCategory(exercise_category as ExerciseCategory)
+        const exerciseListData = exerciseLists.filter((exercise) => exercise.topic === null)
 
-    return c.json({
-        data: exerciseListData,
-        message: `Success get question list for ${exercise_category} category`
-    }, 200);
-})
+        if (exerciseLists.length === 0) {
+            return c.json({ message: `No exercises found for category ${exercise_category}` }, 404);
+        }        
+
+        return c.json({
+            data: exerciseListData,
+            message: `Success get question list for ${exercise_category} category`
+        }, 200);
+    } catch (err) {
+        const error = err as Error;
+        console.error(error);
+        return c.json({ message: error.message }, 404);
+    }
+});
 
 exercise.get("/question-lists/:exercise_id", async (c) => {
     const { question_id } = c.req.query()

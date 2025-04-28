@@ -7,10 +7,6 @@ export async function fetchExercisesByCategory(category: ExerciseCategory) {
     const exerciseQuery = query(exerciseCollections, where("category", "==", category))
     const exerciseListsSnapshot = await getDocs(exerciseQuery)
 
-    if (exerciseListsSnapshot.empty) {
-        throw new Error(`Exercise list for ${category} category is empty`);
-    }
-
     const exerciseLists = exerciseListsSnapshot.docs.map((exercise) => exercise.data())
     return exerciseLists
 }
