@@ -1,4 +1,4 @@
-import Logo from '../home-page/Logo'
+import Logo from '../navbar/Logo'
 
 type Props = {
     subText: string

@@ -6,9 +6,10 @@ import { AlignJustify, X } from 'lucide-react'
 import { navigation } from '@/constant/navigationListData'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion'
 import Link from 'next/link'
-import AuthButton from './AuthButton'
 import { ThemeToggleButton } from '@/components/ui/theme-toggle-button'
 import { useSidebarStore } from '@/utils/store/useSidebarStore'
+import AuthNav from './AuthNav'
+import HomePageNav from './HomePageNav'
 
 function SidebarProvider() {
     const { isSidebarOpen, hideSidebar } = useSidebarStore((useShallow((state) => ({
@@ -21,6 +22,7 @@ function SidebarProvider() {
             <Button onClick={hideSidebar} className='absolute top-3 right-3' variant={"ghost"}>
                 <X className="text-xl" />
             </Button>
+            <HomePageNav />
             <Accordion type="single" collapsible className='w-full'>
                 {
                     navigation.map((navigate) => (
@@ -41,7 +43,7 @@ function SidebarProvider() {
                     ))
                 }
             </Accordion>
-            <AuthButton />
+            <AuthNav />
             <ThemeToggleButton />
         </div>
     )
