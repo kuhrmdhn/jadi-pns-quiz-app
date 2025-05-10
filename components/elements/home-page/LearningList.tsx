@@ -1,15 +1,7 @@
-import { ButtonIconAnimation } from '@/components/ui/button-icon-animation';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { navigation, NavigationContent } from '@/constant/navigationListData';
-import { ArrowUpRight, PersonStanding, Puzzle, Scroll, Swords } from 'lucide-react';
-import Link from 'next/link';
+import { navigation } from '@/constant/navigationListData';
+import { PersonStanding, Puzzle, Scroll, Swords } from 'lucide-react';
 import React from 'react';
-
-type LearningLists = {
-    icon: React.ReactNode
-    description: string
-    cta: string
-}
+import HomeCard from './HomeCard';
 
 export default function LearningList() {
     return (
@@ -23,13 +15,12 @@ export default function LearningList() {
             </div>
             <div className="w-full h-fit flex flex-wrap gap-5 items-center justify-center sm:justify-start">
                 {
-                    navigation[0].content.map((learning,i) => (
-                        <LearningCard
+                    navigation[0].content.map((learning, i) => (
+                        <HomeCard
                             key={learning.id}
                             title={learning.title}
                             subTitle={learning.subTitle}
                             url={learning.url}
-                            cta={learningLists[i].cta}
                             description={learningLists[i].description}
                             icon={learningLists[i].icon}
                         />
@@ -40,53 +31,17 @@ export default function LearningList() {
     )
 }
 
-function LearningCard({ url, title, subTitle, description, cta, icon }: LearningLists & NavigationContent) {
-    return (
-        <Card>
-            <CardHeader>
-                <CardTitle className='flex flex-col gap-3'>
-                    <h1 className='inline-flex gap-3 items-center'>
-                    {icon}{title}
-                    </h1>
-                    <h2>
-                        {subTitle}
-                    </h2>
-                </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className="text-sm leading-relaxed text-justify">
-                    {description}
-                </p>
-            </CardContent>
-            <CardFooter>
-                <Link href={url}>
-                    <ButtonIconAnimation
-                        icon={<ArrowUpRight />}
-                    >
-                        <h6>
-                            {cta}
-                        </h6>
-                    </ButtonIconAnimation>
-                </Link>
-            </CardFooter>
-        </Card>
-    );
-}
-
-const learningLists: LearningLists[] = [
+const learningLists = [
     {
         icon: <Scroll />,
         description: "Pelajari materi seputar Pancasila, UUD 1945, Bhinneka Tunggal Ika, dan NKRI. Tingkatkan pemahamanmu sebelum menghadapi tes!",
-        cta: "Uji Nasionalismu!",
     },
     {
         icon: <Puzzle />,
         description: "Asah kemampuan logika, numerik, verbal, dan analisis. Tingkatkan intelegensimu untuk menghadapi soal-soal menantang!",
-        cta: "Asah Logikamu!",
     },
     {
         icon: <PersonStanding />,
         description: "Kenali dirimu lebih dalam dengan mempelajari soal-soal yang menguji sikap, etika kerja, dan kemampuan interpersonal.",
-        cta: "Kenali Dirimu!",
     },
 ]

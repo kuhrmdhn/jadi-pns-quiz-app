@@ -15,18 +15,20 @@ type AuthNavigation = {
     icon: React.ReactNode
 }
 
-export default function AuthButton() {
+export default function AuthNav() {
     const { userData } = useUserStore(useShallow((state) => ({ userData: state.userData })))
     return (
         <div>
             {
                 userData ?
-                    <ButtonIconAnimation
-                        icon={<User />}
-                        variant={"ghost"}
-                    >
-                        Profil
-                    </ButtonIconAnimation>
+                    <Link href="/profile">
+                        <ButtonIconAnimation
+                            icon={<User />}
+                            variant={"ghost"}
+                        >
+                            Profil
+                        </ButtonIconAnimation>
+                    </Link>
                     :
                     <ul className="flex gap-5">
                         {

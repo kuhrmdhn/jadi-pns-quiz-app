@@ -1,5 +1,5 @@
 "use client"
-import { SidebarTrigger } from '@/components/elements/home-page/Sidebar'
+import { SidebarTrigger } from '@/components/elements/navbar/Sidebar'
 import Logo from './Logo'
 import NavigationBarMenu from './NavigationBarMenu'
 import { usePathname } from 'next/navigation'

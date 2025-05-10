@@ -1,8 +1,6 @@
-import { ButtonIconAnimation } from "@/components/ui/button-icon-animation";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { navigation, NavigationContent } from "@/constant/navigationListData";
-import { ShieldAlert, Target, Brain, Sword } from "lucide-react";
-import Link from "next/link";
+import { navigation } from "@/constant/navigationListData";
+import { Brain, ShieldAlert, Target } from "lucide-react";
+import HomeCard from "./HomeCard";
 
 type ExerciseCard = {
     description: string
@@ -20,46 +18,22 @@ export default function ExerciseList() {
                 </h1>
                 <p>Bersiaplah menghadapi medan tempur soal-soal menantang ini. Fokus, strategi, dan kecepatan adalah kuncinya!</p>
             </div>
-            <div className="flex flex-wrap gap-5 justify-center items-center sm:justify-start">
+            <div className="w-full h-fit flex flex-wrap gap-5 items-center justify-center sm:justify-start">
                 {
                     navigation[1].content.map((exercise, i) => (
-                        <ExerciseCard
+                        <HomeCard
                             key={exercise.id}
                             title={exercise.title}
                             url={exercise.url}
+                            subTitle={exercise.subTitle}
                             description={exerciseCard[i].description}
                             icon={exerciseCard[i].icon}
-                            cta={exerciseCard[i].cta}
                         />
                     ))
                 }
             </div>
         </section>
     );
-}
-
-function ExerciseCard({ title, url, icon, cta, description }: ExerciseCard & NavigationContent) {
-    return (
-        <Card>
-            <CardHeader>
-                <CardTitle className='flex items-center gap-3'>
-                    {icon}{title}
-                </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <p className="text-sm text-justify">{description}</p>
-            </CardContent>
-            <CardFooter>
-                <Link href={url}>
-                    <ButtonIconAnimation
-                        icon={<Sword className="rotate-90" />}
-                    >
-                        {cta}
-                    </ButtonIconAnimation>
-                </Link>
-            </CardFooter>
-        </Card>
-    )
 }
 
 const exerciseCard: ExerciseCard[] = [

@@ -2,9 +2,9 @@ import { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import AuthProvider from "@/components/provider/AuthProvider"
 import "./global.css"
-import { SidebarProvider } from "@/components/elements/home-page/Sidebar"
+import { SidebarProvider } from "@/components/elements/navbar/Sidebar"
 import { ThemeProvider } from "../components/provider/ThemeProvider"
-import Navbar from "@/components/elements/home-page/Navbar"
+import Navbar from "@/components/elements/navbar/Navbar"
 import AlertProvider from "@/components/provider/AlertProvider"
 
 export const metadata: Metadata = {
