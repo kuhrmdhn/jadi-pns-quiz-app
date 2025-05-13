@@ -1,16 +1,13 @@
 import { Hono } from "hono";
 import { getCookie } from "hono/cookie";
 import { Exercise, ExerciseCategory } from "../../../../utils/schema/exerciseSchema";
-import { fetchExerciseAnswers } from "./utils/fetchExerciseAnswers";
 import { fetchExerciseQuestion } from "./utils/fetchExerciseQuestion";
 import { fetchExercisesByCategory } from "./utils/fetchExercisesByCategory";
+import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise";
 import { uploadNewExercise } from "./utils/uploadNewExercise";
 import { validateAdminToken } from "./utils/validateAdminToken";
 import { validateExerciseData } from "./utils/validateExerciseData";
 import { validateUserToken } from "./utils/validateUserToken";
-import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise";
-import { uploadUserCompletedExercise } from "./utils/uploadUserCompletedExercise";
-import { evaluateExercise } from "./utils/evaluatingExercise";
 
 const exercise = new Hono()
 
@@ -88,23 +85,6 @@ exercise.get("/question-lists/:exercise_id", async (c) => {
     }, 200)
 })
 
-exercise.post("/evaluation/:exercise_id", async (c) => {
-    const { user_answers } = await c.req.json()
-    const { exercise_id } = c.req.param()
-    const authToken = getCookie(c, "firebase_token")
-
-    await validateUserToken(authToken)
-    if (!user_answers) {
-        return c.json("User answers is required", 400)
-    }
-
-    const result = await evaluateExercise(exercise_id, user_answers);
-    return c.json({
-        message: `Evaluation done for exercise ${exercise_id}`,
-        ...result
-    }, 200)
-})
-
 exercise.post("/new-exercise", async (c) => {
     const { exerciseData } = await c.req.json()
     const validateExerciseSchema = await validateExerciseData(exerciseData)
@@ -137,22 +117,6 @@ exercise.get("/completed-exercise/:user_id", async (c) => {
     return c.json({
         message: "Success get user completed exercise",
         data: completedExercise
-    }, 200)
-})
-
-exercise.post("/completed-exercise/new", async (c) => {
-    const { userId, exerciseResultData } = await c.req.json()
-    const authToken = getCookie(c, "firebase_token")
-    await validateUserToken(authToken)
-
-    if (!userId) return c.json({ message: "User id is required" }, 400)
-
-    const { score } = await evaluateExercise(exerciseResultData.exerciseId, exerciseResultData.userAnswers);
-
-    const uploadData = await uploadUserCompletedExercise(userId, { ...exerciseResultData, score })
-    return c.json({
-        message: "Success upload user completed exercise",
-        data: uploadData
     }, 200)
 })
 

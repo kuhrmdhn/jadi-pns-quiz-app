@@ -1,9 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { useExerciseHistory } from "@/utils/store/useExerciseHistory";
 import { useExerciseTestDialogStore } from "@/utils/store/useExerciseTestDialogStore";
 import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnswer";
-import { useUserStore } from "@/utils/store/useUserStore";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const questionAlphabet = ["A", "B", "C", "D"];
