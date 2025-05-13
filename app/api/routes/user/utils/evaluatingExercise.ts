@@ -1,4 +1,4 @@
-import { fetchExerciseAnswers } from "./fetchExerciseAnswers";
+import { fetchExerciseAnswers } from "../../exercise/utils/fetchExerciseAnswers";
 
 export const evaluateExercise = async (exercise_id: string, user_answers: string[]) => {
   const correctAnswers = await fetchExerciseAnswers(exercise_id);

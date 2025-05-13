@@ -3,7 +3,6 @@ import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescript
 import { Button } from "@/components/ui/button";
 import useCompletedExercise from "@/utils/hooks/useCompletedExercise";
 import { useUserExerciseAnswer } from "@/utils/store/useUserExerciseAnswer";
-import { useUserStore } from "@/utils/store/useUserStore";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
@@ -17,8 +16,7 @@ export default function ExerciseTestDialog({ dialogOpen, setDialogOpen, exercise
     const isEvaluated = useRef(false)
     const { push } = useRouter()
     const { userAnswers } = useUserExerciseAnswer()
-    const { userData } = useUserStore()
-    const { evaluatedExercise } = useCompletedExercise(userAnswers, exerciseId, userData.id)
+    const { evaluatedExercise } = useCompletedExercise(userAnswers, exerciseId)
     const [reviewId, setReviewId] = useState("")
 
     function moveToReviewPage() {
@@ -27,7 +25,6 @@ export default function ExerciseTestDialog({ dialogOpen, setDialogOpen, exercise
 
     const evaluated = async () => {
         const review = await evaluatedExercise()
-        console.log({ review })
         setReviewId(review.data.id)
         isEvaluated.current = true
     }
