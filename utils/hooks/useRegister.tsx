@@ -10,13 +10,11 @@ import { useShallow } from "zustand/shallow"
 import { firebaseAuth, firestore } from "../firebase/firebase"
 import { authSchema } from "../schema/authSchema"
 import { useAlertStore } from "../store/useAlertStore"
-import { hashPassword } from "../bcrypt/hashPassword"
-
+import { useRouter } from "next/navigation"
 
 interface RegistrationInput extends UserAuthentication {
     confirmPassword: string
 }
-
 
 export default function useRegister() {
     const { successAlert, errorAlert, setMessage } = useAlertStore(useShallow((state) => ({
@@ -27,6 +25,7 @@ export default function useRegister() {
     const [userRegisterData, setUserRegisterData] = useState<RegistrationInput>({ email: "", password: "", confirmPassword: "" })
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
+    const router = useRouter()
 
     const registerInputData: FormInputData[] = [
         {
@@ -95,17 +94,16 @@ export default function useRegister() {
             const registerData = await createUserWithEmailAndPassword(firebaseAuth, email, password)
             const { uid: userId } = registerData.user
             const userDoc = doc(firestore, "/users", userId)
-            const hashedUserPassword = await hashPassword(password)
             await setDoc(userDoc, {
                 id: userId,
                 email,
                 username: "username acak",
-                password: hashedUserPassword,
                 role: AuthRole.USER
             })
             const successRegisterMessage = "Kamu Berhasil Mendaftarkan Akun Kamu!"
             handleRegisterSuccess(successRegisterMessage)
             await signInWithEmailAndPassword(firebaseAuth, email, password)
+            router.push("/")
         } catch (err) {
             console.error(err);
             if (err instanceof z.ZodError) {

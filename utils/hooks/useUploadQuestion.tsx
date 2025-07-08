@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addDoc, collection, doc, updateDoc, writeBatch } from "firebase/firestore";
 import { firestore } from "../firebase/firebase";
-import { Exercise } from "@/types/exerciseType";
+import { Exercise } from "../schema/exerciseSchema";
 
 export default function useUploadExercise(exerciseData: Exercise, correctAnswers: string[]) {
     const [loading, setLoading] = useState(false);

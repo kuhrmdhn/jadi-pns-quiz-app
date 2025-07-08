@@ -8,6 +8,7 @@ import { authSchema } from "../schema/authSchema";
 import { FormInputData } from "@/types/formInputType";
 import Cookies from "js-cookie"
 import { useRouter } from "next/navigation";
+import { cookies } from "next/headers";
 
 export default function useLogin() {
   const router = useRouter()
@@ -55,7 +56,8 @@ export default function useLogin() {
 
       const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password)
       const idToken = await user.getIdToken()
-      Cookies.set("firebase_token", idToken, { expires: 1, secure: true, sameSite: "strict" });
+      const cookie = await cookies()
+      cookie.set("firebase_token", idToken, { expires: 1, secure: true, sameSite: "strict", httpOnly: true });
 
       setMessage("Kamu berhasih masuk, Selamat Belajar 🚀")
       successAlert();
