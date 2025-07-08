@@ -1,20 +1,15 @@
 "use client"
-import { UserAuthentication } from "@/types/authPayloadType"
-import { FormInputData } from "@/types/formInputType"
+import { RegistrationInput } from "@/components/elements/authentication/registerPage/RegisterInputForm"
 import { AuthRole } from "@/types/tokenPayloadType"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { z } from "zod"
 import { useShallow } from "zustand/shallow"
 import { firebaseAuth, firestore } from "../firebase/firebase"
 import { authSchema } from "../schema/authSchema"
 import { useAlertStore } from "../store/useAlertStore"
-import { useRouter } from "next/navigation"
-
-interface RegistrationInput extends UserAuthentication {
-    confirmPassword: string
-}
 
 export default function useRegister() {
     const { successAlert, errorAlert, setMessage } = useAlertStore(useShallow((state) => ({
@@ -22,45 +17,9 @@ export default function useRegister() {
         errorAlert: state.errorAlert,
         setMessage: state.setMessage
     })))
-    const [userRegisterData, setUserRegisterData] = useState<RegistrationInput>({ email: "", password: "", confirmPassword: "" })
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
-
-    const registerInputData: FormInputData[] = [
-        {
-            id: 1,
-            name: "email",
-            value: userRegisterData.email,
-            label: "Email",
-            type: "email",
-            placeholder: "Email kamu",
-            alt: "Masukkan alamat email yang valid"
-        },
-        {
-            id: 2,
-            name: "password",
-            value: userRegisterData.password,
-            label: "Kata sandi",
-            placeholder: "Buat kata sandi",
-            alt: "Kata sandi minimal 8 karakter",
-            type: "password"
-        },
-        {
-            id: 3,
-            name: "confirmPassword",
-            value: userRegisterData.confirmPassword,
-            label: "Ulangi Kata sandi",
-            placeholder: "Konfirmasi kata sandi",
-            alt: "Masukkan kata sandi sebelumnya",
-            type: "password"
-        }
-    ]
-
-    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, name } = e.target
-        setUserRegisterData((prev) => ({ ...prev, [name]: value }))
-    }
 
     const handleRegisterError = (message: string) => {
         setError(message)
@@ -73,7 +32,7 @@ export default function useRegister() {
         successAlert()
     }
 
-    const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    const signUp = async (e: React.FormEvent<HTMLFormElement>, userRegisterData: RegistrationInput) => {
         e.preventDefault()
         const validatePassword = userRegisterData.password === userRegisterData.confirmPassword
         if (!validatePassword) {
@@ -116,5 +75,5 @@ export default function useRegister() {
         }
     }
 
-    return { loading, error, signUp, registerInputData, handleOnChange }
+    return { loading, error, signUp }
 }
