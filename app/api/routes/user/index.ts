@@ -3,7 +3,8 @@ import { getCookie } from "hono/cookie"
 import { validateUserToken } from "../exercise/utils/validateUserToken"
 import { evaluateExercise } from "./utils/evaluatingExercise"
 import { uploadUserCompletedExercise } from "./utils/uploadUserCompletedExercise"
-import { fetchCompletedExercise } from "./utils/fetchCompletedExercise"
+import { fetchCompletedExerciseById } from "./utils/fetchCompletedExerciseById"
+import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise"
 
 const user = new Hono()
 
@@ -13,11 +14,22 @@ user.onError((err, c) => {
     return c.json({ message: error.message }, 500)
 })
 
+user.get("/completed-exercise/", async (c) => {
+    const authToken = getCookie(c, "firebase_token")
+    const userId = await validateUserToken(authToken)
+    const reviewData = await fetchUserCompletedExercise(userId)
+
+    return c.json({
+        message: "Success get completed exercise",
+        data: reviewData
+    });
+})
+
 user.get("/completed-exercise/:reviewId", async (c) => {
     const { reviewId } = c.req.param()
     const authToken = getCookie(c, "firebase_token")
     const userId = await validateUserToken(authToken)
-    const reviewData = await fetchCompletedExercise(userId, reviewId)
+    const reviewData = await fetchCompletedExerciseById(userId, reviewId)
 
     return c.json({
         message: "Success get completed exercise",

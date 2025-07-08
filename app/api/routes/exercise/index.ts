@@ -3,11 +3,9 @@ import { getCookie } from "hono/cookie";
 import { Exercise, ExerciseCategory } from "../../../../utils/schema/exerciseSchema";
 import { fetchExerciseQuestion } from "./utils/fetchExerciseQuestion";
 import { fetchExercisesByCategory } from "./utils/fetchExercisesByCategory";
-import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise";
 import { uploadNewExercise } from "./utils/uploadNewExercise";
 import { validateAdminToken } from "./utils/validateAdminToken";
 import { validateExerciseData } from "./utils/validateExerciseData";
-import { validateUserToken } from "./utils/validateUserToken";
 
 const exercise = new Hono()
 
@@ -101,23 +99,6 @@ exercise.post("/new-exercise", async (c) => {
 
     await uploadNewExercise(validateExerciseSchema as Exercise)
     return c.json("New exercise created!", 201)
-})
-
-exercise.get("/completed-exercise/:user_id", async (c) => {
-    const { user_id } = c.req.param()
-    if (!user_id) {
-        return c.json({ message: "User id is required" }, 400)
-    }
-
-    const authToken = getCookie(c, "firebase_token")
-    await validateUserToken(authToken)
-
-    const completedExercise = await fetchUserCompletedExercise(user_id)
-
-    return c.json({
-        message: "Success get user completed exercise",
-        data: completedExercise
-    }, 200)
 })
 
 export default exercise
