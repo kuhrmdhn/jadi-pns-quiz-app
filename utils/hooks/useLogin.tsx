@@ -8,11 +8,9 @@ import { authSchema } from "../schema/authSchema";
 import { FormInputData } from "@/types/formInputType";
 import Cookies from "js-cookie"
 import { useRouter } from "next/navigation";
-import { cookies } from "next/headers";
 
 export default function useLogin() {
   const router = useRouter()
-  const [loginInput, setLoginInput] = useState<UserAuthentication>({ email: "", password: "" })
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("")
   const { successAlert, errorAlert, setMessage } = useAlertStore(useShallow((state) => ({
@@ -21,25 +19,7 @@ export default function useLogin() {
     setMessage: state.setMessage
   })))
 
-  const loginInputData: FormInputData[] = [
-    {
-      id: 1,
-      name: "email",
-      label: "Nama Pengguna",
-      placeholder: "Nama email kamu",
-      value: loginInput.email,
-    },
-    {
-      id: 2,
-      name: "password",
-      label: "Kata Sandi",
-      placeholder: "Kata sandi Kamu",
-      value: loginInput.password,
-      type: "password"
-    }
-  ]
-
-  const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+  const signIn = async (e: React.FormEvent<HTMLFormElement>, loginInput: UserAuthentication) => {
     e.preventDefault()
     try {
       setLoading(true);
@@ -56,8 +36,7 @@ export default function useLogin() {
 
       const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password)
       const idToken = await user.getIdToken()
-      const cookie = await cookies()
-      cookie.set("firebase_token", idToken, { expires: 1, secure: true, sameSite: "strict", httpOnly: true });
+      Cookies.set("firebase_token", idToken, { expires: 1, secure: true, sameSite: "strict", httpOnly: true });
 
       setMessage("Kamu berhasih masuk, Selamat Belajar 🚀")
       successAlert();
@@ -71,13 +50,5 @@ export default function useLogin() {
     }
   };
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setLoginInput((previous) => ({
-      ...previous,
-      [name]: value
-    }))
-  }
-
-  return { loginInputData, handleOnChange, signIn, loading, error };
+  return { signIn, loading, error };
 }
