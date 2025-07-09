@@ -1,13 +1,10 @@
 "use client"
-import AuthLoadingOverlay from '@/components/elements/authentication/AuthLoadingOverlay'
 import AuthPageContainer from '@/components/elements/authentication/AuthPageContainer'
 import AuthPageItemContainer from '@/components/elements/authentication/AuthPageItemContainer'
 import LoginInputForm from '@/components/elements/authentication/loginPage/LoginInputForm'
 import LoginImage from '@/components/elements/icons/LoginImage'
-import useLogin from '@/utils/hooks/useLogin'
 
 export default function LoginPage() {
-  const { loading } = useLogin()
   return (
     <AuthPageContainer>
       <LoginInputForm />
@@ -16,9 +13,6 @@ export default function LoginPage() {
           <LoginImage />
         </div>
       </AuthPageItemContainer>
-      {
-        loading && <AuthLoadingOverlay message='Tunggu Sebentar...' />
-      }
     </AuthPageContainer>
   )
 }
