@@ -1,15 +1,13 @@
 "use client"
-import { RegistrationInput } from "@/components/elements/authentication/registerPage/RegisterInputForm"
-import { AuthRole } from "@/types/tokenPayloadType"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { z } from "zod"
 import { useShallow } from "zustand/shallow"
 import { firebaseAuth, firestore } from "../firebase/firebase"
-import { authSchema } from "../schema/authSchema"
+import { RegisterData, User } from "../schema/authSchema"
 import { useAlertStore } from "../store/useAlertStore"
+import { validateRegisterData } from "./utils/validateRegisterData"
 
 export default function useRegister() {
     const { successAlert, errorAlert, setMessage } = useAlertStore(useShallow((state) => ({
@@ -32,44 +30,41 @@ export default function useRegister() {
         successAlert()
     }
 
-    const signUp = async (e: React.FormEvent<HTMLFormElement>, userRegisterData: RegistrationInput) => {
-        e.preventDefault()
-        const validatePassword = userRegisterData.password === userRegisterData.confirmPassword
-        if (!validatePassword) {
-            const validatePasswordErrorMessage = "Konfirmasi kata sandi dengan benar"
-            handleRegisterError(validatePasswordErrorMessage)
-            return
-        }
-        const validationRegisterData = authSchema.safeParse(userRegisterData)
-        if (!validationRegisterData.success) {
-            const allSchemaError = validationRegisterData.error.issues.map((issue) => issue.message)
-            const validateSchemaErrorMessage = allSchemaError.join(", ")
-            handleRegisterError(validateSchemaErrorMessage)
-            return
-        }
+    const signUp = async (e: React.FormEvent<HTMLFormElement>, userRegisterData: RegisterData) => {
         try {
+            e.preventDefault()
             setLoading(true)
-            const { email, password } = userRegisterData
-            const registerData = await createUserWithEmailAndPassword(firebaseAuth, email, password)
-            const { uid: userId } = registerData.user
-            const userDoc = doc(firestore, "/users", userId)
-            await setDoc(userDoc, {
-                id: userId,
-                email,
-                username: "username acak",
-                role: AuthRole.USER
-            })
-            const successRegisterMessage = "Kamu Berhasil Mendaftarkan Akun Kamu!"
-            handleRegisterSuccess(successRegisterMessage)
-            await signInWithEmailAndPassword(firebaseAuth, email, password)
-            router.push("/")
+
+            const { data: validRegisterData, errorMessage, success: isValid } = validateRegisterData(userRegisterData)
+            if (!isValid) {
+                handleRegisterError(errorMessage || "Data tidak valid!")
+            }
+
+            if (validRegisterData) {
+
+                const { email, password, name } = validRegisterData
+                const registerData = await createUserWithEmailAndPassword(firebaseAuth, email, password)
+                const { uid: userId } = registerData.user
+                const userDoc = doc(firestore, "/users", userId)
+
+                const userData: User = {
+                    id: userId,
+                    email,
+                    name,
+                    username: name.slice(0, 18)
+                }
+                await setDoc(userDoc, userData)
+
+                await signInWithEmailAndPassword(firebaseAuth, email, password)
+
+                const successRegisterMessage = "Kamu Berhasil Mendaftarkan Akun Kamu!"
+                handleRegisterSuccess(successRegisterMessage)
+                router.push("/")
+            }
         } catch (err) {
             console.error(err);
-            if (err instanceof z.ZodError) {
-                handleRegisterError(err.message)
-            } else {
-                handleRegisterError("Email sudah sudah terdaftar, silahkan masuk menggunakan email tersebut.")
-            }
+            const error = err as Error
+            handleRegisterError(error.message)
         } finally {
             setLoading(false)
         }
