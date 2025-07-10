@@ -27,6 +27,6 @@ export const exerciseSchema = z.object({
   difficulty: ExerciseDifficultySchema
 });
 
-export type Exercise = Omit<z.infer<typeof exerciseSchema>, "id"> & { id: string };
+export type Exercise = z.infer<typeof exerciseSchema>;
 export type ExerciseDifficulty = z.infer<typeof ExerciseDifficultySchema>;
 export type ExerciseCategory = z.infer<typeof ExerciseCategorySchema>;

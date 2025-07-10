@@ -21,7 +21,7 @@ export default function ExerciseLists({ category, type }: Props) {
                         {
                             response?.data.map((exercise: Exercise) => (
                                 <section
-                                    key={exercise.id}
+                                    key={exercise?.id}
                                 >
                                     <ExerciseCard
                                         exercise={exercise}
