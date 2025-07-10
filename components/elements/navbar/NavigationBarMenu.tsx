@@ -2,7 +2,8 @@ import { ListItem, NavigationMenu, NavigationMenuContent, NavigationMenuItem, Na
 import { ThemeToggleButton } from '@/components/ui/theme-toggle-button'
 import { navigation } from '@/constant/navigationListData'
 import AuthNav from './AuthNav'
-import HomePageNav from './HomePageNav'
+import ButtonAnimationMobileNav from './ButtonAnimationMobileNav'
+import { Home } from 'lucide-react'
 
 export default function NavigationBarMenu() {
     return (
@@ -10,7 +11,11 @@ export default function NavigationBarMenu() {
             <NavigationMenu>
                 <NavigationMenuList className='flex gap-5'>
                     <NavigationMenuItem>
-                        <HomePageNav />
+                        <ButtonAnimationMobileNav
+                            href='/'
+                            icon={<Home />}
+                            text='Beranda'
+                        />
                     </NavigationMenuItem>
                     {
                         navigation.map((navigate) => (

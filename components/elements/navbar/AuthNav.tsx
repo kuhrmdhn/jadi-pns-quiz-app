@@ -6,6 +6,7 @@ import { LogIn, User, UserPlus } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { useShallow } from 'zustand/shallow'
+import ButtonAnimationMobileNav from './ButtonAnimationMobileNav'
 
 type AuthNavigation = {
     id: number
@@ -21,23 +22,20 @@ export default function AuthNav() {
         <div>
             {
                 userData ?
-                    <Link href="/profile">
-                        <ButtonIconAnimation
-                            icon={<User />}
-                            variant={"ghost"}
-                        >
-                            Profil
-                        </ButtonIconAnimation>
-                    </Link>
+                    <ButtonAnimationMobileNav
+                        href='/profile'
+                        icon={<User />}
+                        text='Profil'
+                    />
                     :
-                    <ul className="flex gap-5">
+                    <ul className="flex flex-col md:flex-row gap-5">
                         {
                             authNavigation.map((auth) => (
                                 <li key={auth.id}>
                                     <Link href={auth.url}>
                                         <ButtonIconAnimation
                                             icon={auth.icon}
-                                            className={`${auth.variant === "outline" && "border-primary text-primary hover:text-primary hover:bg-transparent hover:shadow hover:shadow-primary"}`}
+                                            className={`w-full flex justify-start items-start px-0 xl:px-2 ${auth.variant === "outline" && "border-primary text-primary hover:text-primary hover:bg-transparent hover:shadow hover:shadow-primary"}`}
                                             variant={auth.variant as ButtonVariant}
                                         >
                                             {auth.title}
