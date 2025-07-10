@@ -1,7 +1,7 @@
 import { Input } from '@/components/ui/input'
 import React from 'react'
 
-type FormInputData = {
+export type FormInputData = {
     id: number
     label: string
     placeholder: string

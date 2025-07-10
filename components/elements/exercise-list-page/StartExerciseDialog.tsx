@@ -20,19 +20,21 @@ export default function StartExerciseDialog({ children, exerciseData }: Props) {
     const { setInitialUserAnswers } = useUserExerciseAnswer()
 
     function startExercise() {
-        if (id == exerciseHistoryId) {
-            const now = Date.now()
-            if (now > exerciseCompletionTime) {
+        if (id) {
+
+            if (id == exerciseHistoryId) {
+                const now = Date.now()
+                if (now > exerciseCompletionTime) {
+                    setExerciseCompletionTime(duration)
+                    setInitialUserAnswers(total_question)
+                }
+            } else {
+                setExerciseHistoryId(id)
                 setExerciseCompletionTime(duration)
                 setInitialUserAnswers(total_question)
             }
-        } else {
-            setExerciseHistoryId(id)
-            setExerciseCompletionTime(duration)
-            setInitialUserAnswers(total_question)
+            push(`${category}/${id}/start`)
         }
-
-        push(`${category}/${id}/start`)
     }
 
     function dialogTrigger() {
