@@ -1,9 +1,9 @@
-import { Button, ButtonProps, ButtonVariant } from '@/components/ui/button'
+import { Button, ButtonVariant } from '@/components/ui/button'
 import { useQuestionNavigationMenuStore } from '@/utils/store/useQuestionNavigationMenuStore'
 import { useUserExerciseAnswer } from '@/utils/store/useUserExerciseAnswer'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { RefAttributes, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
     id: string

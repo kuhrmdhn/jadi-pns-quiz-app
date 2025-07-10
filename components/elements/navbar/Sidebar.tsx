@@ -2,14 +2,14 @@
 import React from 'react'
 import { Button } from '../../ui/button'
 import { useShallow } from 'zustand/shallow'
-import { AlignJustify, X } from 'lucide-react'
+import { AlignJustify, Home, X } from 'lucide-react'
 import { navigation } from '@/constant/navigationListData'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../ui/accordion'
 import Link from 'next/link'
 import { ThemeToggleButton } from '@/components/ui/theme-toggle-button'
 import { useSidebarStore } from '@/utils/store/useSidebarStore'
 import AuthNav from './AuthNav'
-import HomePageNav from './HomePageNav'
+import ButtonAnimationMobileNav from './ButtonAnimationMobileNav'
 
 function SidebarProvider() {
     const { isSidebarOpen, hideSidebar } = useSidebarStore((useShallow((state) => ({
@@ -22,8 +22,12 @@ function SidebarProvider() {
             <Button onClick={hideSidebar} className='absolute top-3 right-3' variant={"ghost"}>
                 <X className="text-xl" />
             </Button>
-            <HomePageNav />
-            <Accordion type="single" collapsible className='w-full'>
+            <ButtonAnimationMobileNav
+                href='/'
+                icon={<Home />}
+                text='Beranda'
+            />
+            <Accordion type="single" collapsible className='w-full mt-5 md:m-0'>
                 {
                     navigation.map((navigate) => (
                         <AccordionItem key={navigate.id} value={navigate.title} className="mb-5">
