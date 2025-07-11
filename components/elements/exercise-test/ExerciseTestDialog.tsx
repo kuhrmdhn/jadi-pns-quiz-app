@@ -22,7 +22,7 @@ export default function ExerciseTestDialog({ dialogOpen, setDialogOpen, exercise
     function moveToReviewPage() {
         push(`/exercise/review/${reviewId}`)
     }
-
+    
     const evaluated = async () => {
         const review = await evaluatedExercise()
         setReviewId(review.data.id)
