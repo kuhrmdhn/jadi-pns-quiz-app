@@ -7,7 +7,6 @@ export const fetchCompletedExerciseById = async (userId: string, reviewId: strin
     if (!doc.exists) {
         throw new Error(`Cant get user completed exercise user id: ${userId}, review id: ${reviewId}`)
     }
-    console.log(doc.data())
 
     return doc.data()
 }
