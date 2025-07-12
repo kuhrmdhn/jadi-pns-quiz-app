@@ -6,6 +6,7 @@ import { fetchCompletedExerciseById } from "./utils/fetchCompletedExerciseById"
 import { fetchExerciseCorrectAnswer } from "./utils/fetchExerciseCorrectAnswers"
 import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise"
 import { uploadUserCompletedExercise } from "./utils/uploadUserCompletedExercise"
+import { fetchExerciseQuestion } from "../exercise/utils/fetchExerciseQuestion"
 
 const user = new Hono()
 
@@ -47,7 +48,9 @@ user.post("/completed-exercise", async (c) => {
 
     const { score } = await evaluateExercise(exerciseResultData.exerciseId, exerciseResultData.userAnswers);
     const correctAnswers = await fetchExerciseCorrectAnswer(exerciseResultData.exerciseId)
-    const uploadData = await uploadUserCompletedExercise(userId, { ...exerciseResultData, score, correctAnswers })
+    const exerciseQuestions = await fetchExerciseQuestion(exerciseResultData.exerciseId)
+
+    const uploadData = await uploadUserCompletedExercise(userId, { ...exerciseResultData, score, correctAnswers, exerciseQuestions })
     return c.json({
         message: "Success upload user completed exercise",
         data: uploadData
