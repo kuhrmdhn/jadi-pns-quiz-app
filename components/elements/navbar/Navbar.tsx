@@ -11,7 +11,7 @@ export default function Navbar() {
         <>
             {
                 !hideNavbar && (
-                    <header className='px-7 sm:px-10 sticky z-50 flex items-center justify-between sm:justify-around w-full h-24 shadow-md rounded-b-lg'>
+                    <header className='px-7 sm:px-10 sticky top-0 z-50 flex items-center justify-between sm:justify-around w-full h-24 shadow-md rounded-b-lg bg-background'>
                         <div className='w-1/5'>
                             <Logo />
                         </div>

@@ -13,6 +13,7 @@ type DialogProps = {
 }
 
 export default function ExerciseTestDialog({ dialogOpen, setDialogOpen, exerciseId }: DialogProps) {
+    const [isEvaluateLoading, setIsEvaluateLoading] = useState(false)
     const isEvaluated = useRef(false)
     const { push } = useRouter()
     const { userAnswers } = useUserExerciseAnswer()
@@ -22,11 +23,18 @@ export default function ExerciseTestDialog({ dialogOpen, setDialogOpen, exercise
     function moveToReviewPage() {
         push(`/exercise/review/${reviewId}`)
     }
-    
+
     const evaluated = async () => {
-        const review = await evaluatedExercise()
-        setReviewId(review.data.id)
-        isEvaluated.current = true
+        try {
+            setIsEvaluateLoading(true)
+            const review = await evaluatedExercise()
+            setReviewId(review.data.id)
+            isEvaluated.current = true
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsEvaluateLoading(false)
+        }
     }
 
     return (
@@ -41,7 +49,7 @@ export default function ExerciseTestDialog({ dialogOpen, setDialogOpen, exercise
                 <AlertDialogFooter>
                     {
                         !isEvaluated.current ?
-                            <Button onClick={evaluated}>Kumpulkan</Button>
+                            <Button onClick={evaluated} disabled={isEvaluateLoading}>Kumpulkan</Button>
                             :
                             <AlertDialogAction onClick={moveToReviewPage}>Tinjau</AlertDialogAction>
                     }

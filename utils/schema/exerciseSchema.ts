@@ -27,6 +27,17 @@ export const exerciseSchema = z.object({
   difficulty: ExerciseDifficultySchema
 });
 
+export const reviewExerciseDataSchema = z.object({
+  id: z.string(),
+  userAnswers: z.array(z.string()).min(1),
+  exerciseId: z.string(),
+  exerciseQuestions: z.array(exerciseQuestionSchema),
+  score: z.number(),
+  correctAnswers: z.array(z.string())
+})
+
 export type Exercise = z.infer<typeof exerciseSchema>;
+export type ExerciseQuestion = z.infer<typeof exerciseQuestionSchema>;
 export type ExerciseDifficulty = z.infer<typeof ExerciseDifficultySchema>;
 export type ExerciseCategory = z.infer<typeof ExerciseCategorySchema>;
+export type ReviewExerciseData = z.infer<typeof reviewExerciseDataSchema>
