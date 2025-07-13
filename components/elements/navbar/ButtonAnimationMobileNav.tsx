@@ -11,12 +11,17 @@ type Props = {
 
 export default function ButtonAnimationMobileNav({ href, icon, text }: Props) {
     return (
-        <Link href={href}>
-            <ButtonIconAnimation className='hidden xl:block' icon={icon} variant="ghost">
-                {text}
-            </ButtonIconAnimation>
-            <Button variant={"ghost"} className="flex items-start justify-start xl:hidden w-full px-0">
-                {text}
-            </Button>
-        </Link>)
+        <>
+            <Link href={href} className='hidden xl:block'>
+                <ButtonIconAnimation icon={icon} variant="ghost">
+                    {text}
+                </ButtonIconAnimation>
+            </Link>
+            <Link href={href} className="xl:hidden w-full">
+                <Button variant={"ghost"} className='w-full flex items-start justify-start px-0'>
+                    {text}
+                </Button>
+            </Link>
+        </>
+    )
 }

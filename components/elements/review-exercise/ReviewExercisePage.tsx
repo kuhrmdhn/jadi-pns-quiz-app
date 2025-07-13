@@ -1,15 +1,27 @@
 "use client"
+import Loading from '@/app/loading'
 import useFetch from '@/utils/hooks/useFetch'
-import React from 'react'
+import ReviewExerciseHeading from './ReviewExerciseHeading'
+import ReviewQuestionCardLists from './ReviewQuestionCardLists'
 
 type Props = {
     reviewId: string
 }
 
 export default function ReviewExercisePage({ reviewId }: Props) {
-    const { response } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/completed-exercise/${reviewId}`)
+    const { response, loading } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/completed-exercise/${reviewId}`)
+    if (loading) return <Loading />
     console.log(response)
+
     return (
-        <div>ReviewExercisePage</div>
+        <div>
+            {
+                response?.data &&
+                <div>
+                    <ReviewExerciseHeading exerciseId={response.data.exerciseId} score={response.data.score} />
+                    <ReviewQuestionCardLists data={response.data} />
+                </div>
+            }
+        </div>
     )
 }
