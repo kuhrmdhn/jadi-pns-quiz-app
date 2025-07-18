@@ -3,10 +3,9 @@ import { getCookie } from "hono/cookie"
 import { validateUserToken } from "../exercise/utils/validateUserToken"
 import { evaluateExercise } from "./utils/evaluatingExercise"
 import { fetchCompletedExerciseById } from "./utils/fetchCompletedExerciseById"
-import { fetchExerciseCorrectAnswer } from "./utils/fetchExerciseCorrectAnswers"
 import { fetchUserCompletedExercise } from "./utils/fetchUserCompletedExercise"
 import { uploadUserCompletedExercise } from "./utils/uploadUserCompletedExercise"
-import { fetchExerciseQuestion } from "../exercise/utils/fetchExerciseQuestion"
+import { fetchExerciseBaseData } from "./utils/fetchExerciseBaseData"
 
 const user = new Hono()
 
@@ -47,10 +46,9 @@ user.post("/completed-exercise", async (c) => {
     if (!userId) return c.json({ message: "User id is required" }, 400)
 
     const { score } = await evaluateExercise(exerciseResultData.exerciseId, exerciseResultData.userAnswers);
-    const correctAnswers = await fetchExerciseCorrectAnswer(exerciseResultData.exerciseId)
-    const exerciseQuestions = await fetchExerciseQuestion(exerciseResultData.exerciseId)
+    const exerciseData = await fetchExerciseBaseData(exerciseResultData.exerciseId)
+    const uploadData = await uploadUserCompletedExercise(userId, { ...exerciseResultData, score, exerciseData })
 
-    const uploadData = await uploadUserCompletedExercise(userId, { ...exerciseResultData, score, correctAnswers, exerciseQuestions })
     return c.json({
         message: "Success upload user completed exercise",
         data: uploadData

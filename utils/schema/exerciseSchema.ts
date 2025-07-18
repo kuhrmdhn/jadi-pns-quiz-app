@@ -16,13 +16,13 @@ export const exerciseQuestionSchema = z.object({
 });
 
 export const exerciseSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   category: ExerciseCategorySchema,
   name: z.string(),
   duration: z.number(),
   total_question: z.number(),
   questions: z.array(exerciseQuestionSchema),
-  answers: z.array(z.string()),
+  correctAnswers: z.array(z.string()),
   topic: z.string().nullable(),
   difficulty: ExerciseDifficultySchema
 });
@@ -31,9 +31,8 @@ export const reviewExerciseDataSchema = z.object({
   id: z.string(),
   userAnswers: z.array(z.string()).min(1),
   exerciseId: z.string(),
-  exerciseQuestions: z.array(exerciseQuestionSchema),
   score: z.number(),
-  correctAnswers: z.array(z.string())
+  exerciseData: exerciseSchema
 })
 
 export type Exercise = z.infer<typeof exerciseSchema>;

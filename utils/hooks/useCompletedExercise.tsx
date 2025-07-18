@@ -14,5 +14,6 @@ export default function useCompletedExercise(userAnswers: string[], exerciseId: 
         return await fetchData()
     }
 
+
     return { error, loading, evaluatedExercise }
 }

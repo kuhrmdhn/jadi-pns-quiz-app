@@ -37,7 +37,7 @@ export default function ReviewQuestionCard({
 
                     const style =
                         userAnswer === "null"
-                            ? "bg-gray-50 border-gray-300"
+                            ? "bg-gray-50 dark:bg-black border-gray-300"
                             : isCorrectOption
                                 ? "bg-green-100 border-green-500 text-green-800"
                                 : isSelected
@@ -60,12 +60,10 @@ export default function ReviewQuestionCard({
                         {userAnswer === "null" ? "Belum dijawab" : userOption}
                     </span>
                 </p>
-                {!isCorrect && userAnswer !== "null" && (
-                    <p>
-                        <span className="font-medium">Jawaban benar:</span>{" "}
-                        <span className="text-green-600">{correctOption}</span>
-                    </p>
-                )}
+                <p>
+                    <span className="font-medium">Jawaban benar:</span>{" "}
+                    <span className="text-green-600">{correctOption}</span>
+                </p>
             </div>
         </div>
     )

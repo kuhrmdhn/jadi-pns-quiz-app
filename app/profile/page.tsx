@@ -1,13 +1,12 @@
 "use client"
-import { Button } from '@/components/ui/button'
-import useLogout from '@/utils/hooks/useLogout'
-import React from 'react'
+import ProfileHeading from '@/components/elements/profile/ProfileHeading'
+import ProfileTabs from '@/components/elements/profile/ProfileTabs'
 
 export default function ProfilePage() {
-  const { logOut } = useLogout()
   return (
-    <div>
-      <Button onClick={logOut}>Logout</Button>
+    <div className='min-h-dvh'>
+      <ProfileHeading />
+      <ProfileTabs />
     </div>
   )
 }
