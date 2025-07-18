@@ -6,7 +6,7 @@ type Props = {
 }
 
 export default function ReviewQuestionCardLists({ data }: Props) {
-    const sortedQuestion = data.exerciseQuestions.sort((a, b) => {
+    const sortedQuestion = data.exerciseData.questions.sort((a, b) => {
         if (a.id && b.id) {
             return parseInt(a.id) - parseInt(b.id)
         }
@@ -19,7 +19,7 @@ export default function ReviewQuestionCardLists({ data }: Props) {
                 sortedQuestion.map((e, i) => (
                     <ReviewQuestionCard
                         key={i}
-                        correctAnswer={data.correctAnswers[i]}
+                        correctAnswer={data.exerciseData.correctAnswers[i]}
                         question={e.question}
                         questionOptions={e.options}
                         userAnswer={data.userAnswers[i]}

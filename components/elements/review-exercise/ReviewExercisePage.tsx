@@ -11,7 +11,6 @@ type Props = {
 export default function ReviewExercisePage({ reviewId }: Props) {
     const { response, loading } = useFetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/completed-exercise/${reviewId}`)
     if (loading) return <Loading />
-    console.log(response)
 
     return (
         <div>

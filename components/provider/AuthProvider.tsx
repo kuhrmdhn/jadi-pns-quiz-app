@@ -30,16 +30,16 @@ export default function AuthProvider() {
         const userSnapshot = await getDoc(userDocRef);
 
         if (userSnapshot.exists()) {
-          const completedTestRef = collection(
+          const completedExerciseRef = collection(
             firestore,
             `users/${user.uid}/completed_exercise`
           );
-          const snapshot = await getDocs(completedTestRef);
-          const completedTest = snapshot.docs.map((doc) => doc.data());
+          const snapshot = await getDocs(completedExerciseRef);
+          const completedExercise = snapshot.docs.map((doc) => doc.data());
           const { password, ...userData } = userSnapshot.data()
           setUserData({
             ...userData,
-            completedTest,
+            completedExercise,
           });
         } else {
           console.warn("User document not found.");

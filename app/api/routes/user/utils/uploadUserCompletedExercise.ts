@@ -1,7 +1,9 @@
 import { firebaseAdminStore } from "@/utils/firebase/admin";
+import { Exercise } from "@/utils/schema/exerciseSchema";
 
 type ExerciseCompleted = {
     exerciseId: string
+    exerciseData: Exercise
     userAnswers: string[]
     score: number
 }
