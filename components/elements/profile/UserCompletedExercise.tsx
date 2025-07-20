@@ -3,6 +3,7 @@ import React from 'react'
 
 export default function UserCompletedExercise() {
     const { userData } = useUserStore()
+    console.log(userData?.completedExercise)
     return (
         <div>
             {userData?.completedExercise ? "ada" : "Nggak"}
