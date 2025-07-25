@@ -1,12 +1,16 @@
 import { z } from "zod";
-import { exerciseSchema } from "./exerciseSchema";
 
 export const userSchema = z.object({
     id: z.string(),
     email: z.string().email(),
     name: z.string().min(1),
     username: z.string().min(1).max(18),
-    completedExercise: z.array(exerciseSchema).optional()
+    completedExercise: z.array(z.object({
+        id: z.string(),
+        exerciseId: z.string(),
+        userAnswers: z.array(z.string()),
+        score: z.number()
+    }))
 })
 
 export const loginSchema = z.object({
