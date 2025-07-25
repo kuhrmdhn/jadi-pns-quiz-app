@@ -6,6 +6,7 @@ import { fetchExercisesByCategory } from "./utils/fetchExercisesByCategory";
 import { uploadNewExercise } from "./utils/uploadNewExercise";
 import { validateAdminToken } from "./utils/validateAdminToken";
 import { validateExerciseData } from "./utils/validateExerciseData";
+import { fetchExerciseTitle } from "./utils/fecthExerciseTitle";
 
 const exercise = new Hono()
 
@@ -29,7 +30,7 @@ exercise.get("/exercise-list/:exercise_category/topic", async (c) => {
 
         if (exerciseLists.length === 0) {
             return c.json({ message: `No exercises found for category ${exercise_category}` }, 404);
-        }        
+        }
 
         return c.json({
             data: exerciseListData,
@@ -50,7 +51,7 @@ exercise.get("/exercise-list/:exercise_category/package", async (c) => {
 
         if (exerciseLists.length === 0) {
             return c.json({ message: `No exercises found for category ${exercise_category}` }, 404);
-        }        
+        }
 
         return c.json({
             data: exerciseListData,
@@ -89,16 +90,22 @@ exercise.post("/new-exercise", async (c) => {
     const authToken = getCookie(c, "firebase_token");
     await validateAdminToken(authToken)
 
-    const { total_question, questions, answers } = validateExerciseSchema
+    const { total_question, questions, correctAnswers } = validateExerciseSchema
     if (total_question > questions.length) {
         return c.json("Total question not match with questions length", 400)
     }
-    if (total_question > answers.length) {
+    if (total_question > correctAnswers.length) {
         return c.json("Total question not match with answers length", 400)
     }
 
     await uploadNewExercise(validateExerciseSchema as Exercise)
     return c.json("New exercise created!", 201)
+})
+
+exercise.get("/title/:exercise_id", async (c) => {
+    const { exercise_id } = c.req.param()
+    const exerciseData = await fetchExerciseTitle(exercise_id)
+    return c.json({ data: exerciseData })
 })
 
 export default exercise
