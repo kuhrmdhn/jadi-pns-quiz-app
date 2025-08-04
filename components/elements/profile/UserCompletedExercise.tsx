@@ -7,7 +7,7 @@ export default function UserCompletedExercise() {
     console.log(userData?.completedExercise)
 
     return (
-        <div>
+        <ul className="grid grid-cols-4 gap-3">
             {userData?.completedExercise &&
                 userData?.completedExercise.map((exercise, index) => (
                     <CompletedExerciseCard
@@ -18,6 +18,6 @@ export default function UserCompletedExercise() {
                     />
                 ))
             }
-        </div>
+        </ul>
     )
 }

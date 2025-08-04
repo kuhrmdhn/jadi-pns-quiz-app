@@ -1,3 +1,4 @@
+import { Card } from '@/components/ui/card'
 import useFetch from '@/utils/hooks/useFetch'
 import Link from 'next/link'
 
@@ -12,20 +13,30 @@ export default function CompletedExerciseCard({ exerciseId, score, reviewId }: P
     const title = response?.data as string
     const reviewUrl = `exercise/review/${reviewId}`
     return (
-        <div className="bg-background p-6 rounded-xl shadow-md w-full max-w-sm transition-transform hover:-translate-y-1 hover:shadow-lg">
-            <div className="text-xl font-semibold dark:text-gray-100 text-gray-800 mb-2">
-                {title}
-            </div>
-            <div className="font-medium text-base mb-4">
-                Skor: <span className='text-green-600 '>{score}</span>
+        <Card className='h-32 w-full p-2 flex flex-col justify-between'>
+            <div>
+                <h3 className="text-lg font-semibold mb-2">
+                    {title}
+                </h3>
+                <p className="flex gap-4 items-center">Skor:
+                    <span
+                        className={`inline-block mt-1 px-3 py-1 text-sm font-semibold rounded-full ${score >= 25
+                            ? "bg-green-600 text-white"
+                            : score >= 15
+                                ? "bg-yellow-600 text-white"
+                                : "bg-red-600 text-white"
+                            }`}
+                    >
+                        {score}
+                    </span>
+                </p>
             </div>
             <Link
+                className="mt-4 text-primary underline underline-offset-2"
                 href={reviewUrl}
-                className="inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
             >
                 Lihat Review
             </Link>
-        </div>
-
+        </Card>
     );
 };
