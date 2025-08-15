@@ -13,7 +13,7 @@ const exercise = new Hono()
 exercise.onError((err, c) => {
     const error = err as Error
     console.error(error);
-    return c.json({ message: error.message }, 500)
+    return c.json({ success: false, message: error.message }, 500)
 })
 
 exercise.get("/exercise-list/:exercise_category/topic", async (c) => {
@@ -29,17 +29,21 @@ exercise.get("/exercise-list/:exercise_category/topic", async (c) => {
         }
 
         if (exerciseLists.length === 0) {
-            return c.json({ message: `No exercises found for category ${exercise_category}` }, 404);
+            return c.json({ success: false, message: `No exercises found for category ${exercise_category}` }, 404);
         }
 
         return c.json({
+            success: true,
             data: exerciseListData,
             message: `Success get question list for ${exercise_category} category`
         }, 200);
     } catch (err) {
         const error = err as Error;
         console.error(error);
-        return c.json({ message: error.message }, 404);
+        return c.json({
+            success: false,
+            message: error.message
+        }, 404);
     }
 });
 
@@ -50,17 +54,24 @@ exercise.get("/exercise-list/:exercise_category/package", async (c) => {
         const exerciseListData = exerciseLists.filter((exercise) => exercise.topic === null)
 
         if (exerciseLists.length === 0) {
-            return c.json({ message: `No exercises found for category ${exercise_category}` }, 404);
+            return c.json({
+                success: false,
+                message: `No exercises found for category ${exercise_category}`
+            }, 404);
         }
 
         return c.json({
+            success: true,
             data: exerciseListData,
             message: `Success get question list for ${exercise_category} category`
         }, 200);
     } catch (err) {
         const error = err as Error;
         console.error(error);
-        return c.json({ message: error.message }, 404);
+        return c.json({
+            success: true,
+            message: error.message
+        }, 404);
     }
 });
 
@@ -71,6 +82,7 @@ exercise.get("/question-lists/:exercise_id", async (c) => {
     if (question_id) {
         const question = await fetchExerciseQuestion(exercise_id, question_id)
         return c.json({
+            success: true,
             message: `Success get question exercise id: ${exercise_id} and question id: ${question_id}`,
             data: question
         }, 200)
@@ -78,6 +90,7 @@ exercise.get("/question-lists/:exercise_id", async (c) => {
 
     const questionDoc = await fetchExerciseQuestion(exercise_id)
     return c.json({
+        success: true,
         message: `Success get all question data exercise id: ${exercise_id}`,
         data: questionDoc,
         totalQuestions: questionDoc.length
@@ -92,20 +105,20 @@ exercise.post("/new-exercise", async (c) => {
 
     const { total_question, questions, correctAnswers } = validateExerciseSchema
     if (total_question > questions.length) {
-        return c.json("Total question not match with questions length", 400)
+        return c.json({ success: false, message: "Total question not match with questions length" }, 400)
     }
     if (total_question > correctAnswers.length) {
-        return c.json("Total question not match with answers length", 400)
+        return c.json({ success: false, message: "Total question not match with answers length" }, 400)
     }
 
     await uploadNewExercise(validateExerciseSchema as Exercise)
-    return c.json("New exercise created!", 201)
+    return c.json({ success: true, message: "New exercise created!" }, 201)
 })
 
 exercise.get("/title/:exercise_id", async (c) => {
     const { exercise_id } = c.req.param()
     const exerciseData = await fetchExerciseTitle(exercise_id)
-    return c.json({ data: exerciseData })
+    return c.json({ success: true, data: exerciseData, message: "Success get exercise data" })
 })
 
 export default exercise

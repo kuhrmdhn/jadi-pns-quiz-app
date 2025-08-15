@@ -11,11 +11,15 @@ auth.post("/logout", async (c) => {
         await signOut(firebaseAuth)
         deleteCookie(c, "firebase_token", { path: "/" });
         return c.json({
+            success: true,
             message: "Logout Successfully",
         }, 200);
     } catch (err) {
         const error = err as Error;
-        return c.json({ message: error.message }, 500);
+        return c.json({
+            success: false,
+            message: error.message
+        }, 500);
     }
 });
 
@@ -23,7 +27,7 @@ auth.post("/set-token", async (c) => {
     const { token } = await c.req.json();
 
     if (!token) {
-        return c.json({ message: "Token is required!" }, 400);
+        return c.json({ success: false, message: "Token is required!" }, 400);
     }
 
     try {
@@ -36,9 +40,9 @@ auth.post("/set-token", async (c) => {
             maxAge: 60 * 60 * 24 * 3,
         });
 
-        return c.json({ message: "Authenticated success" }, 200);
+        return c.json({ success: true, message: "Authenticated success" }, 200);
     } catch (e) {
-        return c.json({ message: "Invalid token" }, 500);
+        return c.json({ success: false, message: "Invalid token" }, 500);
     }
 });
 
