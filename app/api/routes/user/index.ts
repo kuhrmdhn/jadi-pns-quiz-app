@@ -20,9 +20,10 @@ user.get("/completed-exercise", async (c) => {
     const reviewData = await fetchUserCompletedExercise(userId)
 
     return c.json({
+        success: true,
         message: "Success get completed exercise",
         data: reviewData
-    });
+    }, 200);
 })
 
 user.get("/completed-exercise/:reviewId", async (c) => {
@@ -32,9 +33,10 @@ user.get("/completed-exercise/:reviewId", async (c) => {
     const reviewData = await fetchCompletedExerciseById(userId, reviewId)
 
     return c.json({
+        success: true,
         message: "Success get completed exercise",
         data: reviewData
-    });
+    }, 200);
 })
 
 user.post("/completed-exercise", async (c) => {
@@ -48,6 +50,7 @@ user.post("/completed-exercise", async (c) => {
     const uploadData = await uploadUserCompletedExercise(userId, { ...exerciseResultData, score })
 
     return c.json({
+        success: true,
         message: "Success upload user completed exercise",
         data: uploadData
     }, 200)

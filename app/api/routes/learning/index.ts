@@ -26,7 +26,7 @@ learning.get("/topics/:category/:topic", async (c) => {
     try {
         const { category, topic } = c.req.param()
         const content = await getLearningTopicContent(category, topic)
-        return c.json({ data: { content } })
+        return c.json({ success: true, data: { content }, message: `Success get ${topic} content`},200)
     } catch (err) {
         const error = err as Error
         console.error(error);
